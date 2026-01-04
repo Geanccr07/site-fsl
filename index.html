@@ -1,37 +1,56 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Nome do Projeto</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="assets/css/style.css">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <title>First Step Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
+
 <header class="container">
-<h1>Nome do Projeto</h1>
-<nav>
-<a href="/">Home</a>
-<a href="/sobre">Sobre</a>
-<a href="/depoimentos">Depoimentos</a>
-<a href="/blog">Blog</a>
-<a href="/materiais-gratuitos">Conteúdo gratuito</a>
-</nav>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/sobre">Sobre</a>
+    <a href="/depoimentos">Depoimentos</a>
+    <a href="/blog">Blog</a>
+    <a href="/materiais-gratuitos">Conteúdo gratuito</a>
+  </nav>
 </header>
 
+<section class="hero container">
+  <div>
+    <h1>Dê o primeiro passo na sua carreira com clareza e direção</h1>
+    <p>Conteúdos práticos, orientação real e uma comunidade para quem está começando do zero.</p>
+  </div>
 
-<main class="container">
-<h2>Bem-vindo</h2>
-<p>Texto institucional simples, claro e objetivo.</p>
-</main>
+  <form id="lead-form">
+    <label>Nome
+      <input type="text" name="nome" required>
+    </label>
 
+    <label>Email
+      <input type="email" name="email" required>
+    </label>
 
-<footer class="container">
-<p>© 2026 – Nome do Projeto</p>
-</footer>
+    <label>WhatsApp
+      <input type="tel" name="whatsapp" required>
+    </label>
+
+    <label>Área de estudo
+      <select name="area">
+        <option value="">Selecione</option>
+        <option>Marketing</option>
+        <option>Dados</option>
+        <option>Tecnologia</option>
+        <option>Administração</option>
+        <option>Outro</option>
+      </select>
+    </label>
+
+    <button type="submit">Quero dar o primeiro passo</button>
+  </form>
+</section>
+
 </body>
 </html>
