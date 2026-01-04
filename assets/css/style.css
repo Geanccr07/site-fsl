@@ -1,14 +1,28 @@
+/* RESET BÁSICO */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* VARIÁVEIS DE COR (base Hotmart) */
+:root {
+  --orange: #FF6229;
+  --black: #000000;
+  --white: #ffffff;
+  --gray-text: #4D4D4D;
+  --gray-bg: #f7f7f7;
+}
+
+/* BODY */
 body {
+  font-family: 'Poppins', sans-serif;
   background: var(--white);
+  color: var(--black);
   line-height: 1.6;
 }
 
+/* CONTAINER PADRÃO */
 .container {
   width: 100%;
   max-width: 1120px;
@@ -23,8 +37,8 @@ header {
 
 header nav {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
 }
 
 header a {
@@ -35,75 +49,4 @@ header a {
 
 header a:hover {
   color: var(--orange);
-}
-
-/* HERO (estilo Hotmart) */
-.hero {
-  padding: 3rem 1.5rem;
-}
-
-.hero h1 {
-  font-size: 2rem;
-  font-weight: 600;
-}
-
-.hero p {
-  margin-top: 1rem;
-  color: var(--gray-text);
-}
-
-.hero button {
-  margin-top: 1.5rem;
-  background: var(--orange);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-/* FORMULÁRIO */
-form {
-  margin-top: 2rem;
-  background: var(--gray-bg);
-  padding: 1.5rem;
-  border-radius: 8px;
-}
-
-form label {
-  display: block;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-}
-
-form input,
-form select {
-  width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.3rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-family: inherit;
-}
-
-form button {
-  margin-top: 1.5rem;
-  width: 100%;
-  background: var(--orange);
-  color: var(--white);
-  border: none;
-  padding: 0.8rem;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-/* DESKTOP */
-@media (min-width: 768px) {
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
 }
