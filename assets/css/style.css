@@ -68,3 +68,45 @@ header a:hover {
   max-width: 480px;
 }
 
+/* FORMULÁRIO */
+form {
+  margin-top: 2.5rem;
+  background: var(--gray-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 420px;
+}
+
+form label {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+form button:hover {
+  opacity: 0.9;
+}
+
+
