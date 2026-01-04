@@ -1,45 +1,109 @@
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
 
 body {
-font-family: Arial, sans-serif;
-line-height: 1.6;
-color: #222;
+  background: var(--white);
+  line-height: 1.6;
 }
-
 
 .container {
-max-width: 1000px;
-margin: auto;
-padding: 20px;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 1.5rem;
 }
 
-
+/* HEADER */
 header {
-display: flex;
-justify-content: space-between;
-align-items: center;
+  border-bottom: 1px solid #eee;
 }
 
-
-nav a {
-margin-left: 15px;
-text-decoration: none;
-color: #333;
+header nav {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-
-nav a:hover {
-text-decoration: underline;
+header a {
+  text-decoration: none;
+  color: var(--black);
+  font-weight: 500;
 }
 
+header a:hover {
+  color: var(--orange);
+}
 
-footer {
-margin-top: 40px;
-border-top: 1px solid #eee;
-text-align: center;
+/* HERO (estilo Hotmart) */
+.hero {
+  padding: 3rem 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.hero p {
+  margin-top: 1rem;
+  color: var(--gray-text);
+}
+
+.hero button {
+  margin-top: 1.5rem;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* FORMULÁRIO */
+form {
+  margin-top: 2rem;
+  background: var(--gray-bg);
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+form label {
+  display: block;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.3rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+form button {
+  margin-top: 1.5rem;
+  width: 100%;
+  background: var(--orange);
+  color: var(--white);
+  border: none;
+  padding: 0.8rem;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* DESKTOP */
+@media (min-width: 768px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
 }
