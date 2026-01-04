@@ -50,3 +50,21 @@ header a {
 header a:hover {
   color: var(--orange);
 }
+
+/* HERO */
+.hero {
+  padding: 4rem 1.5rem;
+}
+
+.hero h1 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  max-width: 520px;
+}
+
+.hero p {
+  margin-top: 1rem;
+  color: var(--gray-text);
+  max-width: 480px;
+}
+
