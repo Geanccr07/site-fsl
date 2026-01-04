@@ -109,4 +109,18 @@ form button:hover {
   opacity: 0.9;
 }
 
+/* DESKTOP */
+@media (min-width: 768px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  header nav {
+    justify-content: flex-start;
+  }
+}
+
 
