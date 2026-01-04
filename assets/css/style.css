@@ -7,12 +7,20 @@
 
 /* VARIÁVEIS DE COR (base Hotmart) */
 :root {
-  --orange: #FF6229;
-  --black: #000000;
-  --white: #ffffff;
-  --gray-text: #4D4D4D;
-  --gray-bg: #f7f7f7;
+  /* Cor principal da marca */
+  --primary: #FF5A1F;
+
+  /* Neutros */
+  --black: #0B0B0B;
+  --white: #FFFFFF;
+
+  /* Textos */
+  --gray-text: #4B5563;
+
+  /* Backgrounds */
+  --gray-bg: #F3F4F6;
 }
+
 
 /* BODY */
 body {
