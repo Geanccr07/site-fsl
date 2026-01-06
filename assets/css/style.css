@@ -1,28 +1,21 @@
-/* RESET BÁSICO */
+/* =====================
+   RESET E BASE
+===================== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* VARIÁVEIS DE COR (base Hotmart) */
 :root {
-  /* Cor principal da marca */
   --primary: #FF5A1F;
-
-  /* Neutros */
   --black: #0B0B0B;
   --white: #FFFFFF;
-
-  /* Textos */
   --gray-text: #4B5563;
-
-  /* Backgrounds */
   --gray-bg: #F3F4F6;
+  --border-light: #E5E7EB;
 }
 
-
-/* BODY */
 body {
   font-family: 'Poppins', sans-serif;
   background: var(--white);
@@ -30,105 +23,136 @@ body {
   line-height: 1.6;
 }
 
-/* CONTAINER PADRÃO */
+/* =====================
+   CONTAINER
+===================== */
 .container {
   width: 100%;
-  max-width: 1120px;
+  max-width: 1140px;
   margin: 0 auto;
   padding: 1.5rem;
 }
 
-/* HEADER */
+/* =====================
+   HEADER / NAV
+===================== */
 header {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-light);
+  background: var(--white);
 }
 
 header nav {
   display: flex;
   gap: 1.5rem;
-  justify-content: center;
+  align-items: center;
 }
 
 header a {
   text-decoration: none;
   color: var(--black);
   font-weight: 500;
+  font-size: 0.95rem;
 }
 
 header a:hover {
-  color: var(--orange);
+  color: var(--primary);
 }
 
-/* HERO */
+/* =====================
+   HERO
+===================== */
 .hero {
-  padding: 4rem 1.5rem;
+  padding: 4rem 1.5rem 5rem;
 }
 
 .hero h1 {
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   font-weight: 600;
+  line-height: 1.2;
   max-width: 520px;
 }
 
 .hero p {
-  margin-top: 1rem;
+  margin-top: 1.2rem;
+  font-size: 1rem;
   color: var(--gray-text);
   max-width: 480px;
 }
 
-/* FORMULÁRIO */
+/* =====================
+   FORMULÁRIO
+===================== */
 form {
   margin-top: 2.5rem;
   background: var(--gray-bg);
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
   max-width: 420px;
 }
 
 form label {
   display: block;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  font-weight: 500;
   margin-top: 1rem;
+  color: var(--gray-text);
 }
 
 form input,
 form select {
   width: 100%;
-  padding: 0.6rem;
-  margin-top: 0.3rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 0.7rem 0.8rem;
+  margin-top: 0.4rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
   font-family: inherit;
+  font-size: 0.9rem;
 }
 
+form input:focus,
+form select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+/* BOTÃO */
 form button {
-  margin-top: 1.5rem;
+  margin-top: 1.6rem;
   width: 100%;
-  background: var(--orange);
+  background: var(--primary);
   color: var(--white);
   border: none;
-  padding: 0.8rem;
-  border-radius: 6px;
+  padding: 0.9rem;
+  border-radius: 10px;
   font-weight: 600;
+  font-size: 0.95rem;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 form button:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(255,90,31,0.25);
 }
 
-/* DESKTOP */
+/* =====================
+   RESPONSIVO (DESKTOP)
+===================== */
 @media (min-width: 768px) {
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-  }
-
   header nav {
     justify-content: flex-start;
   }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
 }
-
-
