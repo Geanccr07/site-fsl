@@ -242,4 +242,9 @@ form button {
     opacity: 1;
     transform: translateY(0);
   }
+
+   .highlight {
+  color: var(--primary);
+  font-weight: 600;
+}
 }
