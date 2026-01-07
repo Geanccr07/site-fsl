@@ -4,57 +4,60 @@
   <meta charset="UTF-8">
   <title>First Step Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/assets/css/style.css">
 
+  <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
 
-<header class="container">
-<nav>
-  <a href="/" class="active">Home</a>
-  <a href="/sobre">Sobre</a>
-  <a href="/depoimentos">Depoimentos</a>
-  <a href="/blog">Blog</a>
-  <a href="/materiais-gratuitos">Materiais gratuitos</a>
-</nav>
+<body class="page-home">
 
+<header>
+  <nav class="container">
+    <a href="/" class="active">Home</a>
+    <a href="/sobre">Sobre</a>
+    <a href="/depoimentos">Depoimentos</a>
+    <a href="/blog">Blog</a>
+    <a href="/materiais-gratuitos">Conteúdo gratuito</a>
+  </nav>
 </header>
 
 <section class="hero container">
   <div>
-    <h1>Te ajudamos a conseguir o primeiro emprego na sua área. Juntos. Sem custo.</h1>
-    <p>Preencha o formulário abaixo para acessar a comunidade no WhatsApp.</p>
+    <h1>Do zero ao primeiro emprego na sua área.</h1>
+    <p>
+      Comunidade ativa e preparação real para processos seletivos — tudo gratuito.
+    </p>
   </div>
 
-  <form id="lead-form">
+  <form>
     <label>Nome
-      <input type="text" name="nome" required>
+      <input type="text" required>
     </label>
 
     <label>Email
-      <input type="email" name="email" required>
+      <input type="email" required>
     </label>
 
     <label>WhatsApp
-      <input type="tel" name="whatsapp" required>
+      <input type="tel" required>
     </label>
 
     <label>Área de estudo
-      <select name="area">
-        <option value="">Selecione</option>
+      <select>
+        <option>Selecione</option>
         <option>Marketing</option>
         <option>Dados</option>
         <option>Tecnologia</option>
-        <option>Administração</option>
         <option>Outro</option>
       </select>
     </label>
 
-    <button type="submit">Quero entrar na comunidade</button>
+    <button type="submit">Quero dar o primeiro passo</button>
   </form>
 </section>
 
