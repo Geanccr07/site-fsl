@@ -247,4 +247,11 @@ form button {
   color: var(--primary);
   font-weight: 600;
 }
+.form-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
 }
