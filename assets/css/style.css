@@ -17,17 +17,37 @@
   --border-light: #E5E7EB;
 }
 
+/* =====================
+   BODY POR PÁGINA
+===================== */
 body {
   font-family: 'Poppins', sans-serif;
+  color: var(--black);
+  line-height: 1.6;
+}
+
+/* HOME */
+.page-home {
   background: linear-gradient(
     180deg,
     #ffffff 0%,
     #f9fafb 60%,
     #f3f4f6 100%
   );
-  color: var(--black);
-  line-height: 1.6;
-  overflow-x: hidden;
+}
+
+/* PÁGINAS INTERNAS */
+.page-default {
+  background: var(--gray-bg);
+}
+
+/* BLOG */
+.page-blog {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f3f4f6 100%
+  );
 }
 
 /* =====================
@@ -41,10 +61,10 @@ body {
 }
 
 /* =====================
-   HEADER / NAV
+   HEADER / MENU
 ===================== */
 header {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border-light);
   position: sticky;
@@ -77,12 +97,18 @@ header a::after {
   transition: width 0.3s ease;
 }
 
-header a:hover::after {
+header a:hover::after,
+header a.active::after {
   width: 100%;
 }
 
+header a.active {
+  color: var(--primary);
+  font-weight: 600;
+}
+
 /* =====================
-   HERO
+   HERO (HOME)
 ===================== */
 .hero {
   padding: 5rem 1.5rem 6rem;
@@ -106,7 +132,7 @@ header a:hover::after {
 }
 
 .hero h1 {
-  font-size: 2.6rem;
+  font-size: 2.8rem;
   font-weight: 600;
   line-height: 1.15;
   max-width: 540px;
@@ -148,8 +174,6 @@ form select {
   border-radius: 10px;
   border: 1px solid var(--border-light);
   font-family: inherit;
-  font-size: 0.9rem;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 
 form input:focus,
@@ -159,52 +183,50 @@ form select:focus {
   box-shadow: 0 0 0 3px var(--primary-soft);
 }
 
-/* BOTÃO */
 form button {
   margin-top: 1.8rem;
   width: 100%;
-  background: linear-gradient(
-    135deg,
-    #FF5A1F,
-    #FF7A47
-  );
+  background: linear-gradient(135deg, #FF5A1F, #FF7A47);
   color: var(--white);
   border: none;
   padding: 1rem;
   border-radius: 12px;
   font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-form button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(255,90,31,0.35);
 }
 
 /* =====================
-   RESPONSIVO (DESKTOP)
+   PÁGINAS INTERNAS
+===================== */
+.page-content {
+  padding: 4rem 1.5rem 6rem;
+}
+
+.page-content h1 {
+  font-size: 2.4rem;
+  font-weight: 600;
+}
+
+.page-content p {
+  margin-top: 1rem;
+  max-width: 700px;
+  color: var(--gray-text);
+}
+
+/* =====================
+   RESPONSIVO
 ===================== */
 @media (min-width: 768px) {
-  header nav {
-    justify-content: flex-start;
-  }
-
   .hero {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4.5rem;
     align-items: center;
   }
-
-  .hero h1 {
-    font-size: 3.1rem;
-  }
 }
 
 /* =====================
-   ANIMAÇÕES
+   ANIMAÇÃO
 ===================== */
 @keyframes fadeUp {
   from {
