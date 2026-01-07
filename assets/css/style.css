@@ -242,11 +242,19 @@ form button {
     opacity: 1;
     transform: translateY(0);
   }
+}
 
-   .highlight {
+/* =====================
+   DESTAQUES DE TEXTO
+===================== */
+.highlight {
   color: var(--primary);
   font-weight: 600;
 }
+
+/* =====================
+   TÍTULO DO FORMULÁRIO
+===================== */
 .form-title {
   font-size: 1.1rem;
   font-weight: 600;
@@ -254,4 +262,3 @@ form button {
   line-height: 1.4;
 }
 
-}
