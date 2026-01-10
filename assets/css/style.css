@@ -396,5 +396,9 @@ form button {
 
 /* CONTAINER MAIS LARGO (SEÇÕES ESPECÍFICAS) */
 .container-wide {
-  max-width: 1320px;
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 1.5rem;
 }
+
