@@ -391,13 +391,9 @@ form button {
 .grid-4 {
   display: grid;
   gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-@media (min-width: 768px) {
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
 
 
 
