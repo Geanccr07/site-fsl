@@ -394,6 +394,7 @@ form button {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
 
-
-
-
+/* CONTAINER MAIS LARGO (SEÇÕES ESPECÍFICAS) */
+.container-wide {
+  max-width: 1320px;
+}
