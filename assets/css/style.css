@@ -116,9 +116,13 @@ header a.active {
 /* =====================
    HERO (HOME)
 ===================== */
+/* =====================
+   HERO (HOME)
+===================== */
 .hero {
   padding: 5rem 1.5rem 6rem;
   position: relative;
+  overflow: hidden; /* 🔑 evita scroll horizontal no mobile */
   animation: fadeUp 0.8s ease forwards;
 }
 
@@ -142,6 +146,29 @@ header a.active {
   font-weight: 600;
   line-height: 1.15;
   max-width: 540px;
+}
+
+.hero p {
+  margin-top: 1.3rem;
+  font-size: 1.05rem;
+  color: var(--gray-text);
+  max-width: 500px;
+}
+
+/* =====================
+   AJUSTES MOBILE
+===================== */
+@media (max-width: 768px) {
+  .hero::before {
+    width: 260px;
+    height: 260px;
+    top: -80px;
+    right: -80px;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
 }
 
 .hero p {
