@@ -158,6 +158,10 @@ form {
   animation: fadeUp 1s ease forwards;
 }
 
+form h2 {
+  text-align: center;
+}
+
 form label {
   display: block;
   font-size: 0.8rem;
