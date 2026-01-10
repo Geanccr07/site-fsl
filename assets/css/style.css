@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+
 :root {
   --primary: #FF5A1F;
   --primary-soft: rgba(255, 90, 31, 0.15);
