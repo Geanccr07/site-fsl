@@ -50,6 +50,15 @@ body {
   );
 }
 
+/* CONTEÚDO GRATUITO */
+.conteudo-gratuito {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #f3f4f6 100%
+  );
+}
+
 /* =====================
    CONTAINER
 ===================== */
