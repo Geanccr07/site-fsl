@@ -452,98 +452,61 @@ form button {
 
 .mentors h2 {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
 }
 
-/* Slider */
-.mentor-slider {
-  position: relative;
-  display: flex;
-  justify-content: center;
+/* Bloco de cada mentor */
+.mentor-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 3rem;
   align-items: center;
+  max-width: 100%;
 }
 
-/* Área central do card */
-.mentor-slider .mentor-card {
-  width: 100%;
-  max-width: 640px; /* 🔥 largura REAL no desktop */
-  padding: 3.5rem 3rem;
-  border-radius: 20px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+/* Alternar lados (foto direita) */
+.mentor-row.reverse {
+  grid-template-columns: 1fr 180px;
 }
 
 /* Foto */
-.mentor-card img {
+.mentor-row img {
   width: 180px;
   height: 180px;
   object-fit: cover;
   border-radius: 50%;
-  margin-bottom: 1.5rem;
   border: 4px solid rgba(255, 255, 255, 0.4);
 }
 
-/* Nome */
-.mentor-card h3 {
-  font-size: 1.5rem;
+/* Conteúdo */
+.mentor-content h3 {
+  font-size: 1.6rem;
   font-weight: 600;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.2rem;
 }
 
-/* Cargo */
-.mentor-card h2 {
+.mentor-content h4 {
   font-size: 1.05rem;
   font-weight: 500;
   opacity: 0.85;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.6rem;
 }
 
-/* Texto */
-.mentor-card p {
+.mentor-content p {
   font-size: 1.15rem;
   line-height: 1.8;
   margin-bottom: 1.3rem;
 }
 
-.mentor-card p:last-child {
+.mentor-content p:last-child {
   margin-bottom: 0;
 }
 
-/* Botões (setas) */
-.slider-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-
-  background: transparent;
-  border: none;
-  color: var(--white);
-  font-size: 3rem;
-  cursor: pointer;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
-}
-
-.slider-btn:hover {
-  opacity: 0.7;
-}
-
-/* Esquerda */
-.slider-btn.prev {
-  left: 2rem;
-}
-
-/* Direita */
-.slider-btn.next {
-  right: 2rem;
-}
-
-/* Hidden */
-.hidden {
-  display: none;
+/* Separador entre mentores */
+.mentor-divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  margin: 5rem 0;
 }
 
 /* =====================
@@ -551,27 +514,22 @@ form button {
 ===================== */
 
 @media (max-width: 768px) {
-  .mentor-slider .mentor-card {
-    max-width: 92%;
-    padding: 2.5rem 2rem;
+  .mentor-row,
+  .mentor-row.reverse {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  .mentor-card p {
+  .mentor-row img {
+    margin: 0 auto;
+  }
+
+  .mentor-content {
+    margin-top: 2rem;
+  }
+
+  .mentor-content p {
     font-size: 1.05rem;
     line-height: 1.75;
   }
-
-  .slider-btn {
-    font-size: 2.2rem;
-  }
-
-  .slider-btn.prev {
-    left: 0.5rem;
-  }
-
-  .slider-btn.next {
-    right: 0.5rem;
-  }
 }
-
-
