@@ -517,7 +517,7 @@ form button {
 /* =====================
    MOBILE
 ===================== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .mentor-slider {
     gap: 1rem;
   }
