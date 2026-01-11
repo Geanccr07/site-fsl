@@ -36,29 +36,33 @@
     </p>
   </div>
 
-<form id="formulario">
-  <h3 class="form-title">
-    Entre na comunidade gratuita
-  </h3>
+<form id="leadForm">
+  <h3 class="form-title">Entre na comunidade gratuita</h3>
 
   <label>
     Nome
-    <input type="text" name="nome" required>
+    <input type="text" id="nome" required />
   </label>
 
   <label>
     Email
-    <input type="email" name="email" required>
+    <input type="email" id="email" required />
   </label>
 
   <label>
     WhatsApp
-    <input type="tel" name="whatsapp" required>
+    <input
+      type="tel"
+      id="whatsapp"
+      required
+      inputmode="numeric"
+      placeholder="11987654321"
+    />
   </label>
 
   <label>
     Área de estudo
-    <select name="area" required>
+    <select id="area" required>
       <option value="">Selecione</option>
       <option value="Marketing">Marketing</option>
       <option value="Dados">Dados</option>
@@ -67,7 +71,9 @@
     </select>
   </label>
 
-  <button type="submit">Acessar comunidade</button>
+  <button type="submit" id="submitBtn">
+    Acessar comunidade
+  </button>
 </form>
 
 
