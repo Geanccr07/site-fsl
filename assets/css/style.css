@@ -795,3 +795,27 @@ form button {
   }
 }
 
+/* =====================
+   FORM FEEDBACK
+===================== */
+
+.form-feedback {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.form-feedback.success {
+  color: #15803d;
+}
+
+.form-feedback.error {
+  color: #b91c1c;
+}
+
+/* Campo com erro */
+.field-error input,
+.field-error select {
+  border-color: #ef4444;
+  background: #fff5f5;
+}
