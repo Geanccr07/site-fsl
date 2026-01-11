@@ -80,22 +80,33 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
+
+  /* AJUSTES IMPORTANTES */
+  padding: 1rem 0;
 }
 
+header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* NAV */
 header nav {
   display: flex;
-  gap: 1.5rem;
+  gap: 1.8rem;
   align-items: center;
 }
 
-/* Links */
+/* LINKS */
 header a {
   text-decoration: none;
   color: #ffffff;
   font-weight: 500;
   font-size: 0.95rem;
   position: relative;
-  padding: 0.3rem 0;
+
+  padding: 0.4rem 0;
   opacity: 0.9;
   transition: opacity 0.2s ease;
 }
@@ -113,7 +124,7 @@ header a::after {
   bottom: -6px;
   width: 0%;
   height: 2px;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
   transition: width 0.3s ease;
 }
 
