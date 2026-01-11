@@ -69,6 +69,7 @@ body {
 /* =====================
    HEADER / MENU
 ===================== */
+
 header {
   background: #ff7b00;
   backdrop-filter: blur(12px);
@@ -84,34 +85,47 @@ header nav {
   align-items: center;
 }
 
+/* Links */
 header a {
   text-decoration: none;
-  color: var(--black);
+  color: #ffffff;
   font-weight: 500;
   font-size: 0.95rem;
   position: relative;
+  padding: 0.3rem 0;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
 }
 
+/* Hover */
+header a:hover {
+  opacity: 1;
+}
+
+/* Underline */
 header a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -4px;
+  bottom: -6px;
   width: 0%;
   height: 2px;
-  background: var(--primary);
+  background: rgba(255, 255, 255, 0.8);
   transition: width 0.3s ease;
 }
 
+/* Hover + ativo */
 header a:hover::after,
 header a.active::after {
   width: 100%;
 }
 
+/* Aba ativa */
 header a.active {
-  color: var(--primary);
   font-weight: 600;
+  opacity: 1;
 }
+
 
 /* =====================
    HERO (HOME)
