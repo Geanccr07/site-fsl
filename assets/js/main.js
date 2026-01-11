@@ -36,7 +36,7 @@ form.addEventListener("submit", async (e) => {
   submitBtn.innerText = "Enviando...";
 
   try {
-    const response = await fetch("https://script.google.com/macros/s/AKfycbwNNNpPf98UCLvzcUUmKXB_i-XnoOkVrQIByBMFRSBjC0oLfSjdyrV3ltBp-Gs9M36i/exec", {
+    const response = await fetch("https://script.google.com/macros/s/AKfycbzzdA0Wy4vT2tKaDgm9zIZwUESgdRFjdBUIycGIhEeNCVti_HB0qMFoXuz-GaH8Tspb/exec", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
