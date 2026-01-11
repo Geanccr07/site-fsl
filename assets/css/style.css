@@ -391,8 +391,8 @@ form button {
    FOOTER
 ===================== */
 .footer {
-  background: var(--black);
-  color: var(--white);
+  background: #f8ece8;
+  color: var(--black);
   padding: 3rem 1.5rem;
 }
 
