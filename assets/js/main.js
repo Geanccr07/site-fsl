@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
-      const response = await fetch("URL_DO_SEU_WEBHOOK_AQUI", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbwNNNpPf98UCLvzcUUmKXB_i-XnoOkVrQIByBMFRSBjC0oLfSjdyrV3ltBp-Gs9M36i/exec", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
