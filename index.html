@@ -39,36 +39,40 @@
     </p>
   </div>
 
-  <form>
-    <h3 class="form-title">
-      Entre na comunidade gratuita
-    </h3>
+<form id="formulario">
+  <h3 class="form-title">
+    Entre na comunidade gratuita
+  </h3>
 
-    <label>Nome
-      <input type="text" required>
-    </label>
+  <label>
+    Nome
+    <input type="text" name="nome" required>
+  </label>
 
-    <label>Email
-      <input type="email" required>
-    </label>
+  <label>
+    Email
+    <input type="email" name="email" required>
+  </label>
 
-    <label>WhatsApp
-      <input type="tel" required>
-    </label>
+  <label>
+    WhatsApp
+    <input type="tel" name="whatsapp" required>
+  </label>
 
-    <label>Área de estudo
-      <select>
-        <option>Selecione</option>
-        <option>Marketing</option>
-        <option>Dados</option>
-        <option>Tecnologia</option>
-        <option>Outro</option>
-      </select>
-    </label>
+  <label>
+    Área de estudo
+    <select name="area" required>
+      <option value="">Selecione</option>
+      <option value="Marketing">Marketing</option>
+      <option value="Dados">Dados</option>
+      <option value="Tecnologia">Tecnologia</option>
+      <option value="Outro">Outro</option>
+    </select>
+  </label>
 
-    <button type="submit">Acessar comunidade</button>
-  </form>
-</section>
+  <button type="submit">Acessar comunidade</button>
+</form>
+
 
 
 <!-- SEÇÃO 2 — POR QUE ENTRAR -->
