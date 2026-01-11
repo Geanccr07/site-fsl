@@ -457,20 +457,17 @@ form button {
 
 /* Slider */
 .mentor-slider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.5rem;
   position: relative;
-  padding: 0 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Card */
-.mentor-card {
+/* Área central do card */
+.mentor-slider .mentor-card {
   width: 100%;
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 3rem 2.5rem;
+  max-width: 640px; /* 🔥 largura REAL no desktop */
+  padding: 3.5rem 3rem;
   border-radius: 20px;
 
   display: flex;
@@ -491,9 +488,8 @@ form button {
 
 /* Nome */
 .mentor-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin-top: 0.5rem;
   margin-bottom: 0.3rem;
 }
 
@@ -502,38 +498,50 @@ form button {
   font-size: 1.05rem;
   font-weight: 500;
   opacity: 0.85;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 /* Texto */
 .mentor-card p {
-  font-size: 1.1rem;
-  line-height: 1.75;
-  margin-bottom: 1.2rem;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  margin-bottom: 1.3rem;
 }
 
 .mentor-card p:last-child {
   margin-bottom: 0;
 }
 
-/* Botões */
+/* Botões (setas) */
 .slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
   background: transparent;
   border: none;
   color: var(--white);
   font-size: 3rem;
   cursor: pointer;
+  opacity: 0.9;
   transition: opacity 0.2s ease;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .slider-btn:hover {
   opacity: 0.7;
 }
 
+/* Esquerda */
+.slider-btn.prev {
+  left: 2rem;
+}
+
+/* Direita */
+.slider-btn.next {
+  right: 2rem;
+}
+
+/* Hidden */
 .hidden {
   display: none;
 }
@@ -543,18 +551,27 @@ form button {
 ===================== */
 
 @media (max-width: 768px) {
-  .mentor-card {
-    max-width: 95%;
+  .mentor-slider .mentor-card {
+    max-width: 92%;
     padding: 2.5rem 2rem;
   }
 
   .mentor-card p {
     font-size: 1.05rem;
-    line-height: 1.7;
+    line-height: 1.75;
   }
 
   .slider-btn {
     font-size: 2.2rem;
   }
+
+  .slider-btn.prev {
+    left: 0.5rem;
+  }
+
+  .slider-btn.next {
+    right: 0.5rem;
+  }
 }
+
 
