@@ -456,7 +456,7 @@ form button {
 ===================== */
 
 .mentors {
-  background: var(--primary);
+  background: #ff7b00;
   color: var(--white);
   padding: 8rem 0;
 }
