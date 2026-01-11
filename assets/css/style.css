@@ -443,6 +443,7 @@ form button {
 /* =====================
    MENTORS SECTION
 ===================== */
+
 .mentors {
   background: var(--primary);
   color: var(--white);
@@ -454,46 +455,66 @@ form button {
   margin-bottom: 3rem;
 }
 
+/* Slider */
 .mentor-slider {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1.5rem;
   position: relative;
+  padding: 0 1rem;
 }
 
+/* Card */
 .mentor-card {
   width: 100%;
-  max-width: 420px;   /* desktop */
+  max-width: 480px;
   margin: 0 auto;
-  padding: 2.5rem 2rem;
+  padding: 3rem 2.5rem;
   border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-
+/* Foto */
 .mentor-card img {
   width: 180px;
   height: 180px;
   object-fit: cover;
   border-radius: 50%;
   margin-bottom: 1.5rem;
-  border: 4px solid rgba(255,255,255,0.4);
+  border: 4px solid rgba(255, 255, 255, 0.4);
 }
 
+/* Nome */
 .mentor-card h3 {
-  margin-bottom: 0.8rem;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+  margin-bottom: 0.3rem;
 }
 
+/* Cargo */
+.mentor-card h2 {
+  font-size: 1.05rem;
+  font-weight: 500;
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+}
+
+/* Texto */
 .mentor-card p {
   font-size: 1.1rem;
-  line-height: 1.8;
+  line-height: 1.75;
   margin-bottom: 1.2rem;
 }
 
 .mentor-card p:last-child {
   margin-bottom: 0;
 }
-
 
 /* Botões */
 .slider-btn {
@@ -502,8 +523,11 @@ form button {
   color: var(--white);
   font-size: 3rem;
   cursor: pointer;
-  padding: 0 0.5rem;
   transition: opacity 0.2s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider-btn:hover {
@@ -517,35 +541,20 @@ form button {
 /* =====================
    MOBILE
 ===================== */
+
 @media (max-width: 768px) {
   .mentor-card {
-    max-width: 92%;
-    padding: 2rem 1.5rem;
+    max-width: 95%;
+    padding: 2.5rem 2rem;
   }
 
   .mentor-card p {
     font-size: 1.05rem;
     line-height: 1.7;
   }
-}
-
 
   .slider-btn {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
-}
-
-.mentor-card h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  margin-top: 1rem;
-}
-
-.mentor-card h2 {
-  font-size: 1.05rem;   /* menor que o nome */
-  font-weight: 500;
-  opacity: 0.85;
-  margin-top: 0.3rem;
-  margin-bottom: 1.5rem;
 }
 
