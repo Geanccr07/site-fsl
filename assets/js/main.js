@@ -1,6 +1,7 @@
 const form = document.getElementById("leadForm");
 const submitBtn = document.getElementById("submitBtn");
 const whatsappInput = document.getElementById("whatsapp");
+const feedback = document.getElementById("formFeedback");
 
 /* =====================
    UTIL
@@ -9,7 +10,35 @@ function onlyNumbers(value) {
   return value.replace(/\D/g, "");
 }
 
-/* Força apenas números no WhatsApp */
+function clearErrors() {
+  feedback.style.display = "none";
+  feedback.className = "form-feedback";
+
+  form.querySelectorAll(".field-error").forEach(el => {
+    el.classList.remove("field-error");
+  });
+}
+
+function showError(input, message) {
+  const label = input.closest("label");
+  label.classList.add("field-error");
+
+  feedback.innerText = message;
+  feedback.classList.add("error");
+  feedback.style.display = "block";
+
+  feedback.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function showSuccess(message) {
+  feedback.innerText = message;
+  feedback.classList.add("success");
+  feedback.style.display = "block";
+}
+
+/* =====================
+   INPUT WHATSAPP
+===================== */
 whatsappInput.addEventListener("input", () => {
   whatsappInput.value = onlyNumbers(whatsappInput.value);
 });
@@ -19,16 +48,38 @@ whatsappInput.addEventListener("input", () => {
 ===================== */
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
+  clearErrors();
 
-  const nome = document.getElementById("nome").value.trim();
-  const email = document.getElementById("email").value.trim();
+  const nomeInput = document.getElementById("nome");
+  const emailInput = document.getElementById("email");
+  const areaInput = document.getElementById("area");
+
+  const nome = nomeInput.value.trim();
+  const email = emailInput.value.trim();
   const whatsapp = onlyNumbers(whatsappInput.value);
-  const area = document.getElementById("area").value;
+  const area = areaInput.value;
 
-  /* Validação WhatsApp BR */
+  /* VALIDAÇÕES */
+  if (!nome) {
+    showError(nomeInput, "Por favor, informe seu nome.");
+    return;
+  }
+
+  if (!email || !email.includes("@")) {
+    showError(emailInput, "Informe um email válido.");
+    return;
+  }
+
   if (whatsapp.length !== 11) {
-    alert("Digite um WhatsApp válido com DDD (11 números).");
-    whatsappInput.focus();
+    showError(
+      whatsappInput,
+      "Digite um WhatsApp válido com DDD (11 números)."
+    );
+    return;
+  }
+
+  if (!area) {
+    showError(areaInput, "Selecione sua área de estudo.");
     return;
   }
 
@@ -52,16 +103,29 @@ form.addEventListener("submit", async (e) => {
     const result = await response.json();
 
     if (result.success) {
-      window.location.href =
-        "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+      showSuccess(
+        "Tudo certo! Seus dados foram enviados com sucesso. Redirecionando..."
+      );
+
+      setTimeout(() => {
+        window.location.href =
+          "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+      }, 1500);
+
     } else {
-      alert("Erro ao enviar. Tente novamente.");
+      showError(
+        submitBtn,
+        "Erro ao enviar os dados. Tente novamente."
+      );
       submitBtn.disabled = false;
       submitBtn.innerText = "Acessar comunidade";
     }
 
   } catch (error) {
-    alert("Erro de conexão. Tente novamente.");
+    showError(
+      submitBtn,
+      "Erro de conexão. Tente novamente."
+    );
     submitBtn.disabled = false;
     submitBtn.innerText = "Acessar comunidade";
   }
