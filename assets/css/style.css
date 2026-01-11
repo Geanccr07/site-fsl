@@ -520,11 +520,15 @@ form button {
     text-align: center;
   }
 
+  /* Foto sempre em cima */
   .mentor-row img {
+    order: 1;
     margin: 0 auto;
   }
 
+  /* Conteúdo sempre abaixo da foto */
   .mentor-content {
+    order: 2;
     margin-top: 2rem;
   }
 
