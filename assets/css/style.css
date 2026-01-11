@@ -404,35 +404,41 @@ form button {
 /* =====================
    FOOTER
 ===================== */
+
 .footer {
-  background: #fce9e3;
-  color: var(--white);
-  padding: 3rem 1.5rem;
+  background: #ffffff;
+  color: #333333;
+  padding: 4rem 1.5rem;
+  border-top: 1px solid rgba(255, 123, 0, 0.25);
 }
 
 .footer-content {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.8rem;
 }
 
+/* Ações / links */
 .footer-actions {
   display: flex;
   gap: 1.5rem;
   flex-wrap: wrap;
 }
 
+/* Links */
 .footer a {
-  color: var(--white);
+  color: #ff7b00;
   text-decoration: none;
   font-weight: 500;
+  position: relative;
+  transition: opacity 0.2s ease;
 }
 
-.cta-whats {
-  background: var(--primary);
-  padding: 0.6rem 1.2rem;
-  border-radius: 999px;
+/* Hover */
+.footer a:hover {
+  opacity: 0.75;
 }
+
 
 /* =====================
    GRID 4 COLUNAS
