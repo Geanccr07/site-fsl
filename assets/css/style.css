@@ -527,4 +527,17 @@ form button {
   }
 }
 
+.mentor-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.mentor-card h2 {
+  font-size: 1.05rem;   /* menor que o nome */
+  font-weight: 500;
+  opacity: 0.85;
+  margin-top: 0.3rem;
+  margin-bottom: 1.5rem;
+}
 
