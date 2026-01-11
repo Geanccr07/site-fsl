@@ -70,7 +70,7 @@ body {
    HEADER / MENU
 ===================== */
 header {
-  background: rgba(255, 90, 31, 0.12);
+  background: #ff7b00;
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 90, 31, 0.25);
   position: sticky;
