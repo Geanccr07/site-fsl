@@ -537,3 +537,73 @@ form button {
     line-height: 1.75;
   }
 }
+
+
+/* =====================
+   O QUE VOCÊ VAI APRENDER
+===================== */
+
+.section-light {
+  background: linear-gradient(
+    180deg,
+    #f9f9f9 0%,
+    #ffffff 100%
+  );
+}
+
+.section-light h2 {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+/* Linha decorativa abaixo do título */
+.section-light h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--primary);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+/* Grid mais espaçado */
+.section-light .grid-4 {
+  gap: 2rem;
+}
+
+/* Cards */
+.section-light .card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2.5rem 2.2rem;
+
+  border-left: 5px solid var(--primary);
+
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Hover elegante */
+.section-light .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Título do card */
+.section-light .card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: var(--primary);
+}
+
+/* Texto do card */
+.section-light .card p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #444;
+}
+
