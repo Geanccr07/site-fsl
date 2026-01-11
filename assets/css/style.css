@@ -463,13 +463,13 @@ form button {
 }
 
 .mentor-card {
-  background: rgba(255, 255, 255, 0.08);
-  padding: 3.2rem 3rem;
+  width: 100%;
+  max-width: 420px;   /* desktop */
+  margin: 0 auto;
+  padding: 2.5rem 2rem;
   border-radius: 20px;
-  text-align: center;
-  max-width: 520px;
-  transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
 
 .mentor-card img {
   width: 180px;
@@ -517,14 +517,18 @@ form button {
 /* =====================
    MOBILE
 ===================== */
-@media (max-width: 900px) {
-  .mentor-slider {
-    gap: 1rem;
-  }
-
+@media (max-width: 768px) {
   .mentor-card {
+    max-width: 92%;
     padding: 2rem 1.5rem;
   }
+
+  .mentor-card p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+}
+
 
   .slider-btn {
     font-size: 2.5rem;
