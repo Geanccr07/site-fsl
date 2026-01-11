@@ -486,10 +486,14 @@ form button {
 
 .mentor-card p {
   font-size: 1.1rem;
-  line-height: 1.7;
-  max-width: 460px;
-  margin: 0 auto;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
 }
+
+.mentor-card p:last-child {
+  margin-bottom: 0;
+}
+
 
 /* Botões */
 .slider-btn {
