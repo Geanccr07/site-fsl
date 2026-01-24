@@ -35,7 +35,8 @@
 
       <label>
         Envie seu currículo (PDF ou DOCX)
-        <input type="file" name="curriculo" accept=".docx" required>
+        <input type="file" id="curriculo" accept="application/pdf" required>
+
 
       </label>
 
@@ -64,18 +65,57 @@
   const form = document.getElementById('cvForm');
   const statusMsg = document.getElementById('statusMsg');
 
+  async function extractTextFromPDF(file) {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+    let fullText = '';
+
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+
+      const pageText = textContent.items
+        .map(item => item.str)
+        .join(' ');
+
+      fullText += pageText + '\n\n';
+    }
+
+    return fullText;
+  }
+
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(form);
+    const email = form.email.value;
+    const vaga = form.vaga.value;
+    const fileInput = document.getElementById('curriculo');
+    const file = fileInput.files[0];
+
+    if (!file || file.type !== 'application/pdf') {
+      alert('Envie um currículo em PDF.');
+      return;
+    }
 
     statusMsg.style.display = 'block';
-    statusMsg.innerText = 'Enviando...';
+    statusMsg.innerText = 'Processando currículo...';
 
     try {
+      const curriculoTexto = await extractTextFromPDF(file);
+
+      statusMsg.innerText = 'Enviando para análise...';
+
       await fetch('http://localhost:5678/webhook/gerar-cv', {
         method: 'POST',
-        body: formData
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email,
+          vaga,
+          curriculo_texto: curriculoTexto
+        })
       });
 
       form.style.display = 'none';
@@ -83,11 +123,15 @@
         '✅ Tudo certo! Aguarde alguns minutos para receber seu currículo atualizado no e-mail informado.';
 
     } catch (err) {
+      console.error(err);
       statusMsg.innerText =
-        '❌ Ocorreu um erro. Tente novamente.';
+        '❌ Ocorreu um erro ao processar o currículo. Tente novamente.';
     }
   });
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
 
 </body>
 </html>
