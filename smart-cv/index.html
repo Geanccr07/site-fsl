@@ -1,25 +1,65 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta name="robots" content="noindex, nofollow">
   <meta charset="UTF-8">
-  <title>Seu currículo perfeito para a vaga em segundos</title>
+  <title>Gerar currículo otimizado para vaga</title>
+
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonte -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS principal do site -->
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
-<body>
 
-  <h1>Gerar currículo otimizado para vaga</h1>
+<body class="page-default">
 
-  <form action="http://localhost:5678/webhook/gerar-cv" method="post" enctype="multipart/form-data">
+<section class="section">
+  <div class="container" style="max-width: 720px;">
 
-    <label>Envie seu currículo (PDF ou DOCX)</label><br>
-    <input type="file" name="curriculo" required><br><br>
+    <h1 style="margin-bottom: 1rem;">
+      Gerar currículo otimizado para a vaga
+    </h1>
 
-    <label>Cole a descrição da vaga</label><br>
-    <textarea name="vaga" rows="15" cols="80" required></textarea><br><br>
+    <p style="margin-bottom: 2.5rem; color: var(--gray-text);">
+      Envie seu currículo atual e a descrição da vaga.  
+      Nossa automação vai adaptar seu currículo para aumentar suas chances de ser chamado.
+    </p>
 
-    <button type="submit">Gerar currículo</button>
+    <form
+      action="http://localhost:5678/webhook/gerar-cv"
+      method="post"
+      enctype="multipart/form-data"
+      class="form-box"
+    >
 
-  </form>
+      <label>
+        Envie seu currículo (PDF ou DOCX)
+        <input type="file" name="curriculo" accept=".pdf,.doc,.docx" required>
+      </label>
+
+      <label>
+        Cole a descrição da vaga
+        <textarea
+          name="vaga"
+          rows="10"
+          placeholder="Cole aqui a descrição da vaga completa"
+          required
+        ></textarea>
+      </label>
+
+      <button type="submit">
+        Gerar currículo personalizado
+      </button>
+
+    </form>
+
+  </div>
+</section>
 
 </body>
 </html>
