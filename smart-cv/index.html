@@ -7,36 +7,31 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonte -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <!-- CSS principal do site -->
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body class="page-default smart-cv">
 
 <section class="section">
-
   <div class="container" style="max-width: 720px;">
 
-    <h1 style="margin-bottom: 1rem;">
-      Gerar currículo otimizado para a vaga
-    </h1>
+    <h1>Gerar currículo otimizado para a vaga</h1>
 
-    <p style="margin-bottom: 2.5rem; color: var(--gray-text);">
-      Envie seu currículo atual e a descrição da vaga.  
-      Nossa automação vai adaptar seu currículo para aumentar suas chances de ser chamado.
+    <p style="margin-bottom: 2.5rem;">
+      Envie seu currículo e a descrição da vaga.  
+      Você receberá o currículo adaptado por e-mail.
     </p>
 
-    <form
-      action="http://localhost:5678/webhook/gerar-cv"
-      method="post"
-      enctype="multipart/form-data"
-      class="form-box"
-    >
+    <form id="cvForm" class="form-box">
+
+      <label>
+        Seu e-mail
+        <input type="email" name="email" required placeholder="seuemail@email.com">
+      </label>
 
       <label>
         Envie seu currículo (PDF ou DOCX)
@@ -59,8 +54,39 @@
 
     </form>
 
+    <p id="statusMsg" style="display:none; margin-top:2rem;"></p>
+
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('cvForm');
+  const statusMsg = document.getElementById('statusMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    statusMsg.style.display = 'block';
+    statusMsg.innerText = 'Enviando...';
+
+    try {
+      await fetch('http://localhost:5678/webhook/gerar-cv', {
+        method: 'POST',
+        body: formData
+      });
+
+      form.style.display = 'none';
+      statusMsg.innerText =
+        '✅ Tudo certo! Aguarde alguns minutos para receber seu currículo atualizado no e-mail informado.';
+
+    } catch (err) {
+      statusMsg.innerText =
+        '❌ Ocorreu um erro. Tente novamente.';
+    }
+  });
+</script>
 
 </body>
 </html>
