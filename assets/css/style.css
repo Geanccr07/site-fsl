@@ -819,3 +819,77 @@ form button {
   border-color: #ef4444;
   background: #fff5f5;
 }
+
+/* =====================
+   SMART CV PAGE
+===================== */
+
+.smart-cv {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+}
+
+.smart-cv .container {
+  max-width: 720px;
+}
+
+.smart-cv h1 {
+  text-align: center;
+  margin-bottom: 0.8rem;
+}
+
+.smart-cv p {
+  text-align: center;
+  color: var(--gray-text);
+  margin-bottom: 3rem;
+}
+
+/* Caixa do formulário */
+.smart-cv .form-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Labels */
+.smart-cv label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+/* Inputs */
+.smart-cv input[type="file"],
+.smart-cv textarea {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.8rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+}
+
+/* Textarea */
+.smart-cv textarea {
+  resize: vertical;
+  min-height: 180px;
+}
+
+/* Botão */
+.smart-cv button {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.9rem;
+  font-size: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .smart-cv .form-box {
+    padding: 2rem;
+  }
+}
+
