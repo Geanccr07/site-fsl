@@ -825,13 +825,17 @@ form button {
 ===================== */
 
 .smart-cv {
-  min-height: calc(100vh - 120px);
+  min-height: 100vh;
   display: flex;
+  justify-content: center;
   align-items: center;
+  padding: 2rem;
 }
 
 .smart-cv .container {
   max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .smart-cv h1 {
@@ -845,7 +849,6 @@ form button {
   margin-bottom: 3rem;
 }
 
-/* Caixa do formulário */
 .smart-cv .form-box {
   background: #fff;
   border-radius: 18px;
@@ -853,14 +856,13 @@ form button {
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
 }
 
-/* Labels */
 .smart-cv label {
   display: block;
   font-weight: 500;
   margin-bottom: 1.5rem;
 }
 
-/* Inputs */
+.smart-cv input[type="email"],
 .smart-cv input[type="file"],
 .smart-cv textarea {
   width: 100%;
@@ -872,13 +874,11 @@ form button {
   border: 1px solid var(--border-light);
 }
 
-/* Textarea */
 .smart-cv textarea {
   resize: vertical;
   min-height: 180px;
 }
 
-/* Botão */
 .smart-cv button {
   width: 100%;
   margin-top: 1.5rem;
@@ -886,10 +886,12 @@ form button {
   font-size: 1rem;
 }
 
-/* Mobile */
+#statusMsg {
+  text-align: center;
+}
+
 @media (max-width: 768px) {
   .smart-cv .form-box {
     padding: 2rem;
   }
 }
-
