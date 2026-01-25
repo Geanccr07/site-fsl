@@ -821,139 +821,95 @@ form button {
 }
 
 /* =====================
-   SMART CV PAGE
+    SMART CV PAGE - FIX DEFINITIVO
 ===================== */
 
-/* =====================
-    SMART CV PAGE - ATUALIZADO
-===================== */
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
+/* Forçamos a página a ocupar a tela inteira sem scroll horizontal */
+body.smart-cv {
+  background: #f6f7fb !important;
+  display: block !important;
 }
 
-body {
-  background: #f6f7fb;
-  /* Garante que o body ocupe a tela toda para centralização */
-  width: 100%;
-  overflow-x: hidden;
+/* Ajuste específico para o container nesta página */
+.smart-cv .container {
+  max-width: 900px !important; /* Mais largo como você pediu */
+  margin: 0 auto !important;
+  padding: 40px 20px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 
-/* section vira centro da tela */
-.section {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column; /* Alinha título e formulário em coluna */
-  align-items: center;
-  justify-content: center;
-  padding: 60px 20px;
+/* Títulos */
+.smart-cv h1 {
+  font-size: 2.4rem !important;
+  margin-bottom: 15px !important;
+  color: #1a1a1a !important;
+  width: 100% !important;
+  text-align: center !important;
 }
 
-/* container centralizado e um pouco mais largo */
-.container {
-  width: 100%;
-  max-width: 850px; /* Aumentado de 720px para dar mais presença */
-  margin: 0 auto;  /* Centralização horizontal absoluta */
+.smart-cv .container > p {
+  font-size: 1.1rem !important;
+  color: #666 !important;
+  margin-bottom: 40px !important;
+  text-align: center !important;
 }
 
-/* Títulos centralizados */
-h1 {
-  text-align: center;
-  margin-bottom: 12px;
-  color: #1a1a1a;
-  font-size: 2.2rem;
+/* O CARD DO FORMULÁRIO */
+/* Usamos .form-box para diferenciar do 'form' genérico do topo do seu CSS */
+.smart-cv .form-box {
+  background: #ffffff !important;
+  width: 100% !important; /* Ocupa os 900px do container */
+  max-width: 100% !important;
+  padding: 50px !important;
+  border-radius: 24px !important;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
+  
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 25px !important;
+  margin: 0 !important; /* Remove margens que o CSS antigo possa ter */
 }
 
-.container > p {
-  text-align: center;
-  margin-bottom: 40px;
-  color: #666;
-  max-width: 600px; /* Evita que o texto de apoio fique largo demais */
-  margin-left: auto;
-  margin-right: auto;
+/* Inputs e Textareas ocupando a largura total */
+.smart-cv .form-box label {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 8px !important;
+  font-weight: 500 !important;
 }
 
-/* card do formulário */
-.form-box {
-  background: white;
-  padding: 50px; /* Aumentado para dar mais "respiro" interno */
-  border-radius: 24px;
-  box-shadow: 0 15px 35px rgba(0,0,0,.06);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
+.smart-cv .form-box input,
+.smart-cv .form-box textarea {
+  width: 100% !important;
+  padding: 14px !important;
+  border: 1px solid #e0e0e0 !important;
+  border-radius: 12px !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
-/* Labels e Inputs */
-label {
-  display: flex;
-  flex-direction: column;
-  font-size: 15px;
-  font-weight: 500;
-  color: #333;
-  gap: 8px;
+/* Botão Centralizado e Largo */
+.smart-cv .form-box button {
+  background: #6366f1 !important;
+  color: white !important;
+  padding: 18px !important;
+  border-radius: 12px !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  margin-top: 10px !important;
+  transition: all 0.2s ease !important;
 }
 
-input,
-textarea {
-  padding: 14px 16px;
-  border-radius: 10px;
-  border: 1px solid #e0e0e0;
-  font-size: 15px;
-  background: #fcfcfc;
-  transition: all 0.2s ease;
-  width: 100%; /* Ocupa toda a largura do card */
+.smart-cv .form-box button:hover {
+  background: #4f46e5 !important;
+  transform: translateY(-2px) !important;
 }
 
-input:focus,
-textarea:focus {
-  outline: none;
-  border-color: #6366f1;
-  background: white;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-}
-
-/* Área de Upload customizada para não quebrar o layout */
-input[type="file"] {
-  background: #f9f9f9;
-  padding: 20px;
-  border: 2px dashed #ddd;
-  cursor: pointer;
-}
-
-/* Botão de envio */
-button {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
-  background: #6366f1;
-  color: white;
-  font-weight: 600;
-  font-size: 16px;
-  transition: transform 0.1s, opacity 0.2s;
-}
-
-button:hover {
-  opacity: 0.95;
-  transform: translateY(-1px);
-}
-
-button:active {
-  transform: translateY(0);
-}
-
-/* Responsividade para celulares */
-@media (max-width: 600px) {
-  .form-box {
-    padding: 30px 20px;
-  }
-  h1 {
-    font-size: 1.6rem;
-  }
+/* Ajuste para o campo de arquivo */
+.smart-cv input[type="file"] {
+  border: 2px dashed #ddd !important;
+  background: #fcfcfc !important;
+  padding: 20px !important;
 }
