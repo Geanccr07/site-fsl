@@ -824,6 +824,10 @@ form button {
    SMART CV PAGE
 ===================== */
 
+/* =====================
+    SMART CV PAGE - ATUALIZADO
+===================== */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -833,92 +837,123 @@ form button {
 
 body {
   background: #f6f7fb;
+  /* Garante que o body ocupe a tela toda para centralização */
+  width: 100%;
+  overflow-x: hidden;
 }
 
 /* section vira centro da tela */
 .section {
   min-height: 100vh;
   display: flex;
+  flex-direction: column; /* Alinha título e formulário em coluna */
   align-items: center;
   justify-content: center;
-  padding: 40px 20px;
+  padding: 60px 20px;
 }
 
-/* container central */
+/* container centralizado e um pouco mais largo */
 .container {
   width: 100%;
-  max-width: 720px;
+  max-width: 850px; /* Aumentado de 720px para dar mais presença */
+  margin: 0 auto;  /* Centralização horizontal absoluta */
 }
 
-/* título */
+/* Títulos centralizados */
 h1 {
   text-align: center;
   margin-bottom: 12px;
+  color: #1a1a1a;
+  font-size: 2.2rem;
 }
 
-/* subtítulo */
 .container > p {
   text-align: center;
   margin-bottom: 40px;
-  color: #555;
+  color: #666;
+  max-width: 600px; /* Evita que o texto de apoio fique largo demais */
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* card */
+/* card do formulário */
 .form-box {
   background: white;
-  padding: 40px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,.08);
-
+  padding: 50px; /* Aumentado para dar mais "respiro" interno */
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0,0,0,.06);
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
+  width: 100%;
 }
 
-/* labels */
+/* Labels e Inputs */
 label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
-  color: #444;
-  gap: 6px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  gap: 8px;
 }
 
-/* inputs */
 input,
 textarea {
-  padding: 12px 14px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 14px;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  font-size: 15px;
+  background: #fcfcfc;
+  transition: all 0.2s ease;
+  width: 100%; /* Ocupa toda a largura do card */
 }
 
 input:focus,
 textarea:focus {
   outline: none;
   border-color: #6366f1;
+  background: white;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
 
-/* botão */
+/* Área de Upload customizada para não quebrar o layout */
+input[type="file"] {
+  background: #f9f9f9;
+  padding: 20px;
+  border: 2px dashed #ddd;
+  cursor: pointer;
+}
+
+/* Botão de envio */
 button {
-  margin-top: 10px;
-  padding: 14px;
-  border-radius: 10px;
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 12px;
   border: none;
   cursor: pointer;
-
   background: #6366f1;
   color: white;
-  font-weight: 500;
-  font-size: 15px;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.1s, opacity 0.2s;
 }
 
 button:hover {
-  opacity: 0.9;
+  opacity: 0.95;
+  transform: translateY(-1px);
 }
 
-/* status */
-#statusMsg {
-  text-align: center;
-  font-weight: 500;
+button:active {
+  transform: translateY(0);
+}
+
+/* Responsividade para celulares */
+@media (max-width: 600px) {
+  .form-box {
+    padding: 30px 20px;
+  }
+  h1 {
+    font-size: 1.6rem;
+  }
 }
