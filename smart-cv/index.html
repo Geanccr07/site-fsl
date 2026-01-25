@@ -17,11 +17,11 @@
 <body class="page-default smart-cv">
 
 <section class="section">
-  <div class="container" style="max-width: 720px;">
+  <div class="container" style="max-width:720px;margin:0 auto;">
 
-    <h1>Gerar currículo otimizado para a vaga</h1>
+    <h1 style="text-align:center;">Gerar currículo otimizado para a vaga</h1>
 
-    <p style="margin-bottom: 2.5rem;">
+    <p style="margin-bottom:2.5rem;text-align:center;">
       Envie seu currículo e a descrição da vaga.  
       Você receberá o currículo adaptado por e-mail.
     </p>
@@ -29,15 +29,23 @@
     <form id="cvForm" class="form-box">
 
       <label>
+        Seu nome
+        <input type="text" name="nome" required placeholder="Seu nome completo">
+      </label>
+
+      <label>
+        Nome da vaga
+        <input type="text" name="nome_vaga" required placeholder="Ex: Analista de Dados Júnior">
+      </label>
+
+      <label>
         Seu e-mail
         <input type="email" name="email" required placeholder="seuemail@email.com">
       </label>
 
       <label>
-        Envie seu currículo (PDF ou DOCX)
+        Envie seu currículo (PDF)
         <input type="file" id="curriculo" accept="application/pdf" required>
-
-
       </label>
 
       <label>
@@ -56,10 +64,12 @@
 
     </form>
 
-    <p id="statusMsg" style="display:none; margin-top:2rem;"></p>
+    <p id="statusMsg" style="display:none;margin-top:2rem;text-align:center;"></p>
 
   </div>
 </section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
   const form = document.getElementById('cvForm');
@@ -88,8 +98,11 @@
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const nome = form.nome.value;
+    const nomeVaga = form.nome_vaga.value;
     const email = form.email.value;
     const vaga = form.vaga.value;
+
     const fileInput = document.getElementById('curriculo');
     const file = fileInput.files[0];
 
@@ -112,6 +125,8 @@
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          nome,
+          nome_vaga: nomeVaga,
           email,
           vaga,
           curriculo_texto: curriculoTexto
@@ -129,9 +144,6 @@
     }
   });
 </script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 
 </body>
 </html>
