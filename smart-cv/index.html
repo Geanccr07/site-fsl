@@ -3,25 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <title>Gere seu currículo otimizado em segundos</title>
-
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
 <body class="page-default smart-cv">
 
 <section class="section">
-  <div class="container" style="max-width:720px;margin:0 auto;">
+  <div class="container">
 
-    <h1 style="text-align:center;">Gere seu currículo otimizado em segundos</h1>
+    <h1>Gere seu currículo otimizado em segundos</h1>
 
-    <p style="margin-bottom:2.5rem;text-align:center;">
+    <p>
       Envie seu currículo e a descrição da vaga.  
       Você receberá o currículo adaptado para ATS via e-mail.
     </p>
@@ -41,6 +39,11 @@
       <label>
         Seu e-mail
         <input type="email" name="email" required placeholder="seuemail@email.com">
+      </label>
+
+      <label>
+        Chave de Acesso (Token)
+        <input type="text" name="token" id="token" required placeholder="Insira sua chave de acesso">
       </label>
 
       <label>
@@ -78,26 +81,20 @@
   async function extractTextFromPDF(file) {
     const arrayBuffer = await file.arrayBuffer();
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
     let fullText = '';
-
     for (let i = 1; i <= pdf.numPages; i++) {
       const page = await pdf.getPage(i);
       const textContent = await page.getTextContent();
-
-      const pageText = textContent.items
-        .map(item => item.str)
-        .join(' ');
-
+      const pageText = textContent.items.map(item => item.str).join(' ');
       fullText += pageText + '\n\n';
     }
-
     return fullText;
   }
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const token = form.token.value;
     const nome = form.nome.value;
     const nomeVaga = form.nome_vaga.value;
     const email = form.email.value;
@@ -116,13 +113,13 @@
 
     try {
       const curriculoTexto = await extractTextFromPDF(file);
+      statusMsg.innerText = 'Validando token e enviando para análise...';
 
-      statusMsg.innerText = 'Enviando para análise...';
-
-      await fetch('http://localhost:5678/webhook/gerar-cv', {
+      const response = await fetch('http://localhost:5678/webhook/gerar-cv', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'X-Auth-Token': token // Envio do Token no Header
         },
         body: JSON.stringify({
           nome,
@@ -133,17 +130,19 @@
         })
       });
 
+      // Se o n8n retornar erro de autorização
+      if (response.status === 401 || response.status === 403) {
+        throw new Error('Token inválido ou expirado.');
+      }
+
       form.style.display = 'none';
-      statusMsg.innerText =
-        '✅ Tudo certo! Aguarde alguns minutos para receber seu currículo atualizado no e-mail informado.';
+      statusMsg.innerText = '✅ Tudo certo! Aguarde alguns minutos para receber seu currículo no e-mail.';
 
     } catch (err) {
       console.error(err);
-      statusMsg.innerText =
-        '❌ Ocorreu um erro ao processar o currículo. Tente novamente.';
+      statusMsg.innerText = '❌ Não foi possível validar seu token. :(';
     }
   });
 </script>
-
 </body>
 </html>
