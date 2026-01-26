@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Gere seu currículo otimizado em segundos</title>
+
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
@@ -19,8 +21,8 @@
 
     <h1>Gere seu currículo otimizado em segundos</h1>
 
-    <p>
-      Envie seu currículo e a descrição da vaga.  
+    <p style="text-align:center">
+      Envie seu currículo e a descrição da vaga.<br>
       Você receberá o currículo adaptado para ATS via e-mail.
     </p>
 
@@ -42,8 +44,8 @@
       </label>
 
       <label>
-        Chave de Acesso (Token)
-        <input type="text" name="token" id="token" required placeholder="Insira sua chave de acesso">
+        Chave de acesso
+        <input type="text" name="token" required placeholder="Insira seu token">
       </label>
 
       <label>
@@ -53,17 +55,10 @@
 
       <label>
         Cole a descrição da vaga
-        <textarea
-          name="vaga"
-          rows="10"
-          placeholder="Cole aqui a descrição da vaga completa"
-          required
-        ></textarea>
+        <textarea name="vaga" rows="8" required></textarea>
       </label>
 
-      <button type="submit">
-        Gerar currículo
-      </button>
+      <button type="submit">Gerar currículo</button>
 
     </form>
 
@@ -72,77 +67,87 @@
   </div>
 </section>
 
+<!-- PDFJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <script>
-  const form = document.getElementById('cvForm');
-  const statusMsg = document.getElementById('statusMsg');
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+</script>
 
-  async function extractTextFromPDF(file) {
-    const arrayBuffer = await file.arrayBuffer();
-    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-    let fullText = '';
-    for (let i = 1; i <= pdf.numPages; i++) {
-      const page = await pdf.getPage(i);
-      const textContent = await page.getTextContent();
-      const pageText = textContent.items.map(item => item.str).join(' ');
-      fullText += pageText + '\n\n';
-    }
-    return fullText;
+<script>
+const form = document.getElementById('cvForm');
+const statusMsg = document.getElementById('statusMsg');
+
+async function extractTextFromPDF(file) {
+  const arrayBuffer = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+  let fullText = '';
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const textContent = await page.getTextContent();
+
+    const pageText = textContent.items.map(item => item.str).join(' ');
+    fullText += pageText + '\n\n';
   }
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+  return fullText;
+}
 
-    const token = form.token.value;
-    const nome = form.nome.value;
-    const nomeVaga = form.nome_vaga.value;
-    const email = form.email.value;
-    const vaga = form.vaga.value;
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-    const fileInput = document.getElementById('curriculo');
-    const file = fileInput.files[0];
+  const nome = form.nome.value;
+  const nomeVaga = form.nome_vaga.value;
+  const email = form.email.value;
+  const token = form.token.value;
+  const vaga = form.vaga.value;
 
-    if (!file || file.type !== 'application/pdf') {
-      alert('Envie um currículo em PDF.');
-      return;
+  const file = document.getElementById('curriculo').files[0];
+
+  if (!file) {
+    alert('Envie um PDF.');
+    return;
+  }
+
+  statusMsg.style.display = 'block';
+  statusMsg.innerText = 'Processando currículo...';
+
+  try {
+    const curriculoTexto = await extractTextFromPDF(file);
+
+    statusMsg.innerText = 'Enviando para análise...';
+
+    const response = await fetch('http://localhost:5678/webhook/gerar-cv', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Auth-Token': token
+      },
+      body: JSON.stringify({
+        nome,
+        nome_vaga: nomeVaga,
+        email,
+        vaga,
+        curriculo_texto: curriculoTexto
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error('Erro HTTP: ' + response.status);
     }
 
-    statusMsg.style.display = 'block';
-    statusMsg.innerText = 'Processando currículo...';
+    form.style.display = 'none';
+    statusMsg.innerText = '✅ Tudo certo! Aguarde o currículo no seu e-mail.';
 
-    try {
-      const curriculoTexto = await extractTextFromPDF(file);
-      statusMsg.innerText = 'Validando token e enviando para análise...';
-
-      const response = await fetch('http://localhost:5678/webhook/gerar-cv', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Auth-Token': token // Envio do Token no Header
-        },
-        body: JSON.stringify({
-          nome,
-          nome_vaga: nomeVaga,
-          email,
-          vaga,
-          curriculo_texto: curriculoTexto
-        })
-      });
-
-      // Se o n8n retornar erro de autorização
-      if (response.status === 401 || response.status === 403) {
-        throw new Error('Token inválido ou expirado.');
-      }
-
-      form.style.display = 'none';
-      statusMsg.innerText = '✅ Tudo certo! Caso seu token seja válido, você receberá o currículo otimizado via e-mail.';
-
-    } catch (err) {
-      console.error(err);
-      statusMsg.innerText = '❌ Não foi possível validar seu token. :(';
-    }
-  });
+  } catch (err) {
+    console.error('ERRO REAL:', err);
+    alert(err.message);
+  }
+});
 </script>
+
 </body>
 </html>
