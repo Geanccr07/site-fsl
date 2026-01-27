@@ -109,15 +109,18 @@ form.addEventListener('submit', async (e) => {
     const curriculoTexto = await extractTextFromPDF(file);
     statusMsg.innerText = 'Enviando para análise...';
 
-    const response = await fetch('https://stenothermal-alondra-punctuative.ngrok-free.dev', {
+    // A URL deve terminar exatamente com /webhook/gerar-cv
+    const response = await fetch('https://stenothermal-alondra-punctuative.ngrok-free.dev/webhook/gerar-cv', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Auth-Token': token
+        'X-Auth-Token': token,
+        // ESTA LINHA É OBRIGATÓRIA para contas gratuitas do ngrok:
+        'ngrok-skip-browser-warning': 'true' 
       },
       body: JSON.stringify({
         nome,
-        linkedin_url, // Envia para o n8n
+        linkedin_url,
         nome_vaga: nomeVaga,
         email,
         vaga,
