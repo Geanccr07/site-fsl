@@ -3,14 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Gere seu currículo otimizado em segundos</title>
-
   <meta name="robots" content="noindex, nofollow">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 
@@ -18,19 +15,21 @@
 
 <section class="section">
   <div class="container">
-
     <h1>Gere seu currículo otimizado em segundos</h1>
-
     <p style="text-align:center">
       Envie seu currículo e a descrição da vaga.<br>
       Você receberá o currículo adaptado para ATS via e-mail.
     </p>
 
     <form id="cvForm" class="form-box">
-
       <label>
         Seu nome
         <input type="text" name="nome" required placeholder="Seu nome completo">
+      </label>
+
+      <label>
+        Seu perfil do LinkedIn
+        <input type="url" name="linkedin_url" required placeholder="https://www.linkedin.com/in/seu-perfil">
       </label>
 
       <label>
@@ -59,20 +58,15 @@
       </label>
 
       <button type="submit">Gerar currículo</button>
-
     </form>
 
     <p id="statusMsg" style="display:none;margin-top:2rem;text-align:center;"></p>
-
   </div>
 </section>
 
-<!-- PDFJS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-  'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 </script>
 
 <script>
@@ -82,17 +76,13 @@ const statusMsg = document.getElementById('statusMsg');
 async function extractTextFromPDF(file) {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-
   let fullText = '';
-
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
-
     const pageText = textContent.items.map(item => item.str).join(' ');
     fullText += pageText + '\n\n';
   }
-
   return fullText;
 }
 
@@ -100,11 +90,11 @@ form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const nome = form.nome.value;
+  const linkedin_url = form.linkedin_url.value; // Captura o valor do novo campo
   const nomeVaga = form.nome_vaga.value;
   const email = form.email.value;
   const token = form.token.value;
   const vaga = form.vaga.value;
-
   const file = document.getElementById('curriculo').files[0];
 
   if (!file) {
@@ -117,7 +107,6 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const curriculoTexto = await extractTextFromPDF(file);
-
     statusMsg.innerText = 'Enviando para análise...';
 
     const response = await fetch('http://localhost:5678/webhook/gerar-cv', {
@@ -128,6 +117,7 @@ form.addEventListener('submit', async (e) => {
       },
       body: JSON.stringify({
         nome,
+        linkedin_url, // Envia para o n8n
         nome_vaga: nomeVaga,
         email,
         vaga,
@@ -140,7 +130,7 @@ form.addEventListener('submit', async (e) => {
     }
 
     form.style.display = 'none';
-    statusMsg.innerText = '✅ Tudo certo! Aguarde o currículo no seu e-mail.';
+    statusMsg.innerHTML = '<b style="color:green">✅ Tudo certo! Aguarde o currículo no seu e-mail.</b>';
 
   } catch (err) {
     console.error('ERRO REAL:', err);
@@ -148,6 +138,5 @@ form.addEventListener('submit', async (e) => {
   }
 });
 </script>
-
 </body>
 </html>
