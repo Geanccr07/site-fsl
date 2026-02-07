@@ -2,53 +2,62 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Nossos serviços</title>
+  <title>Nossos serviços | First Step Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
     :root {
       --primary: #ff6a00;
-      --green: #2ecc71;
-      --green-dark: #27ae60;
+      --primary-soft: #fff4ee;
       --text-dark: #111;
       --text-light: #555;
-      --bg-soft: #fff4ee;
     }
 
     body {
       background: #fafafa;
-      margin: 0;
     }
 
-    /* HEADER */
+    /* =====================
+       HEADER
+    ===================== */
     header {
-      background: #fff;
-      border-bottom: 1px solid #eee;
+      background: #ff7b00;
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 10;
     }
 
-    header nav {
+    header .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header nav {
       display: flex;
       gap: 24px;
     }
 
     header a {
+      color: #fff;
       text-decoration: none;
-      color: var(--text-dark);
-      font-weight: 600;
+      font-weight: 500;
+      opacity: 0.9;
     }
 
-    header a.active {
-      color: var(--primary);
+    header a:hover {
+      opacity: 1;
     }
 
+    /* =====================
+       SECTION
+    ===================== */
     .packages-section {
       max-width: 1200px;
       margin: 100px auto;
@@ -56,20 +65,29 @@
     }
 
     .packages-header {
+      text-align: center;
       max-width: 720px;
       margin: 0 auto 70px;
-      text-align: center;
     }
 
     .packages-header h1 {
       font-size: 44px;
       margin-bottom: 18px;
+      color: var(--text-dark);
     }
 
-    .packages-header span {
+    .packages-header h1 span {
       color: var(--primary);
     }
 
+    .packages-header p {
+      font-size: 18px;
+      color: var(--text-light);
+    }
+
+    /* =====================
+       PACKAGES GRID
+    ===================== */
     .packages-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -82,52 +100,53 @@
       border-radius: 18px;
       padding: 32px 28px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      cursor: pointer;
+      transition: .25s;
       border: 2px solid transparent;
-      transition: all .25s ease;
       position: relative;
     }
 
     .package-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       box-shadow: 0 18px 45px rgba(0,0,0,0.12);
       border-color: var(--primary);
     }
 
-    .btn-details {
-      margin-top: 22px;
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 2px solid var(--primary);
-      background: transparent;
-      font-weight: 600;
-      cursor: pointer;
+    .package-card h3 {
+      font-size: 22px;
+      margin-bottom: 12px;
     }
 
-    .btn-details:hover {
-      background: var(--primary);
-      color: #fff;
+    .package-card p {
+      font-size: 15px;
+      color: var(--text-light);
     }
 
-    /* DESTAQUE GRATUITO */
+    /* =====================
+       FREE PACKAGE HIGHLIGHT
+    ===================== */
     .package-card.free {
-      background: linear-gradient(135deg, #e8f9f0, #d1f2e3);
-      border-color: var(--green);
-      transform: scale(1.05);
+      background: var(--primary-soft);
+      border-color: var(--primary);
     }
 
-    .badge-free {
+    .package-card.free::before {
+      content: "Recomendado para começar";
       position: absolute;
       top: -14px;
-      right: 20px;
-      background: var(--green);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
       color: #fff;
       padding: 6px 14px;
       border-radius: 999px;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 600;
     }
 
-    /* SMART CV */
+    /* =====================
+       SMART CV
+    ===================== */
     .smartcv-section {
       background: linear-gradient(135deg, #fff4ee, #fff);
       border-radius: 26px;
@@ -135,7 +154,43 @@
       display: grid;
       grid-template-columns: 1.2fr 1fr;
       gap: 40px;
+      align-items: center;
       box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+
+    .smartcv-badge {
+      background: var(--primary);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+
+    .smartcv-content h2 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .smartcv-content p {
+      font-size: 17px;
+      color: var(--text-light);
+      margin-bottom: 26px;
+    }
+
+    .smartcv-list li {
+      margin-bottom: 10px;
+      color: var(--text-light);
+    }
+
+    .smartcv-cta {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+      text-align: center;
     }
 
     .btn-primary {
@@ -144,98 +199,122 @@
       padding: 15px;
       background: var(--primary);
       color: #fff;
-      border-radius: 12px;
-      text-align: center;
-      font-weight: 600;
       text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
     }
 
-    /* MODAL */
+    /* =====================
+       MODAL
+    ===================== */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,.7);
+      background: rgba(0,0,0,0.65);
+      z-index: 999;
       justify-content: center;
       align-items: center;
-      z-index: 999;
     }
 
     .modal-box {
       background: #fff;
-      max-width: 500px;
+      max-width: 520px;
       width: 100%;
-      border-radius: 20px;
-      padding: 30px;
+      padding: 36px;
+      border-radius: 22px;
       position: relative;
     }
 
     .modal-close {
       position: absolute;
-      top: 14px;
+      top: 16px;
       right: 18px;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 22px;
+    }
+
+    @media (max-width: 900px) {
+      .smartcv-section {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 
 <body>
 
+<!-- HEADER -->
 <header>
-  <nav>
-    <a href="/">Home</a>
-    <a href="/servicos" class="active">Serviços</a>
-    <a href="/sobre">Sobre</a>
-    <a href="/blog">Blog</a>
-  </nav>
+  <div class="container">
+    <strong style="color:#fff;">First Step Lab</strong>
+    <nav>
+      <a href="/">Início</a>
+      <a href="/servicos/">Serviços</a>
+      <a href="/comunidade/">Comunidade</a>
+      <a href="/contato/">Contato</a>
+    </nav>
+  </div>
 </header>
 
 <section class="packages-section">
+
   <div class="packages-header">
-    <h1>Escolha o caminho para sua <span>evolução profissional</span></h1>
+    <h1>
+      Escolha o melhor caminho <br>
+      para sua <span>carreira</span>
+    </h1>
+    <p>Planos acessíveis + ferramentas inteligentes para acelerar sua aprovação.</p>
   </div>
 
+  <!-- PACOTES -->
   <div class="packages-grid">
-    <div class="package-card free">
-      <span class="badge-free">Mais escolhido</span>
+
+    <div class="package-card free" onclick="openModal('gratuito')">
       <h3>Pacote Gratuito</h3>
-      <p>Comunidade e mentorias coletivas.</p>
-      <button class="btn-details" onclick="openModal('gratuito')">Ver detalhes</button>
+      <p>Acesso à comunidade, networking e mentorias coletivas.</p>
     </div>
 
-    <div class="package-card">
+    <div class="package-card" onclick="openModal('junior')">
       <h3>Pacote Júnior</h3>
-      <p>LinkedIn e currículo estratégico.</p>
-      <button class="btn-details" onclick="openModal('junior')">Ver detalhes</button>
+      <p>LinkedIn estratégico e currículo otimizado.</p>
     </div>
 
-    <div class="package-card">
+    <div class="package-card" onclick="openModal('pleno')">
       <h3>Pacote Pleno</h3>
-      <p>Diagnóstico completo.</p>
-      <button class="btn-details" onclick="openModal('pleno')">Ver detalhes</button>
+      <p>Diagnóstico completo de perfil e direcionamento.</p>
     </div>
 
-    <div class="package-card">
+    <div class="package-card" onclick="openModal('senior')">
       <h3>Pacote Sênior</h3>
-      <p>Simulações e ferramentas avançadas.</p>
-      <button class="btn-details" onclick="openModal('senior')">Ver detalhes</button>
+      <p>Simulação real de entrevistas e ferramentas avançadas.</p>
     </div>
-  </div>
-</section>
 
-<section class="packages-section">
-  <div class="smartcv-section">
-    <div>
-      <h2>Smart CV</h2>
-      <p>Currículos automáticos otimizados para ATS.</p>
-    </div>
-    <div>
-      <a href="https://wa.me/5542988071146?text=Quero%20o%20Smart%20CV" class="btn-primary" target="_blank">
-        Acessar Smart CV
-      </a>
-    </div>
   </div>
+
+  <!-- SMART CV -->
+  <div class="smartcv-section">
+
+    <div class="smartcv-content">
+      <span class="smartcv-badge">Ferramenta</span>
+      <h2>Smart CV</h2>
+      <p>Crie currículos personalizados para cada vaga em segundos usando automação inteligente.</p>
+
+      <ul class="smartcv-list">
+        <li>✔ Currículo adaptado para cada vaga</li>
+        <li>✔ Otimizado para ATS</li>
+        <li>✔ Sem assinatura</li>
+      </ul>
+    </div>
+
+    <div class="smartcv-cta">
+      <h3>Use quando precisar</h3>
+      <p>Pague apenas pelo uso.</p>
+      <a href="/smart-cv/" class="btn-primary">Acessar Smart CV</a>
+    </div>
+
+  </div>
+
 </section>
 
 <!-- MODAL -->
@@ -252,22 +331,38 @@
   const packages = {
     gratuito: {
       title: "Pacote Gratuito",
-      items: ["Comunidade", "Mentorias", "Networking"],
+      items: [
+        "Comunidade gratuita",
+        "Networking",
+        "Mentorias coletivas"
+      ],
       link: "https://firststeplab.com.br/#leadForm"
     },
     junior: {
       title: "Pacote Júnior",
-      items: ["LinkedIn", "Currículo", "Mentoria"],
+      items: [
+        "Mentoria individual",
+        "LinkedIn estratégico",
+        "Revisão de currículo"
+      ],
       link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20j%C3%BAnior."
     },
     pleno: {
       title: "Pacote Pleno",
-      items: ["Diagnóstico", "E-book"],
+      items: [
+        "Tudo do Júnior",
+        "Diagnóstico de perfil",
+        "E-book exclusivo"
+      ],
       link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20pleno."
     },
     senior: {
       title: "Pacote Sênior",
-      items: ["Simulações", "Smart CV"],
+      items: [
+        "Tudo do Pleno",
+        "Simulação de entrevista",
+        "Acesso ao Smart CV"
+      ],
       link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20s%C3%AAnior."
     }
   };
@@ -278,9 +373,9 @@
 
     const list = document.getElementById("modalList");
     list.innerHTML = "";
-    data.items.forEach(i => {
+    data.items.forEach(item => {
       const li = document.createElement("li");
-      li.textContent = i;
+      li.textContent = item;
       list.appendChild(li);
     });
 
