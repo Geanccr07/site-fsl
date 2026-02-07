@@ -2,43 +2,78 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Nossos Pacotes</title>
+  <title>Pacotes de Mentoria</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- CSS global do seu site -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
-    /* Ajustes específicos da página */
-    .packages {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      max-width: 1100px;
-      margin: 40px auto;
+    :root {
+      --primary: #ff6a00; /* ajuste se o laranja exato for outro */
+      --text-dark: #111;
+      --text-light: #555;
+      --bg-soft: #fff4ee;
+    }
+
+    .packages-section {
+      max-width: 1200px;
+      margin: 80px auto;
       padding: 0 20px;
+    }
+
+    .packages-header {
+      max-width: 600px;
+      margin-bottom: 50px;
+    }
+
+    .packages-header h1 {
+      font-size: 42px;
+      line-height: 1.2;
+      color: var(--text-dark);
+    }
+
+    .packages-header h1 span {
+      color: var(--primary);
+    }
+
+    .packages-header p {
+      margin-top: 16px;
+      font-size: 18px;
+      color: var(--text-light);
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
     }
 
     .package-card {
       background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
       cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform .2s ease, box-shadow .2s ease;
+      border: 2px solid transparent;
     }
 
     .package-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      border-color: var(--primary);
     }
 
     .package-card h3 {
-      margin-bottom: 10px;
+      font-size: 22px;
+      margin-bottom: 12px;
+      color: var(--text-dark);
     }
 
-    .package-card ul {
-      padding-left: 18px;
+    .package-card p {
+      font-size: 15px;
+      color: var(--text-light);
+      line-height: 1.5;
     }
 
     /* MODAL */
@@ -47,78 +82,109 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.6);
+      z-index: 999;
       justify-content: center;
       align-items: center;
-      z-index: 999;
     }
 
-    .modal-content {
+    .modal-box {
       background: #fff;
-      max-width: 500px;
-      width: 90%;
-      border-radius: 12px;
-      padding: 25px;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 20px;
+      padding: 32px;
       position: relative;
+    }
+
+    .modal-box h3 {
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .modal-box ul {
+      padding-left: 18px;
+      margin-bottom: 30px;
+    }
+
+    .modal-box li {
+      margin-bottom: 10px;
+      color: var(--text-light);
     }
 
     .modal-close {
       position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 20px;
+      top: 18px;
+      right: 22px;
+      font-size: 22px;
       cursor: pointer;
+      color: #999;
     }
 
-    .modal-content ul {
-      padding-left: 18px;
-    }
-
-    .btn-whatsapp {
+    .btn-primary {
       display: inline-block;
-      margin-top: 20px;
-      padding: 12px 18px;
-      background: #25d366;
+      padding: 14px 22px;
+      background: var(--primary);
       color: #fff;
       text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: opacity .2s ease;
+    }
+
+    .btn-primary:hover {
+      opacity: 0.9;
     }
   </style>
 </head>
+
 <body>
 
-<section class="packages">
+<section class="packages-section">
 
-  <div class="package-card" onclick="openModal('gratuito')">
-    <h3>Pacote Gratuito</h3>
-    <p>Comece pela comunidade</p>
+  <div class="packages-header">
+    <h1>
+      Escolha o pacote ideal <br>
+      para sua <span>evolução profissional</span>
+    </h1>
+    <p>
+      Do primeiro passo até a preparação avançada para entrevistas e posicionamento no mercado.
+    </p>
   </div>
 
-  <div class="package-card" onclick="openModal('junior')">
-    <h3>Pacote Júnior</h3>
-    <p>Primeiro passo profissional</p>
-  </div>
+  <div class="packages-grid">
 
-  <div class="package-card" onclick="openModal('pleno')">
-    <h3>Pacote Pleno</h3>
-    <p>Evolução estratégica</p>
-  </div>
+    <div class="package-card" onclick="openModal('gratuito')">
+      <h3>Pacote Gratuito</h3>
+      <p>Acesso à comunidade, networking e mentorias coletivas.</p>
+    </div>
 
-  <div class="package-card" onclick="openModal('senior')">
-    <h3>Pacote Sênior</h3>
-    <p>Preparação completa</p>
+    <div class="package-card" onclick="openModal('junior')">
+      <h3>Pacote Júnior</h3>
+      <p>LinkedIn estratégico e currículo pronto para processos seletivos.</p>
+    </div>
+
+    <div class="package-card" onclick="openModal('pleno')">
+      <h3>Pacote Pleno</h3>
+      <p>Diagnóstico completo de perfil e desenvolvimento profissional.</p>
+    </div>
+
+    <div class="package-card" onclick="openModal('senior')">
+      <h3>Pacote Sênior</h3>
+      <p>Simulação real de entrevistas e ferramentas avançadas.</p>
+    </div>
+
   </div>
 
 </section>
 
 <!-- MODAL -->
 <div class="modal" id="modal">
-  <div class="modal-content">
-    <span class="modal-close" onclick="closeModal()">✖</span>
-    <h3 id="modal-title"></h3>
-    <ul id="modal-list"></ul>
-    <a id="modal-link" class="btn-whatsapp" target="_blank">
-      Adquirir pelo WhatsApp
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal()">✕</span>
+    <h3 id="modalTitle"></h3>
+    <ul id="modalList"></ul>
+    <a id="modalLink" class="btn-primary" target="_blank">
+      Quero esse pacote
     </a>
   </div>
 </div>
@@ -128,55 +194,56 @@
     gratuito: {
       title: "Pacote Gratuito",
       items: [
-        "Comunidade gratuita (Networking, dúvidas)",
+        "Comunidade gratuita (Networking e dúvidas)",
         "Grupo específico para quem é de dados",
-        "1 consultoria coletiva de Linkedin gratuita",
-        "1 consultoria coletiva de Linkedin e Networking para tech"
+        "1 consultoria coletiva de LinkedIn",
+        "1 consultoria coletiva de LinkedIn e Networking para tech"
       ],
-      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Gratuito"
+      link: "#"
     },
     junior: {
       title: "Pacote Júnior",
       items: [
-        "1 mentoria individual de Linkedin",
-        "Análise SSI do seu perfil",
-        "Revisão de currículo"
+        "1 mentoria individual de LinkedIn",
+        "Análise SSI do perfil",
+        "Revisão completa de currículo"
       ],
-      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Júnior"
+      link: "#"
     },
     pleno: {
       title: "Pacote Pleno",
       items: [
-        "Tudo do pacote Júnior",
-        "Diagnóstico de perfil (DISC, mentalidade, estilo de aprendizagem)",
+        "Tudo do Pacote Júnior",
+        "Diagnóstico de perfil (DISC)",
+        "Mentalidade e estilo de aprendizagem",
         "E-book exclusivo"
       ],
-      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Pleno"
+      link: "#"
     },
     senior: {
       title: "Pacote Sênior",
       items: [
-        "Tudo do pacote Pleno",
+        "Tudo do Pacote Pleno",
         "Simulação de entrevista",
         "Acesso ao Smart CV"
       ],
-      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Sênior"
+      link: "#"
     }
   };
 
   function openModal(type) {
     const data = packages[type];
-    document.getElementById("modal-title").innerText = data.title;
+    document.getElementById("modalTitle").innerText = data.title;
 
-    const list = document.getElementById("modal-list");
+    const list = document.getElementById("modalList");
     list.innerHTML = "";
     data.items.forEach(item => {
       const li = document.createElement("li");
-      li.innerText = item;
+      li.textContent = item;
       list.appendChild(li);
     });
 
-    document.getElementById("modal-link").href = data.link;
+    document.getElementById("modalLink").href = data.link;
     document.getElementById("modal").style.display = "flex";
   }
 
