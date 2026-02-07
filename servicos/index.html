@@ -10,6 +10,8 @@
   <style>
     :root {
       --primary: #ff6a00;
+      --green: #2ecc71;
+      --green-dark: #27ae60;
       --text-dark: #111;
       --text-light: #555;
       --bg-soft: #fff4ee;
@@ -62,26 +64,9 @@
       border-radius: 18px;
       padding: 32px 28px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-      transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
+      transition: all .25s ease;
       border: 2px solid transparent;
       position: relative;
-    }
-
-    .package-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 6px;
-      background: var(--primary);
-      opacity: 0;
-      transition: opacity .25s ease;
-      border-radius: 18px 18px 0 0;
-    }
-
-    .package-card:hover::before {
-      opacity: 1;
     }
 
     .package-card:hover {
@@ -117,6 +102,42 @@
 
     .btn-details:hover {
       background: var(--primary);
+      color: #fff;
+    }
+
+    /* 🔥 DESTAQUE PACOTE GRATUITO */
+    .package-card.free {
+      background: linear-gradient(135deg, #e8f9f0, #d1f2e3);
+      border: 2px solid var(--green);
+      box-shadow: 0 20px 45px rgba(46, 204, 113, 0.35);
+      transform: scale(1.05);
+    }
+
+    .package-card.free:hover {
+      transform: scale(1.08) translateY(-6px);
+      box-shadow: 0 28px 60px rgba(46, 204, 113, 0.45);
+    }
+
+    .badge-free {
+      position: absolute;
+      top: -14px;
+      right: 20px;
+      background: var(--green);
+      color: #fff;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .free .btn-details {
+      border-color: var(--green);
+      color: var(--green-dark);
+    }
+
+    .free .btn-details:hover {
+      background: var(--green);
       color: #fff;
     }
 
@@ -169,17 +190,6 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
     }
 
-    .smartcv-cta h3 {
-      font-size: 22px;
-      margin-bottom: 12px;
-    }
-
-    .smartcv-cta p {
-      font-size: 15px;
-      color: var(--text-light);
-      margin-bottom: 24px;
-    }
-
     .btn-primary {
       display: inline-block;
       width: 100%;
@@ -190,81 +200,6 @@
       border-radius: 12px;
       font-weight: 600;
       text-align: center;
-      transition: opacity .2s ease;
-    }
-
-    .btn-primary:hover {
-      opacity: 0.9;
-    }
-
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      z-index: 999;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-
-    .modal-box {
-      background: #fff;
-      width: 100%;
-      max-width: 540px;
-      border-radius: 22px;
-      overflow: hidden;
-      animation: fadeUp .3s ease;
-    }
-
-    @keyframes fadeUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .modal-header {
-      background: var(--bg-soft);
-      padding: 28px 32px;
-      position: relative;
-    }
-
-    .modal-header h3 {
-      font-size: 26px;
-      margin: 0;
-      color: var(--text-dark);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 18px;
-      right: 22px;
-      font-size: 22px;
-      cursor: pointer;
-      color: #999;
-    }
-
-    .modal-body {
-      padding: 30px 32px;
-    }
-
-    .modal-body ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 30px;
-    }
-
-    .modal-body li {
-      margin-bottom: 12px;
-      color: var(--text-light);
-      font-size: 15px;
-    }
-
-    .modal-body li::before {
-      content: "✔";
-      color: var(--primary);
-      margin-right: 10px;
-      font-weight: bold;
     }
 
     @media (max-width: 900px) {
@@ -274,6 +209,10 @@
 
       .packages-header h1 {
         font-size: 34px;
+      }
+
+      .package-card.free {
+        transform: scale(1);
       }
     }
   </style>
@@ -288,15 +227,13 @@
       Escolha o caminho ideal<br>
       para sua <span>evolução profissional</span>
     </h1>
-    <p>
-      Todo o suporte que você precisa para acelerar sua aprovação.
-    </p>
+    <p>Todo o suporte que você precisa para acelerar sua aprovação.</p>
   </div>
 
-  <!-- PACOTES -->
   <div class="packages-grid">
 
-    <div class="package-card">
+    <div class="package-card free">
+      <span class="badge-free">Mais escolhido</span>
       <h3>Pacote Gratuito</h3>
       <p>Acesso à comunidade, networking e mentorias coletivas.</p>
       <button class="btn-details" onclick="openModal('gratuito')">Ver detalhes</button>
@@ -322,52 +259,7 @@
 
   </div>
 
-  <!-- SMART CV -->
-  <div class="smartcv-section">
-
-    <div class="smartcv-content">
-      <span class="smartcv-badge">Ferramenta</span>
-      <h2>Smart CV</h2>
-      <p>
-        Gere currículos personalizados para cada vaga em poucos segundos,
-        adaptados à descrição da vaga e otimizados para ATS.
-      </p>
-
-      <ul class="smartcv-list">
-        <li>✔ Currículo adaptado para cada vaga</li>
-        <li>✔ Palavras-chave estratégicas</li>
-        <li>✔ Processo 100% automatizado</li>
-      </ul>
-    </div>
-
-    <div class="smartcv-cta">
-      <h3>Melhore seu currículo em segundos</h3>
-      <p>Até 30 créditos por mês</p>
-      <a href="https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20quero%20contratar%20o%20Smart%20CV." class="btn-primary">Acessar Smart CV</a>
-    </div>
-
-  </div>
-
 </section>
-
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-
-    <div class="modal-header">
-      <h3 id="modalTitle"></h3>
-      <span class="modal-close" onclick="closeModal()">✕</span>
-    </div>
-
-    <div class="modal-body">
-      <ul id="modalList"></ul>
-      <a id="modalLink" class="btn-primary" target="_blank">
-        Quero esse pacote
-      </a>
-    </div>
-
-  </div>
-</div>
 
 <script>
   const packages = {
@@ -378,7 +270,7 @@
         "Grupo específico para dados",
         "Consultoria coletiva de LinkedIn"
       ],
-      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20gratuito."
+      link: "https://wa.me/5542988071146"
     },
     junior: {
       title: "Pacote Júnior",
@@ -387,7 +279,7 @@
         "Análise SSI do perfil",
         "Revisão completa de currículo"
       ],
-      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20j%C3%BAnior."
+      link: "https://wa.me/5542988071146"
     },
     pleno: {
       title: "Pacote Pleno",
@@ -396,7 +288,7 @@
         "Diagnóstico de perfil",
         "E-book exclusivo"
       ],
-      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20pleno."
+      link: "https://wa.me/5542988071146"
     },
     senior: {
       title: "Pacote Sênior",
@@ -405,29 +297,9 @@
         "Simulação de entrevista",
         "Acesso ao Smart CV"
       ],
-      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20s%C3%AAnior."
+      link: "https://wa.me/5542988071146"
     }
   };
-
-  function openModal(type) {
-    const data = packages[type];
-    document.getElementById("modalTitle").innerText = data.title;
-
-    const list = document.getElementById("modalList");
-    list.innerHTML = "";
-    data.items.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = item;
-      list.appendChild(li);
-    });
-
-    document.getElementById("modalLink").href = data.link;
-    document.getElementById("modal").style.display = "flex";
-  }
-
-  function closeModal() {
-    document.getElementById("modal").style.display = "none";
-  }
 </script>
 
 </body>
