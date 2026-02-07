@@ -2,34 +2,42 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Nossos serviços</title>
+  <title>Nossos serviços | First Step Lab</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="/assets/css/style.css">
 
   <style>
     :root {
-      --primary: #ff6a00; /* ajuste se o laranja exato for outro */
+      --primary: #ff6a00;
       --text-dark: #111;
       --text-light: #555;
       --bg-soft: #fff4ee;
     }
 
+    body {
+      background: #fafafa;
+    }
+
+    /* SECTION */
     .packages-section {
       max-width: 1200px;
-      margin: 80px auto;
+      margin: 100px auto;
       padding: 0 20px;
     }
 
+    /* HEADER */
     .packages-header {
-      max-width: 600px;
-      margin-bottom: 50px;
+      max-width: 700px;
+      margin: 0 auto 70px;
+      text-align: center;
     }
 
     .packages-header h1 {
-      font-size: 42px;
+      font-size: 44px;
       line-height: 1.2;
       color: var(--text-dark);
+      margin-bottom: 18px;
     }
 
     .packages-header h1 span {
@@ -37,30 +45,49 @@
     }
 
     .packages-header p {
-      margin-top: 16px;
       font-size: 18px;
       color: var(--text-light);
     }
 
+    /* GRID */
     .packages-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
+      gap: 28px;
     }
 
+    /* CARD */
     .package-card {
       background: #fff;
-      border-radius: 16px;
-      padding: 28px;
+      border-radius: 18px;
+      padding: 32px 28px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
       cursor: pointer;
-      transition: transform .2s ease, box-shadow .2s ease;
+      transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
       border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .package-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: var(--primary);
+      opacity: 0;
+      transition: opacity .25s ease;
+    }
+
+    .package-card:hover::before {
+      opacity: 1;
     }
 
     .package-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      transform: translateY(-8px);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
       border-color: var(--primary);
     }
 
@@ -73,7 +100,7 @@
     .package-card p {
       font-size: 15px;
       color: var(--text-light);
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     /* MODAL */
@@ -81,34 +108,49 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.65);
       z-index: 999;
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
     .modal-box {
       background: #fff;
       width: 100%;
       max-width: 520px;
-      border-radius: 20px;
-      padding: 32px;
+      border-radius: 22px;
+      padding: 36px 32px;
       position: relative;
+      animation: fadeUp .25s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .modal-box h3 {
       font-size: 26px;
-      margin-bottom: 20px;
+      margin-bottom: 22px;
+      color: var(--text-dark);
     }
 
     .modal-box ul {
       padding-left: 18px;
-      margin-bottom: 30px;
+      margin-bottom: 32px;
     }
 
     .modal-box li {
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       color: var(--text-light);
+      line-height: 1.5;
     }
 
     .modal-close {
@@ -117,22 +159,30 @@
       right: 22px;
       font-size: 22px;
       cursor: pointer;
-      color: #999;
+      color: #aaa;
     }
 
     .btn-primary {
       display: inline-block;
-      padding: 14px 22px;
+      width: 100%;
+      padding: 15px;
       background: var(--primary);
       color: #fff;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 12px;
       font-weight: 600;
+      text-align: center;
       transition: opacity .2s ease;
     }
 
     .btn-primary:hover {
       opacity: 0.9;
+    }
+
+    @media (max-width: 600px) {
+      .packages-header h1 {
+        font-size: 34px;
+      }
     }
   </style>
 </head>
@@ -143,11 +193,11 @@
 
   <div class="packages-header">
     <h1>
-      Escolha o pacote ideal <br>
+      Escolha o pacote ideal<br>
       para sua <span>evolução profissional</span>
     </h1>
     <p>
-      Do primeiro passo até a conquista da sua vaga. Por um preço justo.
+      Do primeiro passo até a conquista da sua vaga. Mentoria prática, direta e acessível.
     </p>
   </div>
 
@@ -155,22 +205,22 @@
 
     <div class="package-card" onclick="openModal('gratuito')">
       <h3>Pacote Gratuito</h3>
-      <p>Acesso à comunidade, networking e mentorias coletivas.</p>
+      <p>Acesso à comunidade, networking e mentorias coletivas para começar com segurança.</p>
     </div>
 
     <div class="package-card" onclick="openModal('junior')">
       <h3>Pacote Júnior</h3>
-      <p>LinkedIn estratégico e currículo pronto para processos seletivos.</p>
+      <p>LinkedIn estratégico e currículo alinhado com o que o mercado realmente busca.</p>
     </div>
 
     <div class="package-card" onclick="openModal('pleno')">
       <h3>Pacote Pleno</h3>
-      <p>Diagnóstico completo de perfil e desenvolvimento profissional.</p>
+      <p>Diagnóstico completo de perfil e direcionamento profissional personalizado.</p>
     </div>
 
     <div class="package-card" onclick="openModal('senior')">
       <h3>Pacote Sênior</h3>
-      <p>Simulação real de entrevistas e ferramentas avançadas.</p>
+      <p>Simulações reais de entrevista e acesso a ferramentas avançadas.</p>
     </div>
 
   </div>
