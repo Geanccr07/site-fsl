@@ -467,9 +467,11 @@ form button {
   .testimonial {
     min-width: 280px;
     max-width: 300px;
+    flex: 0 0 auto; /* 🔥 ESSENCIAL */
   }
 
   .testimonial-track {
+    gap: 16px;
     animation-duration: 46s;
   }
 }
