@@ -416,7 +416,7 @@ form button {
 .testimonial-track {
   display: flex;
   gap: 24px;
-  animation: slideTestimonials 36s linear infinite;
+  animation: slideTestimonials 20s linear infinite;
 }
 
 /* CARD */
