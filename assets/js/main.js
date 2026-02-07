@@ -59,7 +59,6 @@ form.addEventListener("submit", async (e) => {
   const whatsapp = onlyNumbers(whatsappInput.value);
   const area = areaInput.value;
 
-  /* VALIDAÇÕES */
   if (!nome) {
     showError(nomeInput, "Por favor, informe seu nome.");
     return;
@@ -130,3 +129,31 @@ form.addEventListener("submit", async (e) => {
     submitBtn.innerText = "Acessar comunidade";
   }
 });
+
+/* =====================
+   CARROSSEL DE DEPOIMENTOS (SETAS)
+===================== */
+const track = document.getElementById("testimonialTrack");
+const prevBtn = document.querySelector(".carousel-btn.prev");
+const nextBtn = document.querySelector(".carousel-btn.next");
+
+if (track && prevBtn && nextBtn) {
+  const scrollAmount = () => {
+    const card = track.querySelector(".testimonial");
+    return card ? card.offsetWidth + 24 : 320; // largura + gap
+  };
+
+  nextBtn.addEventListener("click", () => {
+    track.scrollBy({
+      left: scrollAmount(),
+      behavior: "smooth"
+    });
+  });
+
+  prevBtn.addEventListener("click", () => {
+    track.scrollBy({
+      left: -scrollAmount(),
+      behavior: "smooth"
+    });
+  });
+}
