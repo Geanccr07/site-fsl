@@ -401,37 +401,53 @@ form button {
 /* =====================
    DEPOIMENTOS
 ===================== */
-.testimonial {
-  background: var(--white);
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
-
-.testimonial span {
-  display: block;
-  margin-top: 1rem;
-  font-size: 0.85rem;
-  color: var(--gray-text);
-}
-
-/* =====================
-   CARROSSEL DE DEPOIMENTOS
-===================== */
 .testimonials h2 {
   text-align: center;
   margin-bottom: 40px;
 }
 
+/* área visível do carrossel */
 .testimonial-carousel {
   overflow: hidden;
   position: relative;
 }
 
+/* trilha animada */
 .testimonial-track {
   display: flex;
   gap: 24px;
-  animation: slideTestimonials 32s linear infinite;
+  animation: slideTestimonials 36s linear infinite;
+}
+
+/* CARD */
+.testimonial {
+  background: var(--white);
+  padding: 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+
+  /* 🔥 AQUI ESTÁ O PRINCIPAL */
+  min-width: 320px;
+  max-width: 360px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* texto do depoimento */
+.testimonial p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-dark);
+}
+
+/* autor */
+.testimonial span {
+  margin-top: 1.2rem;
+  font-size: 0.85rem;
+  color: var(--gray-text);
+  font-weight: 500;
 }
 
 /* animação */
@@ -444,10 +460,17 @@ form button {
   }
 }
 
-/* mobile */
+/* =====================
+   MOBILE
+===================== */
 @media (max-width: 768px) {
+  .testimonial {
+    min-width: 280px;
+    max-width: 300px;
+  }
+
   .testimonial-track {
-    animation-duration: 42s;
+    animation-duration: 46s;
   }
 }
 
