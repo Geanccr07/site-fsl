@@ -472,7 +472,7 @@ form button {
 
   .testimonial-track {
     gap: 16px;
-    animation-duration: 16s; /* 🔥 bem mais rápido */
+    animation-duration: 8s; /* 🔥 bem mais rápido */
   }
 }
 
