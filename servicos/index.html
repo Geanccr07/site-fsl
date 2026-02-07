@@ -130,19 +130,22 @@
       border-color: var(--primary);
     }
 
-    .package-card.free::before {
-      content: "Recomendado para começar";
-      position: absolute;
-      top: -14px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--primary);
-      color: #fff;
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-    }
+.package-card.free::before {
+  content: "Recomendado";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: 4px 10px;        /* MENOR */
+  border-radius: 999px;
+  font-size: 11px;         /* MENOR */
+  font-weight: 600;
+  letter-spacing: 0.3px;   /* dá um ar mais premium */
+  white-space: nowrap;     /* evita quebrar linha */
+}
+
 
     /* =====================
        SMART CV
