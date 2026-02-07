@@ -1,1 +1,189 @@
-teste
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Nossos Pacotes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- CSS global do seu site -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <style>
+    /* Ajustes específicos da página */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .package-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .package-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    }
+
+    .package-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .package-card ul {
+      padding-left: 18px;
+    }
+
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal-content {
+      background: #fff;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 12px;
+      padding: 25px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .modal-content ul {
+      padding-left: 18px;
+    }
+
+    .btn-whatsapp {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 18px;
+      background: #25d366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<section class="packages">
+
+  <div class="package-card" onclick="openModal('gratuito')">
+    <h3>Pacote Gratuito</h3>
+    <p>Comece pela comunidade</p>
+  </div>
+
+  <div class="package-card" onclick="openModal('junior')">
+    <h3>Pacote Júnior</h3>
+    <p>Primeiro passo profissional</p>
+  </div>
+
+  <div class="package-card" onclick="openModal('pleno')">
+    <h3>Pacote Pleno</h3>
+    <p>Evolução estratégica</p>
+  </div>
+
+  <div class="package-card" onclick="openModal('senior')">
+    <h3>Pacote Sênior</h3>
+    <p>Preparação completa</p>
+  </div>
+
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">✖</span>
+    <h3 id="modal-title"></h3>
+    <ul id="modal-list"></ul>
+    <a id="modal-link" class="btn-whatsapp" target="_blank">
+      Adquirir pelo WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+  const packages = {
+    gratuito: {
+      title: "Pacote Gratuito",
+      items: [
+        "Comunidade gratuita (Networking, dúvidas)",
+        "Grupo específico para quem é de dados",
+        "1 consultoria coletiva de Linkedin gratuita",
+        "1 consultoria coletiva de Linkedin e Networking para tech"
+      ],
+      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Gratuito"
+    },
+    junior: {
+      title: "Pacote Júnior",
+      items: [
+        "1 mentoria individual de Linkedin",
+        "Análise SSI do seu perfil",
+        "Revisão de currículo"
+      ],
+      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Júnior"
+    },
+    pleno: {
+      title: "Pacote Pleno",
+      items: [
+        "Tudo do pacote Júnior",
+        "Diagnóstico de perfil (DISC, mentalidade, estilo de aprendizagem)",
+        "E-book exclusivo"
+      ],
+      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Pleno"
+    },
+    senior: {
+      title: "Pacote Sênior",
+      items: [
+        "Tudo do pacote Pleno",
+        "Simulação de entrevista",
+        "Acesso ao Smart CV"
+      ],
+      link: "https://wa.me/55SEUNUMERO?text=Tenho%20interesse%20no%20Pacote%20Sênior"
+    }
+  };
+
+  function openModal(type) {
+    const data = packages[type];
+    document.getElementById("modal-title").innerText = data.title;
+
+    const list = document.getElementById("modal-list");
+    list.innerHTML = "";
+    data.items.forEach(item => {
+      const li = document.createElement("li");
+      li.innerText = item;
+      list.appendChild(li);
+    });
+
+    document.getElementById("modal-link").href = data.link;
+    document.getElementById("modal").style.display = "flex";
+  }
+
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+</script>
+
+</body>
+</html>
