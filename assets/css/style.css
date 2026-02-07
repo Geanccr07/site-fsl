@@ -416,6 +416,43 @@ form button {
 }
 
 /* =====================
+   CARROSSEL DE DEPOIMENTOS
+===================== */
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.testimonial-carousel {
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonial-track {
+  display: flex;
+  gap: 24px;
+  animation: slideTestimonials 32s linear infinite;
+}
+
+/* animação */
+@keyframes slideTestimonials {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .testimonial-track {
+    animation-duration: 42s;
+  }
+}
+
+
+/* =====================
    FOOTER
 ===================== */
 
