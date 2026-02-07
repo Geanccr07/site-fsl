@@ -282,6 +282,104 @@
   opacity: 1;
 }
 
+/* =====================
+   MOBILE AJUSTES
+===================== */
+@media (max-width: 768px) {
+
+  /* HEADER */
+  header .container {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  header nav {
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* SECTION */
+  .packages-section {
+    margin: 60px auto;
+  }
+
+  /* HEADER TEXTO */
+  .packages-header {
+    margin-bottom: 50px;
+  }
+
+  .packages-header h1 {
+    font-size: 28px;
+    line-height: 1.3;
+  }
+
+  .packages-header p {
+    font-size: 15px;
+  }
+
+  /* PACKAGES */
+  .packages-grid {
+    gap: 20px;
+    margin-bottom: 60px;
+  }
+
+  .package-card {
+    padding: 26px 22px;
+  }
+
+  .package-card h3 {
+    font-size: 20px;
+  }
+
+  /* SMART CV */
+  .smartcv-section {
+    grid-template-columns: 1fr;   /* 🔥 PRINCIPAL CORREÇÃO */
+    padding: 36px 24px;
+    gap: 28px;
+  }
+
+  .smartcv-content h2 {
+    font-size: 28px;
+  }
+
+  .smartcv-content p {
+    font-size: 15px;
+  }
+
+  .smartcv-list li {
+    font-size: 14px;
+  }
+
+  /* SMART CV CTA */
+  .smartcv-cta {
+    padding: 28px 22px;
+  }
+
+  .smartcv-cta h3 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .btn-primary {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* MODAL */
+  .modal-box {
+    padding: 36px 26px;
+  }
+
+  .modal-box h3 {
+    font-size: 22px;
+  }
+
+  .modal-box li {
+    font-size: 14px;
+  }
+}
+
   </style>
 </head>
 
