@@ -19,7 +19,6 @@
       background: #fafafa;
     }
 
-    /* SECTION */
     .packages-section {
       max-width: 1200px;
       margin: 100px auto;
@@ -28,7 +27,7 @@
 
     /* HEADER */
     .packages-header {
-      max-width: 700px;
+      max-width: 720px;
       margin: 0 auto 70px;
       text-align: center;
     }
@@ -54,6 +53,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 28px;
+      margin-bottom: 90px;
     }
 
     /* CARD */
@@ -66,7 +66,6 @@
       transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
       border: 2px solid transparent;
       position: relative;
-      overflow: hidden;
     }
 
     .package-card::before {
@@ -103,63 +102,64 @@
       line-height: 1.6;
     }
 
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.65);
-      z-index: 999;
-      justify-content: center;
+    /* SMART CV */
+    .smartcv-section {
+      background: linear-gradient(135deg, #fff4ee, #ffffff);
+      border-radius: 26px;
+      padding: 50px 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 40px;
       align-items: center;
-      padding: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
     }
 
-    .modal-box {
-      background: #fff;
-      width: 100%;
-      max-width: 520px;
-      border-radius: 22px;
-      padding: 36px 32px;
-      position: relative;
-      animation: fadeUp .25s ease;
+    .smartcv-badge {
+      display: inline-block;
+      background: var(--primary);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .modal-box h3 {
-      font-size: 26px;
-      margin-bottom: 22px;
+    .smartcv-content h2 {
+      font-size: 36px;
+      margin-bottom: 18px;
       color: var(--text-dark);
     }
 
-    .modal-box ul {
-      padding-left: 18px;
-      margin-bottom: 32px;
-    }
-
-    .modal-box li {
-      margin-bottom: 12px;
+    .smartcv-content p {
+      font-size: 17px;
       color: var(--text-light);
-      line-height: 1.5;
+      line-height: 1.6;
+      margin-bottom: 28px;
     }
 
-    .modal-close {
-      position: absolute;
-      top: 18px;
-      right: 22px;
+    .smartcv-list li {
+      margin-bottom: 10px;
+      color: var(--text-light);
+    }
+
+    .smartcv-cta {
+      text-align: center;
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .smartcv-cta h3 {
       font-size: 22px;
-      cursor: pointer;
-      color: #aaa;
+      margin-bottom: 12px;
+    }
+
+    .smartcv-cta p {
+      font-size: 15px;
+      color: var(--text-light);
+      margin-bottom: 24px;
     }
 
     .btn-primary {
@@ -179,7 +179,41 @@
       opacity: 0.9;
     }
 
-    @media (max-width: 600px) {
+    /* MODAL */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 999;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-box {
+      background: #fff;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 22px;
+      padding: 36px 32px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 18px;
+      right: 22px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    @media (max-width: 900px) {
+      .smartcv-section {
+        grid-template-columns: 1fr;
+      }
+
       .packages-header h1 {
         font-size: 34px;
       }
@@ -193,41 +227,70 @@
 
   <div class="packages-header">
     <h1>
-      Escolha o pacote ideal<br>
+      Escolha o caminho ideal<br>
       para sua <span>evolução profissional</span>
     </h1>
     <p>
-      Do primeiro passo até a conquista da sua vaga. Mentoria prática, direta e acessível.
+      Mentorias, diagnóstico e agora uma ferramenta inteligente para acelerar sua aprovação.
     </p>
   </div>
 
+  <!-- PACOTES -->
   <div class="packages-grid">
-
     <div class="package-card" onclick="openModal('gratuito')">
       <h3>Pacote Gratuito</h3>
-      <p>Acesso à comunidade, networking e mentorias coletivas para começar com segurança.</p>
+      <p>Acesso à comunidade, networking e mentorias coletivas.</p>
     </div>
 
     <div class="package-card" onclick="openModal('junior')">
       <h3>Pacote Júnior</h3>
-      <p>LinkedIn estratégico e currículo alinhado com o que o mercado realmente busca.</p>
+      <p>LinkedIn estratégico e currículo alinhado ao mercado.</p>
     </div>
 
     <div class="package-card" onclick="openModal('pleno')">
       <h3>Pacote Pleno</h3>
-      <p>Diagnóstico completo de perfil e direcionamento profissional personalizado.</p>
+      <p>Diagnóstico completo de perfil e direcionamento profissional.</p>
     </div>
 
     <div class="package-card" onclick="openModal('senior')">
       <h3>Pacote Sênior</h3>
-      <p>Simulações reais de entrevista e acesso a ferramentas avançadas.</p>
+      <p>Simulações reais de entrevista e ferramentas avançadas.</p>
+    </div>
+  </div>
+
+  <!-- SMART CV -->
+  <div class="smartcv-section">
+
+    <div class="smartcv-content">
+      <span class="smartcv-badge">Ferramenta</span>
+      <h2>Smart CV</h2>
+      <p>
+        Gere currículos personalizados para cada vaga em poucos segundos.
+        Nossa automação adapta seu currículo com base na descrição da vaga,
+        aumentando suas chances de ser chamado.
+      </p>
+
+      <ul class="smartcv-list">
+        <li>✔ Currículo adaptado para cada vaga</li>
+        <li>✔ Palavras-chave alinhadas ao ATS</li>
+        <li>✔ Processo 100% automatizado</li>
+        <li>✔ Uso avulso, sem assinatura</li>
+      </ul>
+    </div>
+
+    <div class="smartcv-cta">
+      <h3>Use o Smart CV agora</h3>
+      <p>Pague apenas quando precisar. Sem planos.</p>
+      <a href="#" class="btn-primary">
+        Acessar Smart CV
+      </a>
     </div>
 
   </div>
 
 </section>
 
-<!-- MODAL -->
+<!-- MODAL (mantido igual) -->
 <div class="modal" id="modal">
   <div class="modal-box">
     <span class="modal-close" onclick="closeModal()">✕</span>
@@ -244,28 +307,26 @@
     gratuito: {
       title: "Pacote Gratuito",
       items: [
-        "Comunidade gratuita (Networking e dúvidas)",
-        "Grupo específico para quem é de dados",
-        "1 consultoria coletiva de LinkedIn",
-        "1 consultoria coletiva de LinkedIn e Networking para tech"
+        "Comunidade gratuita",
+        "Grupo específico para dados",
+        "Consultoria coletiva de LinkedIn"
       ],
       link: "#"
     },
     junior: {
       title: "Pacote Júnior",
       items: [
-        "1 mentoria individual de LinkedIn",
-        "Análise SSI do perfil",
-        "Revisão completa de currículo"
+        "Mentoria individual",
+        "Análise SSI",
+        "Revisão de currículo"
       ],
       link: "#"
     },
     pleno: {
       title: "Pacote Pleno",
       items: [
-        "Tudo do Pacote Júnior",
-        "Diagnóstico de perfil (DISC)",
-        "Mentalidade e estilo de aprendizagem",
+        "Tudo do Júnior",
+        "Diagnóstico de perfil",
         "E-book exclusivo"
       ],
       link: "#"
@@ -273,7 +334,7 @@
     senior: {
       title: "Pacote Sênior",
       items: [
-        "Tudo do Pacote Pleno",
+        "Tudo do Pleno",
         "Simulação de entrevista",
         "Acesso ao Smart CV"
       ],
