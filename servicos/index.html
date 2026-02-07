@@ -62,7 +62,6 @@
       border-radius: 18px;
       padding: 32px 28px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-      cursor: pointer;
       transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
       border: 2px solid transparent;
       position: relative;
@@ -78,6 +77,7 @@
       background: var(--primary);
       opacity: 0;
       transition: opacity .25s ease;
+      border-radius: 18px 18px 0 0;
     }
 
     .package-card:hover::before {
@@ -100,6 +100,24 @@
       font-size: 15px;
       color: var(--text-light);
       line-height: 1.6;
+    }
+
+    .btn-details {
+      margin-top: 22px;
+      padding: 12px 16px;
+      width: 100%;
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+
+    .btn-details:hover {
+      background: var(--primary);
+      color: #fff;
     }
 
     /* SMART CV */
@@ -184,7 +202,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.65);
+      background: rgba(0,0,0,0.7);
       z-index: 999;
       justify-content: center;
       align-items: center;
@@ -194,10 +212,27 @@
     .modal-box {
       background: #fff;
       width: 100%;
-      max-width: 520px;
+      max-width: 540px;
       border-radius: 22px;
-      padding: 36px 32px;
+      overflow: hidden;
+      animation: fadeUp .3s ease;
+    }
+
+    @keyframes fadeUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      background: var(--bg-soft);
+      padding: 28px 32px;
       position: relative;
+    }
+
+    .modal-header h3 {
+      font-size: 26px;
+      margin: 0;
+      color: var(--text-dark);
     }
 
     .modal-close {
@@ -206,7 +241,30 @@
       right: 22px;
       font-size: 22px;
       cursor: pointer;
-      color: #aaa;
+      color: #999;
+    }
+
+    .modal-body {
+      padding: 30px 32px;
+    }
+
+    .modal-body ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 30px;
+    }
+
+    .modal-body li {
+      margin-bottom: 12px;
+      color: var(--text-light);
+      font-size: 15px;
+    }
+
+    .modal-body li::before {
+      content: "✔";
+      color: var(--primary);
+      margin-right: 10px;
+      font-weight: bold;
     }
 
     @media (max-width: 900px) {
@@ -237,25 +295,31 @@
 
   <!-- PACOTES -->
   <div class="packages-grid">
-    <div class="package-card" onclick="openModal('gratuito')">
+
+    <div class="package-card">
       <h3>Pacote Gratuito</h3>
       <p>Acesso à comunidade, networking e mentorias coletivas.</p>
+      <button class="btn-details" onclick="openModal('gratuito')">Ver detalhes</button>
     </div>
 
-    <div class="package-card" onclick="openModal('junior')">
+    <div class="package-card">
       <h3>Pacote Júnior</h3>
       <p>LinkedIn estratégico e currículo alinhado ao mercado.</p>
+      <button class="btn-details" onclick="openModal('junior')">Ver detalhes</button>
     </div>
 
-    <div class="package-card" onclick="openModal('pleno')">
+    <div class="package-card">
       <h3>Pacote Pleno</h3>
       <p>Diagnóstico completo de perfil e direcionamento profissional.</p>
+      <button class="btn-details" onclick="openModal('pleno')">Ver detalhes</button>
     </div>
 
-    <div class="package-card" onclick="openModal('senior')">
+    <div class="package-card">
       <h3>Pacote Sênior</h3>
       <p>Simulações reais de entrevista e ferramentas avançadas.</p>
+      <button class="btn-details" onclick="openModal('senior')">Ver detalhes</button>
     </div>
+
   </div>
 
   <!-- SMART CV -->
@@ -265,14 +329,13 @@
       <span class="smartcv-badge">Ferramenta</span>
       <h2>Smart CV</h2>
       <p>
-        Gere currículos personalizados para cada vaga em poucos segundos.
-        Nossa automação adapta seu currículo com base na descrição da vaga,
-        aumentando suas chances de ser chamado.
+        Gere currículos personalizados para cada vaga em poucos segundos,
+        adaptados à descrição da vaga e otimizados para ATS.
       </p>
 
       <ul class="smartcv-list">
         <li>✔ Currículo adaptado para cada vaga</li>
-        <li>✔ Palavras-chave alinhadas ao ATS</li>
+        <li>✔ Palavras-chave estratégicas</li>
         <li>✔ Processo 100% automatizado</li>
       </ul>
     </div>
@@ -280,24 +343,29 @@
     <div class="smartcv-cta">
       <h3>Use o Smart CV agora</h3>
       <p>30 créditos por mês</p>
-      <a href="#" class="btn-primary">
-        Acessar Smart CV
-      </a>
+      <a href="#" class="btn-primary">Acessar Smart CV</a>
     </div>
 
   </div>
 
 </section>
 
-<!-- MODAL (mantido igual) -->
+<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="modal-box">
-    <span class="modal-close" onclick="closeModal()">✕</span>
-    <h3 id="modalTitle"></h3>
-    <ul id="modalList"></ul>
-    <a id="modalLink" class="btn-primary" target="_blank">
-      Quero esse pacote
-    </a>
+
+    <div class="modal-header">
+      <h3 id="modalTitle"></h3>
+      <span class="modal-close" onclick="closeModal()">✕</span>
+    </div>
+
+    <div class="modal-body">
+      <ul id="modalList"></ul>
+      <a id="modalLink" class="btn-primary" target="_blank">
+        Quero esse pacote
+      </a>
+    </div>
+
   </div>
 </div>
 
@@ -316,15 +384,15 @@
       title: "Pacote Júnior",
       items: [
         "Mentoria individual",
-        "Análise SSI",
-        "Revisão de currículo"
+        "Análise SSI do perfil",
+        "Revisão completa de currículo"
       ],
       link: "#"
     },
     pleno: {
       title: "Pacote Pleno",
       items: [
-        "Tudo do Júnior",
+        "Tudo do Pacote Júnior",
         "Diagnóstico de perfil",
         "E-book exclusivo"
       ],
@@ -333,7 +401,7 @@
     senior: {
       title: "Pacote Sênior",
       items: [
-        "Tudo do Pleno",
+        "Tudo do Pacote Pleno",
         "Simulação de entrevista",
         "Acesso ao Smart CV"
       ],
