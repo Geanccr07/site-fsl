@@ -406,43 +406,42 @@ form button {
   margin-bottom: 40px;
 }
 
-/* área visível do carrossel */
-.testimonial-carousel {
-  overflow: hidden;
+/* wrapper geral */
+.testimonial-wrapper {
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
-/* trilha animada */
+/* área visível */
+.testimonial-carousel {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* trilha */
 .testimonial-track {
   display: flex;
   gap: 24px;
-  animation: slideTestimonials 20s linear infinite;
+  scroll-behavior: smooth;
 }
 
-/* CARD */
+/* card */
 .testimonial {
   background: var(--white);
   padding: 1.8rem;
   border-radius: 18px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-
-  /* 🔥 AQUI ESTÁ O PRINCIPAL */
   min-width: 320px;
   max-width: 360px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex: 0 0 auto;
 }
 
-/* texto do depoimento */
 .testimonial p {
   font-size: 0.95rem;
   line-height: 1.6;
-  color: var(--text-dark);
 }
 
-/* autor */
 .testimonial span {
   margin-top: 1.2rem;
   font-size: 0.85rem;
@@ -450,29 +449,34 @@ form button {
   font-weight: 500;
 }
 
-/* animação */
-@keyframes slideTestimonials {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+/* botões */
+.carousel-btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* =====================
-   MOBILE
-===================== */
+.carousel-btn:hover {
+  opacity: 0.9;
+}
+
+/* mobile */
 @media (max-width: 768px) {
+  .carousel-btn {
+    display: none;
+  }
+
   .testimonial {
     min-width: 280px;
     max-width: 300px;
-    flex: 0 0 auto;
-  }
-
-  .testimonial-track {
-    gap: 16px;
-    animation-duration: 8s; /* 🔥 bem mais rápido */
   }
 }
 
