@@ -211,12 +211,11 @@
    MODAL
 ===================== */
 .modal {
-  display: none;
+  display: none; /* agora respeitado */
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.65);
   z-index: 999;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
@@ -225,45 +224,37 @@
   background: #fff;
   max-width: 520px;
   width: 90%;
-  padding: 48px 42px;              /* MAIS RESPIRO */
+  padding: 48px 42px;
   border-radius: 24px;
   position: relative;
   box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  text-align: center; /* alinhamento geral */
 }
 
-/* TÍTULO */
-.modal-box h2 {
-  text-align: center;              /* CENTRALIZA */
+.modal-box h3 {
   margin-bottom: 24px;
   font-size: 26px;
   font-weight: 700;
 }
 
-/* LISTA */
 .modal-box ul {
-  margin: 0 0 36px 0;              /* SEPARAÇÃO DO CTA */
-  padding-left: 22px;
+  margin: 0 0 36px 0;
+  padding-left: 0;
+  list-style: none;
 }
 
 .modal-box li {
-  margin-bottom: 12px;             /* RESPIRO ENTRE ITENS */
+  margin-bottom: 12px;
   line-height: 1.6;
   font-size: 16px;
 }
 
-/* BOTÃO CTA */
-.modal-box .btn,
-.modal-box button {
-  display: block;
-  margin: 0 auto;                  /* CENTRALIZA CTA */
-  padding: 16px 28px;
-  font-size: 16px;
+.modal-box li::before {
+  content: "✔ ";
+  color: var(--primary);
   font-weight: 600;
-  border-radius: 14px;
-  min-width: 260px;
 }
 
-/* BOTÃO FECHAR */
 .modal-close {
   position: absolute;
   top: 18px;
@@ -271,7 +262,6 @@
   cursor: pointer;
   font-size: 22px;
   opacity: 0.6;
-  transition: opacity 0.2s ease;
 }
 
 .modal-close:hover {
