@@ -406,20 +406,17 @@ form button {
   margin-bottom: 40px;
 }
 
-/* wrapper geral */
 .testimonial-wrapper {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* área visível */
 .testimonial-carousel {
   overflow: hidden;
   width: 100%;
 }
 
-/* trilha */
 .testimonial-track {
   display: flex;
   gap: 24px;
@@ -449,44 +446,9 @@ form button {
   font-weight: 500;
 }
 
-/* botões */
-.carousel-btn {
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 22px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.carousel-btn:hover {
-  opacity: 0.9;
-}
-
-/* mobile */
-@media (max-width: 768px) {
-  .carousel-btn {
-    display: none;
-  }
-
-  .testimonial {
-    min-width: 280px;
-    max-width: 300px;
-  }
-}
-
 /* =====================
-   SETAS DO CARROSSEL
+   SETAS
 ===================== */
-.testimonial-carousel {
-  position: relative;
-}
-
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -511,17 +473,22 @@ form button {
 }
 
 .carousel-btn.prev {
-  left: -18px;
+  left: -20px;
 }
 
 .carousel-btn.next {
-  right: -18px;
+  right: -20px;
 }
 
 /* =====================
    MOBILE
 ===================== */
 @media (max-width: 768px) {
+  .testimonial {
+    min-width: 280px;
+    max-width: 300px;
+  }
+
   .carousel-btn {
     width: 36px;
     height: 36px;
@@ -529,15 +496,13 @@ form button {
   }
 
   .carousel-btn.prev {
-    left: -8px;
+    left: 8px;
   }
 
   .carousel-btn.next {
-    right: -8px;
+    right: 8px;
   }
 }
-
-
 
 
 /* =====================
