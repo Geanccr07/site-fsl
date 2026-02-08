@@ -133,27 +133,35 @@ form.addEventListener("submit", async (e) => {
 /* =====================
    CARROSSEL DE DEPOIMENTOS (SETAS)
 ===================== */
-const track = document.getElementById("testimonialTrack");
-const prevBtn = document.querySelector(".carousel-btn.prev");
-const nextBtn = document.querySelector(".carousel-btn.next");
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("testimonialTrack");
+  const prevBtn = document.querySelector(".carousel-btn.prev");
+  const nextBtn = document.querySelector(".carousel-btn.next");
 
-if (track && prevBtn && nextBtn) {
-  const scrollAmount = () => {
+  if (!track || !prevBtn || !nextBtn) return;
+
+  function getScrollAmount() {
     const card = track.querySelector(".testimonial");
-    return card ? card.offsetWidth + 24 : 320; // largura + gap
-  };
+    if (!card) return 300;
+
+    const style = getComputedStyle(track);
+    const gap = parseInt(style.columnGap || style.gap || 0);
+
+    return card.offsetWidth + gap;
+  }
 
   nextBtn.addEventListener("click", () => {
     track.scrollBy({
-      left: scrollAmount(),
+      left: getScrollAmount(),
       behavior: "smooth"
     });
   });
 
   prevBtn.addEventListener("click", () => {
     track.scrollBy({
-      left: -scrollAmount(),
+      left: -getScrollAmount(),
       behavior: "smooth"
     });
   });
-}
+});
+
