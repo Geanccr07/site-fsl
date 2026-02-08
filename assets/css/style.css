@@ -401,19 +401,29 @@ form button {
 /* =====================
    DEPOIMENTOS
 ===================== */
+/* Container principal da seção */
+.testimonials {
+  padding: 60px 20px;
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
 .testimonials h2 {
   text-align: center;
   margin-bottom: 40px;
 }
 
+/* O wrapper deve ser relativo para as setas "grudarem" nele */
 .testimonial-wrapper {
   position: relative;
   display: flex;
   align-items: center;
+  padding: 0 10px;
 }
 
 .testimonial-carousel {
-  overflow: hidden;
+  overflow: hidden; /* Esconde o que sai da lateral */
   width: 100%;
 }
 
@@ -421,89 +431,56 @@ form button {
   display: flex;
   gap: 24px;
   scroll-behavior: smooth;
+  /* Esconde a barra de rolagem em diferentes browsers */
+  scrollbar-width: none; 
+}
+.testimonial-track::-webkit-scrollbar {
+  display: none;
 }
 
-/* card */
-.testimonial {
-  background: var(--white);
-  padding: 1.8rem;
-  border-radius: 18px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-  min-width: 320px;
-  max-width: 360px;
-  flex: 0 0 auto;
-}
-
-.testimonial p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.testimonial span {
-  margin-top: 1.2rem;
-  font-size: 0.85rem;
-  color: var(--gray-text);
-  font-weight: 500;
-}
-
-/* =====================
-   SETAS
-===================== */
+/* Estilo das Setas */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: var(--primary);
+  background: var(--primary, #007bff);
   color: #fff;
   border: none;
-  width: 42px;
-  height: 42px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
-  font-size: 26px;
+  font-size: 30px;
   cursor: pointer;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity: 0.9;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .carousel-btn:hover {
-  opacity: 1;
+  transform: translateY(-50%) scale(1.1);
+  background: var(--primary-dark, #0056b3);
 }
 
 .carousel-btn.prev {
-  left: -20px;
+  left: -20px; /* Ajuste para fora do card, mas dentro da seção */
 }
 
 .carousel-btn.next {
   right: -20px;
 }
 
-/* =====================
-   MOBILE
-===================== */
 @media (max-width: 768px) {
-  .testimonial {
-    min-width: 280px;
-    max-width: 300px;
-  }
-
   .carousel-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 22px;
+    width: 35px;
+    height: 35px;
+    font-size: 20px;
   }
-
-  .carousel-btn.prev {
-    left: 8px;
-  }
-
-  .carousel-btn.next {
-    right: 8px;
-  }
+  .carousel-btn.prev { left: 5px; }
+  .carousel-btn.next { right: 5px; }
 }
-
 
 /* =====================
    FOOTER
