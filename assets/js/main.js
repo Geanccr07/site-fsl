@@ -131,37 +131,27 @@ form.addEventListener("submit", async (e) => {
 });
 
 /* =====================
-   CARROSSEL DE DEPOIMENTOS (SETAS)
+   CARROSSEL DEPOIMENTOS
 ===================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("testimonialTrack");
-  const prevBtn = document.querySelector(".carousel-btn.prev");
-  const nextBtn = document.querySelector(".carousel-btn.next");
+const track = document.querySelector(".testimonial-track");
+const btnPrev = document.querySelector(".carousel-btn.prev");
+const btnNext = document.querySelector(".carousel-btn.next");
 
-  if (!track || !prevBtn || !nextBtn) return;
+if (track && btnPrev && btnNext) {
+  const scrollAmount = 360; // largura do card + gap
 
-  function getScrollAmount() {
-    const card = track.querySelector(".testimonial");
-    if (!card) return 300;
-
-    const style = getComputedStyle(track);
-    const gap = parseInt(style.columnGap || style.gap || 0);
-
-    return card.offsetWidth + gap;
-  }
-
-  nextBtn.addEventListener("click", () => {
+  btnNext.addEventListener("click", () => {
     track.scrollBy({
-      left: getScrollAmount(),
+      left: scrollAmount,
       behavior: "smooth"
     });
   });
 
-  prevBtn.addEventListener("click", () => {
+  btnPrev.addEventListener("click", () => {
     track.scrollBy({
-      left: -getScrollAmount(),
+      left: -scrollAmount,
       behavior: "smooth"
     });
   });
-});
+}
 
