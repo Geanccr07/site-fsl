@@ -480,6 +480,64 @@ form button {
   }
 }
 
+/* =====================
+   SETAS DO CARROSSEL
+===================== */
+.testimonial-carousel {
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+
+.carousel-btn:hover {
+  opacity: 1;
+}
+
+.carousel-btn.prev {
+  left: -18px;
+}
+
+.carousel-btn.next {
+  right: -18px;
+}
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 768px) {
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+
+  .carousel-btn.prev {
+    left: -8px;
+  }
+
+  .carousel-btn.next {
+    right: -8px;
+  }
+}
+
+
 
 
 /* =====================
