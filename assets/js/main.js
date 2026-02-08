@@ -121,33 +121,44 @@ form.addEventListener("submit", async (e) => {
    CARROSSEL DEPOIMENTOS
 ===================== */
 document.addEventListener("DOMContentLoaded", () => {
-  const wrapper = document.querySelector(".testimonial-wrapper");
-  
-  if (wrapper) {
-    const track = wrapper.querySelector(".testimonial-track");
-    const btnPrev = wrapper.querySelector(".carousel-btn.prev");
-    const btnNext = wrapper.querySelector(".carousel-btn.next");
+  // Alterado para buscar o novo container e os IDs específicos
+  const track = document.getElementById("testimonialTrack");
+  const btnPrev = document.getElementById("prevBtn");
+  const btnNext = document.getElementById("nextBtn");
 
-    if (track && btnPrev && btnNext) {
-      // Função para pegar a largura de um card + gap
-      const getScrollAmount = () => {
-        const item = track.querySelector(".testimonial");
-        return item ? item.offsetWidth + 24 : 300;
-      };
+  // Verificamos se todos os elementos existem na página antes de rodar
+  if (track && btnPrev && btnNext) {
+    
+    // Função para calcular o quanto o carrossel deve andar
+    const getScrollAmount = () => {
+      const item = track.querySelector(".testimonial");
+      // Retorna a largura do card + o espaçamento (gap) de 24px
+      return item ? item.offsetWidth + 24 : 300;
+    };
 
-      btnNext.addEventListener("click", () => {
-        track.scrollBy({
-          left: getScrollAmount(),
-          behavior: "smooth"
-        });
+    // Evento do botão "Próximo"
+    btnNext.addEventListener("click", () => {
+      track.scrollBy({
+        left: getScrollAmount(),
+        behavior: "smooth"
       });
+    });
 
-      btnPrev.addEventListener("click", () => {
-        track.scrollBy({
-          left: -getScrollAmount(),
-          behavior: "smooth"
-        });
+    // Evento do botão "Anterior"
+    btnPrev.addEventListener("click", () => {
+      track.scrollBy({
+        left: -getScrollAmount(),
+        behavior: "smooth"
       });
-    }
+    });
+
+    // Opcional: Pausar o scroll suave se o usuário arrastar manualmente (melhora a experiência)
+    track.addEventListener("mousedown", () => {
+      track.style.scrollBehavior = "auto";
+    });
+    
+    track.addEventListener("mouseup", () => {
+      track.style.scrollBehavior = "smooth";
+    });
   }
 });
