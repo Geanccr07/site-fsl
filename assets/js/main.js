@@ -90,12 +90,7 @@ form.addEventListener("submit", async (e) => {
       "https://script.google.com/macros/s/AKfycby6pVcpFOqa8jkEFDPlxdQ_PeSautByDoTaZXkqTLVz5dBgD40sZObCxfMbmj2C5p4M/exec",
       {
         method: "POST",
-        body: JSON.stringify({
-          nome,
-          email,
-          whatsapp,
-          area
-        })
+        body: JSON.stringify({ nome, email, whatsapp, area })
       }
     );
 
@@ -112,46 +107,41 @@ form.addEventListener("submit", async (e) => {
       }, 1500);
 
     } else {
-      showError(
-        submitBtn,
-        "Erro ao enviar os dados. Tente novamente."
-      );
-      submitBtn.disabled = false;
-      submitBtn.innerText = "Acessar comunidade";
+      throw new Error("Erro ao enviar");
     }
 
   } catch (error) {
-    showError(
-      submitBtn,
-      "Erro de conexão. Tente novamente."
-    );
+    showError(submitBtn, "Erro de conexão. Tente novamente.");
     submitBtn.disabled = false;
     submitBtn.innerText = "Acessar comunidade";
   }
 });
 
 /* =====================
-   CARROSSEL DEPOIMENTOS
+   CARROSSEL DEPOIMENTOS (CORRIGIDO)
 ===================== */
-const track = document.querySelector(".testimonial-track");
-const btnPrev = document.querySelector(".carousel-btn.prev");
-const btnNext = document.querySelector(".carousel-btn.next");
+const testimonialSection = document.querySelector(".testimonials");
 
-if (track && btnPrev && btnNext) {
-  const scrollAmount = 360; // largura do card + gap
+if (testimonialSection) {
+  const track = testimonialSection.querySelector(".testimonial-track");
+  const btnPrev = testimonialSection.querySelector(".carousel-btn.prev");
+  const btnNext = testimonialSection.querySelector(".carousel-btn.next");
 
-  btnNext.addEventListener("click", () => {
-    track.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth"
+  if (track && btnPrev && btnNext) {
+    const scrollAmount = track.querySelector(".testimonial").offsetWidth + 24;
+
+    btnNext.addEventListener("click", () => {
+      track.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth"
+      });
     });
-  });
 
-  btnPrev.addEventListener("click", () => {
-    track.scrollBy({
-      left: -scrollAmount,
-      behavior: "smooth"
+    btnPrev.addEventListener("click", () => {
+      track.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth"
+      });
     });
-  });
+  }
 }
-
