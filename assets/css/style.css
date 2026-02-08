@@ -404,16 +404,23 @@ form button {
 
 /* 1. Fundo da Seção Inteira (Rosado) */
 .section-primary-soft.testimonials {
-  background-color: #fdf2f0; /* Ajuste para o seu tom de rosa */
+  background-color: #fdf2f0; 
   padding: 80px 0;
+}
+
+/* NOVO: Centralização do Título da Seção */
+.testimonials h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  width: 100%;
 }
 
 /* 2. Container de controle */
 .testimonial-container {
   position: relative;
-  max-width: 1000px; /* Largura controlada para não espalhar muito */
+  max-width: 1000px; 
   margin: 0 auto;
-  padding: 0 50px; /* Espaço para as setas não ficarem em cima do texto */
+  padding: 0 50px; 
 }
 
 /* 3. O "Trilho" onde os cards deslizam */
@@ -423,7 +430,7 @@ form button {
   scroll-behavior: smooth;
   overflow-x: auto;
   scrollbar-width: none;
-  padding: 20px 5px; /* Espaço para a sombra não cortar */
+  padding: 20px 5px; 
 }
 
 .testimonial-track::-webkit-scrollbar {
@@ -432,13 +439,13 @@ form button {
 
 /* 4. O Card de Depoimento (Branco) */
 .testimonial {
-  background: #ffffff; /* Fundo Branco */
+  background: #ffffff; 
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); 
   
   /* RESPONSIVIDADE: */
-  flex: 0 0 calc(50% - 12px); /* Mostra 2 cards no Desktop */
+  flex: 0 0 calc(50% - 12px); 
   min-width: calc(50% - 12px);
   
   display: flex;
@@ -457,11 +464,12 @@ form button {
   color: #333;
   margin-bottom: 1.5rem;
   font-style: italic;
+  text-align: left; /* Garante que o texto do depoimento continue à esquerda */
 }
 
 .testimonial span {
   font-weight: 600;
-  color: var(--primary, #ff5722); /* Cor de destaque no nome */
+  color: var(--primary, #ff5722); 
   font-size: 0.9rem;
 }
 
@@ -491,7 +499,7 @@ form button {
 /* 6. Ajustes para Celular (Mobile) */
 @media (max-width: 768px) {
   .testimonial {
-    flex: 0 0 100%; /* Mostra apenas 1 card por vez no celular */
+    flex: 0 0 100%; 
     min-width: 100%;
   }
 
@@ -504,6 +512,8 @@ form button {
     height: 36px;
   }
 }
+
+
 /* =====================
    FOOTER
 ===================== */
