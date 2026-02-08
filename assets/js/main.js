@@ -118,30 +118,36 @@ form.addEventListener("submit", async (e) => {
 });
 
 /* =====================
-   CARROSSEL DEPOIMENTOS (CORRIGIDO)
+   CARROSSEL DEPOIMENTOS
 ===================== */
-const testimonialSection = document.querySelector(".testimonials");
+document.addEventListener("DOMContentLoaded", () => {
+  const wrapper = document.querySelector(".testimonial-wrapper");
+  
+  if (wrapper) {
+    const track = wrapper.querySelector(".testimonial-track");
+    const btnPrev = wrapper.querySelector(".carousel-btn.prev");
+    const btnNext = wrapper.querySelector(".carousel-btn.next");
 
-if (testimonialSection) {
-  const track = testimonialSection.querySelector(".testimonial-track");
-  const btnPrev = testimonialSection.querySelector(".carousel-btn.prev");
-  const btnNext = testimonialSection.querySelector(".carousel-btn.next");
+    if (track && btnPrev && btnNext) {
+      // Função para pegar a largura de um card + gap
+      const getScrollAmount = () => {
+        const item = track.querySelector(".testimonial");
+        return item ? item.offsetWidth + 24 : 300;
+      };
 
-  if (track && btnPrev && btnNext) {
-    const scrollAmount = track.querySelector(".testimonial").offsetWidth + 24;
-
-    btnNext.addEventListener("click", () => {
-      track.scrollBy({
-        left: scrollAmount,
-        behavior: "smooth"
+      btnNext.addEventListener("click", () => {
+        track.scrollBy({
+          left: getScrollAmount(),
+          behavior: "smooth"
+        });
       });
-    });
 
-    btnPrev.addEventListener("click", () => {
-      track.scrollBy({
-        left: -scrollAmount,
-        behavior: "smooth"
+      btnPrev.addEventListener("click", () => {
+        track.scrollBy({
+          left: -getScrollAmount(),
+          behavior: "smooth"
+        });
       });
-    });
+    }
   }
-}
+});
