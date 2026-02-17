@@ -233,63 +233,78 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 /* =====================
    MODAL
 ===================== */
-.modal {
-  display: none; /* agora respeitado */
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  z-index: 999;
-  justify-content: center;
-  align-items: center;
-}
+<script>
+  const packages = {
+    gratuito: {
+      title: "Pacote Gratuito",
+      items: [
+        "Comunidade gratuita",
+        "Networking",
+        "Grupo específico para dados",
+        "Mentoria coletiva de LinkedIn"
+      ],
+      link: "https://firststeplab.com.br/#leadForm"
+    },
+    junior: {
+      title: "Pacote Júnior",
+      items: [
+        "Mentoria de LinkedIn individual",
+        "Análise SSI do perfil",
+        "Revisão completa de currículo"
+      ],
+      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20j%C3%BAnior."
+    },
+    pleno: {
+      title: "Pacote Pleno",
+      items: [
+        "Tudo do Pacote Júnior",
+        "Diagnóstico de perfil",
+        "E-book exclusivo"
+      ],
+      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20pleno."
+    },
+    senior: {
+      title: "Pacote Sênior",
+      items: [
+        "Tudo do Pacote Pleno",
+        "Simulação de entrevista",
+        "Acesso ao Smart CV"
+      ],
+      link: "https://wa.me/5542988071146?text=Ol%C3%A1!%20Vim%20do%20site%20e%20tenho%20interesse%20no%20pacote%20s%C3%AAnior."
+    }
+  };
 
-.modal-box {
-  background: #fff;
-  max-width: 520px;
-  width: 90%;
-  padding: 48px 42px;
-  border-radius: 24px;
-  position: relative;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-  text-align: center; /* alinhamento geral */
-}
+  function openModal(type) {
 
-.modal-box h3 {
-  margin-bottom: 24px;
-  font-size: 26px;
-  font-weight: 700;
-}
+    // 🔥 EVENTO PARA O DATALAYER
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "ver_detalhes_click",
+      pacote: type,
+      pacote_nome: packages[type].title,
+      pagina: window.location.pathname
+    });
 
-.modal-box ul {
-  margin: 0 0 36px 0;
-  padding-left: 0;
-  list-style: none;
-}
+    const data = packages[type];
+    document.getElementById("modalTitle").innerText = data.title;
 
-.modal-box li {
-  margin-bottom: 12px;
-  line-height: 1.6;
-  font-size: 16px;
-}
+    const list = document.getElementById("modalList");
+    list.innerHTML = "";
+    data.items.forEach(item => {
+      const li = document.createElement("li");
+      li.textContent = item;
+      list.appendChild(li);
+    });
 
-.modal-box li::before {
-  content: "✔ ";
-  color: var(--primary);
-  font-weight: 600;
-}
+    document.getElementById("modalLink").href = data.link;
+    document.getElementById("modal").style.display = "flex";
+  }
 
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 20px;
-  cursor: pointer;
-  font-size: 22px;
-  opacity: 0.6;
-}
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+</script>
 
-.modal-close:hover {
-  opacity: 1;
-}
 
 /* =====================
    MOBILE AJUSTES
