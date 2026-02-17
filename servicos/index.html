@@ -547,5 +547,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const cards = document.querySelectorAll(".package-card");
+
+  cards.forEach(function(card) {
+
+    card.addEventListener("click", function() {
+
+      const pacote = this.getAttribute("onclick")
+        .match(/'([^']+)'/)[1];
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "ver_detalhes_click",
+        pacote: pacote,
+        pacote_nome: this.querySelector("h3").innerText,
+        pagina: window.location.pathname
+      });
+
+    });
+
+  });
+
+});
+</script>
+
+
 </body>
 </html>
