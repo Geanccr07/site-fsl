@@ -10,6 +10,19 @@ function onlyNumbers(value) {
   return value.replace(/\D/g, "");
 }
 
+function formatWhatsApp(value) {
+  const numbers = onlyNumbers(value);
+
+  if (numbers.length <= 2)
+    return `(${numbers}`;
+  if (numbers.length <= 7)
+    return `(${numbers.slice(0, 2)})${numbers.slice(2)}`;
+  if (numbers.length <= 11)
+    return `(${numbers.slice(0, 2)})${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+
+  return value;
+}
+
 function clearErrors() {
   feedback.style.display = "none";
   feedback.className = "form-feedback";
@@ -21,7 +34,7 @@ function clearErrors() {
 
 function showError(input, message) {
   const label = input.closest("label");
-  label.classList.add("field-error");
+  if (label) label.classList.add("field-error");
 
   feedback.innerText = message;
   feedback.classList.add("error");
@@ -40,7 +53,7 @@ function showSuccess(message) {
    INPUT WHATSAPP
 ===================== */
 whatsappInput.addEventListener("input", () => {
-  whatsappInput.value = onlyNumbers(whatsappInput.value);
+  whatsappInput.value = formatWhatsApp(whatsappInput.value);
 });
 
 /* =====================
@@ -53,13 +66,13 @@ form.addEventListener("submit", async (e) => {
   const nomeInput = document.getElementById("nome");
   const emailInput = document.getElementById("email");
   const areaInput = document.getElementById("area");
-  const onde_nos_conheceuInput = document.getElementById("onde_nos_conheceu");
+  const ondeInput = document.getElementById("onde_nos_conheceu");
 
   const nome = nomeInput.value.trim();
   const email = emailInput.value.trim();
-  const whatsapp = onlyNumbers(whatsappInput.value);
+  const whatsappRaw = onlyNumbers(whatsappInput.value);
   const area = areaInput.value;
-  const onde_nos_conheceu = onde_nos_conheceuInput.value;
+  const onde_nos_conheceu = ondeInput.value;
 
   if (!nome) {
     showError(nomeInput, "Por favor, informe seu nome.");
@@ -71,7 +84,7 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (whatsapp.length !== 11) {
+  if (whatsappRaw.length !== 11) {
     showError(
       whatsappInput,
       "Digite um WhatsApp válido com DDD (11 números)."
@@ -84,6 +97,11 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
+  if (!onde_nos_conheceu) {
+    showError(ondeInput, "Selecione como nos conheceu.");
+    return;
+  }
+
   submitBtn.disabled = true;
   submitBtn.innerText = "Enviando...";
 
@@ -92,7 +110,16 @@ form.addEventListener("submit", async (e) => {
       "https://script.google.com/macros/s/AKfycbzFoYO_BnWVcYyHUeJ4ri2bhU2wkrkwuJNXWS87MdNtQcD26fPDoerG_EnJCpdWUmk2/exec",
       {
         method: "POST",
-        body: JSON.stringify({ nome, email, whatsapp, area, onde_nos_conheceu })
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome,
+          email,
+          whatsapp: whatsappRaw,
+          area,
+          onde_nos_conheceu
+        })
       }
     );
 
@@ -113,12 +140,11 @@ form.addEventListener("submit", async (e) => {
     }
 
   } catch (error) {
-    showError(submitBtn, "Erro de conexão. Tente novamente.");
+    showError(form, "Erro de conexão. Tente novamente.");
     submitBtn.disabled = false;
     submitBtn.innerText = "Acessar comunidade";
   }
 });
-
 /* =====================
    CARROSSEL DEPOIMENTOS
 ===================== */
