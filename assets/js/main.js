@@ -12,50 +12,44 @@ function onlyNumbers(value) {
 
 function formatWhatsApp(value) {
   const numbers = onlyNumbers(value);
-
-  if (numbers.length <= 2)
-    return `(${numbers}`;
-  if (numbers.length <= 7)
-    return `(${numbers.slice(0, 2)})${numbers.slice(2)}`;
-  if (numbers.length <= 11)
-    return `(${numbers.slice(0, 2)})${numbers.slice(2, 7)}-${numbers.slice(7)}`;
-
+  if (numbers.length <= 2) return `(${numbers}`;
+  if (numbers.length <= 7) return `(${numbers.slice(0, 2)})${numbers.slice(2)}`;
+  if (numbers.length <= 11) return `(${numbers.slice(0, 2)})${numbers.slice(2, 7)}-${numbers.slice(7)}`;
   return value;
 }
 
 function clearErrors() {
   feedback.style.display = "none";
   feedback.className = "form-feedback";
-
-  form.querySelectorAll(".field-error").forEach(el => {
-    el.classList.remove("field-error");
-  });
+  form.querySelectorAll(".field-error").forEach(el => el.classList.remove("field-error"));
 }
 
 function showError(message) {
   feedback.innerText = message;
-  feedback.classList.add("error");
+  feedback.className = "form-feedback error";
   feedback.style.display = "block";
 }
 
 function showSuccess(message) {
   feedback.innerText = message;
-  feedback.classList.add("success");
+  feedback.className = "form-feedback success";
   feedback.style.display = "block";
 }
 
 /* =====================
    INPUT WHATSAPP
 ===================== */
-whatsappInput.addEventListener("input", () => {
-  whatsappInput.value = formatWhatsApp(whatsappInput.value);
-});
+if (whatsappInput) {
+  whatsappInput.addEventListener("input", () => {
+    whatsappInput.value = formatWhatsApp(whatsappInput.value);
+  });
+}
 
 /* =====================
-   SUBMIT
+   SUBMIT (CORRIGIDO)
 ===================== */
 form.addEventListener("submit", async (e) => {
-  e.preventDefault(); // GARANTE QUE NÃO VAI FAZER GET
+  e.preventDefault(); // Impede o recarregamento da página
   clearErrors();
 
   const nome = document.getElementById("nome").value.trim();
@@ -64,7 +58,8 @@ form.addEventListener("submit", async (e) => {
   const como_nos_conheceu = document.getElementById("onde_nos_conheceu").value;
   const whatsappRaw = onlyNumbers(whatsappInput.value);
 
-  if (!nome || !email || !area || !como_nos_conheceu || whatsappRaw.length !== 11) {
+  // Validação
+  if (!nome || !email || !area || !como_nos_conheceu || whatsappRaw.length < 10) {
     showError("Preencha todos os campos corretamente.");
     return;
   }
@@ -72,10 +67,6 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
   submitBtn.innerText = "Enviando...";
 
-/* Mantenha suas funções de utilidade e validação iguais, altere apenas o bloco do TRY no Submit */
-
-try {
-  // Criamos um objeto com os dados
   const payload = {
     nome,
     email,
@@ -84,37 +75,34 @@ try {
     como_nos_conheceu
   };
 
-  // IMPORTANTE: Enviamos como texto simples para evitar o erro de OPTIONS/CORS
-  const response = await fetch(
-    "https://script.google.com/macros/s/AKfycbwoVtEbUFC0dtyQYIMfejUvFC-HzJBttm6a2_lbCK71_HsSkJX6vyc_FnHlqn-OFdkw/exec",
-    {
-      method: "POST",
-      mode: "cors", // O Google redireciona, então precisamos de cors
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8", // Isso evita o pre-flight OPTIONS
-      },
-      body: JSON.stringify(payload)
-    }
-  );
+  try {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbwoVtEbUFC0dtyQYIMfejUvFC-HzJBttm6a2_lbCK71_HsSkJX6vyc_FnHlqn-OFdkw/exec",
+      {
+        method: "POST",
+        mode: "no-cors", // Crucial para Google Apps Script evitar pre-flight
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+        body: JSON.stringify(payload)
+      }
+    );
 
-  const result = await response.json();
-
-  if (result.success) {
+    // Como usamos 'no-cors', não conseguimos ler a resposta JSON. 
+    // Assumimos sucesso se não cair no catch após o envio.
     showSuccess("Tudo certo! Redirecionando...");
+    
     setTimeout(() => {
       window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
-    }, 1500);
-  } else {
-    throw new Error(result.error || "Erro no servidor");
-  }
+    }, 2000);
 
-} catch (error) {
-  console.error(error);
-  // O Google às vezes dá erro de parse mesmo salvando, verifique se o dado caiu na planilha
-  showError("Erro ao enviar. Verifique sua conexão.");
-  submitBtn.disabled = false;
-  submitBtn.innerText = "Acessar comunidade";
-}
+  } catch (error) {
+    console.error("Erro na requisição:", error);
+    showError("Erro ao enviar. Tente novamente.");
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Acessar comunidade";
+  }
+});
 
 
 /* =====================
