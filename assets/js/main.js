@@ -72,46 +72,49 @@ form.addEventListener("submit", async (e) => {
   submitBtn.disabled = true;
   submitBtn.innerText = "Enviando...";
 
-  try {
+/* Mantenha suas funções de utilidade e validação iguais, altere apenas o bloco do TRY no Submit */
 
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbxy8B07wMNIKIz4r_zb1rPdCHtdrfAOp8Chy53WDbgJLNWRVxBEM8RAJGyrt7Bv4R-V/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          nome,
-          email,
-          whatsapp: whatsappRaw,
-          area,
-          como_nos_conheceu
-        })
-      }
-    );
+try {
+  // Criamos um objeto com os dados
+  const payload = {
+    nome,
+    email,
+    whatsapp: whatsappRaw,
+    area,
+    como_nos_conheceu
+  };
 
-    const result = await response.json();
-
-    if (result.success) {
-      showSuccess("Tudo certo! Redirecionando...");
-
-      setTimeout(() => {
-        window.location.href =
-          "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
-      }, 1500);
-
-    } else {
-      throw new Error(result.error || "Erro no servidor");
+  // IMPORTANTE: Enviamos como texto simples para evitar o erro de OPTIONS/CORS
+  const response = await fetch(
+    "https://script.google.com/macros/s/AKfycbxy8B07wMNIKIz4r_zb1rPdCHtdrfAOp8Chy53WDbgJLNWRVxBEM8RAJGyrt7Bv4R-V/exec",
+    {
+      method: "POST",
+      mode: "cors", // O Google redireciona, então precisamos de cors
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8", // Isso evita o pre-flight OPTIONS
+      },
+      body: JSON.stringify(payload)
     }
+  );
 
-  } catch (error) {
-    console.error(error);
-    showError("Erro ao enviar. Tente novamente.");
-    submitBtn.disabled = false;
-    submitBtn.innerText = "Acessar comunidade";
+  const result = await response.json();
+
+  if (result.success) {
+    showSuccess("Tudo certo! Redirecionando...");
+    setTimeout(() => {
+      window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+    }, 1500);
+  } else {
+    throw new Error(result.error || "Erro no servidor");
   }
-});
+
+} catch (error) {
+  console.error(error);
+  // O Google às vezes dá erro de parse mesmo salvando, verifique se o dado caiu na planilha
+  showError("Erro ao enviar. Verifique sua conexão.");
+  submitBtn.disabled = false;
+  submitBtn.innerText = "Acessar comunidade";
+}
 
 
 /* =====================
