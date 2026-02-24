@@ -97,47 +97,91 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================
+
    CARROSSEL DEPOIMENTOS
+
 ===================== */
+
 document.addEventListener("DOMContentLoaded", () => {
+
   // Alterado para buscar o novo container e os IDs específicos
+
   const track = document.getElementById("testimonialTrack");
+
   const btnPrev = document.getElementById("prevBtn");
+
   const btnNext = document.getElementById("nextBtn");
 
+
+
   // Verificamos se todos os elementos existem na página antes de rodar
+
   if (track && btnPrev && btnNext) {
+
     
+
     // Função para calcular o quanto o carrossel deve andar
+
     const getScrollAmount = () => {
+
       const item = track.querySelector(".testimonial");
+
       // Retorna a largura do card + o espaçamento (gap) de 24px
+
       return item ? item.offsetWidth + 24 : 300;
+
     };
 
+
+
     // Evento do botão "Próximo"
+
     btnNext.addEventListener("click", () => {
+
       track.scrollBy({
+
         left: getScrollAmount(),
+
         behavior: "smooth"
+
       });
+
     });
+
+
 
     // Evento do botão "Anterior"
+
     btnPrev.addEventListener("click", () => {
+
       track.scrollBy({
+
         left: -getScrollAmount(),
+
         behavior: "smooth"
+
       });
+
     });
 
+
+
     // Opcional: Pausar o scroll suave se o usuário arrastar manualmente (melhora a experiência)
+
     track.addEventListener("mousedown", () => {
+
       track.style.scrollBehavior = "auto";
+
     });
+
     
+
     track.addEventListener("mouseup", () => {
+
       track.style.scrollBehavior = "smooth";
+
     });
+
   }
+
 });
