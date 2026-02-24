@@ -92,7 +92,7 @@ form.addEventListener("submit", async (e) => {
       "https://script.google.com/macros/s/AKfycbzFoYO_BnWVcYyHUeJ4ri2bhU2wkrkwuJNXWS87MdNtQcD26fPDoerG_EnJCpdWUmk2/exec",
       {
         method: "POST",
-        body: JSON.stringify({ nome, email, whatsapp, area, onde_nos_coheceu })
+        body: JSON.stringify({ nome, email, whatsapp, area, onde_nos_conheceu })
       }
     );
 
