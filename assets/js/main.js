@@ -1,102 +1,100 @@
-/* =====================
-   FUNÇÕES DE UTILIDADE
-===================== */
-function onlyNumbers(value) {
-    return value ? value.replace(/\D/g, "") : "";
-}
-
-function formatWhatsApp(value) {
-    const numbers = onlyNumbers(value);
-    if (numbers.length <= 2) return `(${numbers}`;
-    if (numbers.length <= 7) return `(${numbers.slice(0, 2)})${numbers.slice(2)}`;
-    if (numbers.length <= 11) return `(${numbers.slice(0, 2)})${numbers.slice(2, 7)}-${numbers.slice(7)}`;
-    return value;
-}
-
-// Inicialização garantida após o carregamento do DOM
 document.addEventListener("DOMContentLoaded", () => {
-    
-    /* =====================
-       LÓGICA DO FORMULÁRIO
-    ===================== */
     const form = document.getElementById("leadForm");
     const whatsappInput = document.getElementById("whatsapp");
     const feedback = document.getElementById("formFeedback");
     const submitBtn = document.getElementById("submitBtn");
 
-    // Só executa se o formulário existir na página atual
-    if (form) {
+    if (!form) return;
+
+    /* Mascara e Limpeza */
+    const onlyNumbers = (val) => val.replace(/\D/g, "");
+    
+    const formatWhatsApp = (val) => {
+        const nums = onlyNumbers(val);
+        if (nums.length <= 2) return `(${nums}`;
+        if (nums.length <= 7) return `(${nums.slice(0, 2)})${nums.slice(2)}`;
+        if (nums.length <= 11) return `(${nums.slice(0, 2)})${nums.slice(2, 7)}-${nums.slice(7)}`;
+        return val;
+    };
+
+    whatsappInput.addEventListener("input", (e) => {
+        e.target.value = formatWhatsApp(e.target.value);
+    });
+
+    /* Envio */
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Impede o recarregamento
         
-        // Máscara do WhatsApp
-        if (whatsappInput) {
-            whatsappInput.addEventListener("input", (e) => {
-                e.target.value = formatWhatsApp(e.target.value);
-            });
+        // Reset de Feedback
+        feedback.style.display = "none";
+        feedback.className = "form-feedback";
+
+        const whatsappRaw = onlyNumbers(whatsappInput.value);
+        const payload = {
+            nome: document.getElementById("nome").value.trim(),
+            email: document.getElementById("email").value.trim(),
+            whatsapp: whatsappRaw,
+            area: document.getElementById("area").value,
+            como_nos_conheceu: document.getElementById("onde_nos_conheceu").value
+        };
+
+        // Validação: Todos campos preenchidos + WhatsApp com exatamente 11 números
+        if (!payload.nome || !payload.email || !payload.area || !payload.como_nos_conheceu || whatsappRaw.length !== 11) {
+            feedback.innerText = "Preencha todos os campos corretamente (WhatsApp deve ter 11 dígitos).";
+            feedback.className = "form-feedback error";
+            feedback.style.display = "block";
+            return;
         }
 
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault(); // MATA o recarregamento aqui
-            e.stopPropagation();
+        submitBtn.disabled = true;
+        submitBtn.innerText = "Enviando...";
 
-            // Limpa estados anteriores
-            feedback.style.display = "none";
-            feedback.className = "form-feedback";
+        try {
+            const response = await fetch("https://script.google.com/macros/s/AKfycbwoVtEbUFC0dtyQYIMfejUvFC-HzJBttm6a2_lbCK71_HsSkJX6vyc_FnHlqn-OFdkw/exec", {
+                method: "POST",
+                mode: "cors", // Ativa o modo CORS explicitamente
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8", // Mantido text/plain para evitar o Pre-flight do Google que causa erro 405
+                },
+                body: JSON.stringify(payload)
+            });
 
-            const nome = document.getElementById("nome").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const area = document.getElementById("area").value;
-            const onde_conheceu = document.getElementById("onde_nos_conheceu").value;
-            const whatsappRaw = onlyNumbers(whatsappInput.value);
+            const result = await response.json();
 
-            // Validação Manual Robusta
-            if (!nome || !email || !area || !onde_conheceu || whatsappRaw.length < 10) {
-                feedback.innerText = "Preencha todos os campos corretamente.";
-                feedback.classList.add("error");
-                feedback.style.display = "block";
-                return;
-            }
-
-            // Estado de carregamento
-            submitBtn.disabled = true;
-            submitBtn.innerText = "Enviando...";
-
-            const payload = {
-                nome: nome,
-                email: email,
-                whatsapp: whatsappRaw,
-                area: area,
-                como_nos_conheceu: onde_conheceu
-            };
-
-            try {
-                // Usamos no-cors para evitar o bloqueio do Google Apps Script
-                await fetch(form.action || "https://script.google.com/macros/s/AKfycbwoVtEbUFC0dtyQYIMfejUvFC-HzJBttm6a2_lbCK71_HsSkJX6vyc_FnHlqn-OFdkw/exec", {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "text/plain;charset=utf-8" },
-                    body: JSON.stringify(payload)
-                });
-
-                // Como o 'no-cors' não permite ler a resposta, tratamos como sucesso após o envio
+            if (result.success) {
                 feedback.innerText = "Tudo certo! Redirecionando...";
-                feedback.classList.add("success");
+                feedback.className = "form-feedback success";
                 feedback.style.display = "block";
-
+                
                 setTimeout(() => {
                     window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
                 }, 1500);
-
-            } catch (error) {
-                console.error("Erro no envio:", error);
-                feedback.innerText = "Erro ao enviar. Tente novamente.";
-                feedback.classList.add("error");
-                feedback.style.display = "block";
-                submitBtn.disabled = false;
-                submitBtn.innerText = "Acessar comunidade";
+            } else {
+                throw new Error(result.error);
             }
-        });
-    }
 
+        } catch (error) {
+            console.error("Erro:", error);
+            feedback.innerText = "Erro ao enviar. Tente novamente.";
+            feedback.className = "form-feedback error";
+            feedback.style.display = "block";
+            submitBtn.disabled = false;
+            submitBtn.innerText = "Acessar comunidade";
+        }
+    });
+});
+
+/* Carrossel (Simplificado para não quebrar) */
+document.addEventListener("DOMContentLoaded", () => {
+    const track = document.getElementById("testimonialTrack");
+    const btnPrev = document.getElementById("prevBtn");
+    const btnNext = document.getElementById("nextBtn");
+    if (track && btnPrev && btnNext) {
+        const scroll = () => track.querySelector(".testimonial").offsetWidth + 24;
+        btnNext.onclick = () => track.scrollBy({ left: scroll(), behavior: "smooth" });
+        btnPrev.onclick = () => track.scrollBy({ left: -scroll(), behavior: "smooth" });
+    }
+});
 
 /* =====================
    CARROSSEL DEPOIMENTOS
