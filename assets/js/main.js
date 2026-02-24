@@ -53,11 +53,13 @@ form.addEventListener("submit", async (e) => {
   const nomeInput = document.getElementById("nome");
   const emailInput = document.getElementById("email");
   const areaInput = document.getElementById("area");
+  const onde_nos_conheceuInput = document.getElementById("onde_nos_conheceu");
 
   const nome = nomeInput.value.trim();
   const email = emailInput.value.trim();
   const whatsapp = onlyNumbers(whatsappInput.value);
   const area = areaInput.value;
+  const onde_nos_conheceu = onde_nos_conheceuInput.value;
 
   if (!nome) {
     showError(nomeInput, "Por favor, informe seu nome.");
@@ -90,7 +92,7 @@ form.addEventListener("submit", async (e) => {
       "https://script.google.com/macros/s/AKfycbxwt4Zh2SDKjtN439hsM_MJgy9CsS3L14hIu8COYaqn5SdSHLYB0j3_6qICL5NNbk57/exec",
       {
         method: "POST",
-        body: JSON.stringify({ nome, email, whatsapp, area })
+        body: JSON.stringify({ nome, email, whatsapp, area, onde_nos_coheceu })
       }
     );
 
