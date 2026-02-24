@@ -86,7 +86,7 @@ try {
 
   // IMPORTANTE: Enviamos como texto simples para evitar o erro de OPTIONS/CORS
   const response = await fetch(
-    "https://script.google.com/macros/s/AKfycbwOHx9eSsKH3hNbWkFuBggX9jrjlD--9orei0EvbYYI0bZi8l9xCqWlW3CdQDJMSAJy/exec",
+    "https://script.google.com/macros/s/AKfycbwoVtEbUFC0dtyQYIMfejUvFC-HzJBttm6a2_lbCK71_HsSkJX6vyc_FnHlqn-OFdkw/exec",
     {
       method: "POST",
       mode: "cors", // O Google redireciona, então precisamos de cors
