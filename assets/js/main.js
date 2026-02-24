@@ -87,7 +87,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycby6pVcpFOqa8jkEFDPlxdQ_PeSautByDoTaZXkqTLVz5dBgD40sZObCxfMbmj2C5p4M/exec",
+      "https://script.google.com/macros/s/AKfycbxwt4Zh2SDKjtN439hsM_MJgy9CsS3L14hIu8COYaqn5SdSHLYB0j3_6qICL5NNbk57/exec",
       {
         method: "POST",
         body: JSON.stringify({ nome, email, whatsapp, area })
