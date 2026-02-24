@@ -32,15 +32,10 @@ function clearErrors() {
   });
 }
 
-function showError(input, message) {
-  const label = input.closest("label");
-  if (label) label.classList.add("field-error");
-
+function showError(message) {
   feedback.innerText = message;
   feedback.classList.add("error");
   feedback.style.display = "block";
-
-  feedback.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function showSuccess(message) {
@@ -60,45 +55,17 @@ whatsappInput.addEventListener("input", () => {
    SUBMIT
 ===================== */
 form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  e.preventDefault(); // GARANTE QUE NÃO VAI FAZER GET
   clearErrors();
 
-  const nomeInput = document.getElementById("nome");
-  const emailInput = document.getElementById("email");
-  const areaInput = document.getElementById("area");
-  const ondeInput = document.getElementById("onde_nos_conheceu");
-
-  const nome = nomeInput.value.trim();
-  const email = emailInput.value.trim();
+  const nome = document.getElementById("nome").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const area = document.getElementById("area").value;
+  const como_nos_conheceu = document.getElementById("onde_nos_conheceu").value;
   const whatsappRaw = onlyNumbers(whatsappInput.value);
-  const area = areaInput.value;
-  const onde_nos_conheceu = ondeInput.value;
 
-  if (!nome) {
-    showError(nomeInput, "Por favor, informe seu nome.");
-    return;
-  }
-
-  if (!email || !email.includes("@")) {
-    showError(emailInput, "Informe um email válido.");
-    return;
-  }
-
-  if (whatsappRaw.length !== 11) {
-    showError(
-      whatsappInput,
-      "Digite um WhatsApp válido com DDD (11 números)."
-    );
-    return;
-  }
-
-  if (!area) {
-    showError(areaInput, "Selecione sua área de estudo.");
-    return;
-  }
-
-  if (!onde_nos_conheceu) {
-    showError(ondeInput, "Selecione como nos conheceu.");
+  if (!nome || !email || !area || !como_nos_conheceu || whatsappRaw.length !== 11) {
+    showError("Preencha todos os campos corretamente.");
     return;
   }
 
@@ -106,26 +73,28 @@ form.addEventListener("submit", async (e) => {
   submitBtn.innerText = "Enviando...";
 
   try {
-        const response = await fetch(
-  "https://script.google.com/macros/s/AKfycbxy8B07wMNIKIz4r_zb1rPdCHtdrfAOp8Chy53WDbgJLNWRVxBEM8RAJGyrt7Bv4R-V/exec",
-  {
-    method: "POST",
-    body: JSON.stringify({
-      nome,
-      email,
-      whatsapp: whatsappRaw,
-      area,
-      onde_nos_conheceu
-    })
-  }
-);
+
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbxy8B07wMNIKIz4r_zb1rPdCHtdrfAOp8Chy53WDbgJLNWRVxBEM8RAJGyrt7Bv4R-V/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome,
+          email,
+          whatsapp: whatsappRaw,
+          area,
+          como_nos_conheceu
+        })
+      }
+    );
 
     const result = await response.json();
 
     if (result.success) {
-      showSuccess(
-        "Tudo certo! Seus dados foram enviados com sucesso. Redirecionando..."
-      );
+      showSuccess("Tudo certo! Redirecionando...");
 
       setTimeout(() => {
         window.location.href =
@@ -133,15 +102,18 @@ form.addEventListener("submit", async (e) => {
       }, 1500);
 
     } else {
-      throw new Error("Erro ao enviar");
+      throw new Error(result.error || "Erro no servidor");
     }
 
   } catch (error) {
-    showError(form, "Erro de conexão. Tente novamente.");
+    console.error(error);
+    showError("Erro ao enviar. Tente novamente.");
     submitBtn.disabled = false;
     submitBtn.innerText = "Acessar comunidade";
   }
 });
+
+
 /* =====================
    CARROSSEL DEPOIMENTOS
 ===================== */
