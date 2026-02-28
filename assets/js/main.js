@@ -109,7 +109,7 @@ form.addEventListener("submit", async (e) => {
 
   try {
     const response = await fetch(
-      "https://script.google.com/macros/s/AKfycby6pVcpFOqa8jkEFDPlxdQ_PeSautByDoTaZXkqTLVz5dBgD40sZObCxfMbmj2C5p4M/exec",
+      "https://script.google.com/macros/s/AKfycbwP_3y9rBsCmVW68iLwepOMIFX-Kli4y8djnKCN73OZ8uijuwUIcNwKGd8U10zL7BBU/exec",
       {
         method: "POST",
         body: JSON.stringify({ 
