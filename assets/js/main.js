@@ -13,7 +13,6 @@ function onlyNumbers(value) {
 function clearErrors() {
   feedback.style.display = "none";
   feedback.className = "form-feedback";
-
   form.querySelectorAll(".field-error").forEach(el => {
     el.classList.remove("field-error");
   });
@@ -22,11 +21,9 @@ function clearErrors() {
 function showError(input, message) {
   const label = input.closest("label");
   label.classList.add("field-error");
-
   feedback.innerText = message;
   feedback.classList.add("error");
   feedback.style.display = "block";
-
   feedback.scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
@@ -37,10 +34,26 @@ function showSuccess(message) {
 }
 
 /* =====================
-   INPUT WHATSAPP
+   MÁSCARA WHATSAPP (Front-end)
 ===================== */
-whatsappInput.addEventListener("input", () => {
-  whatsappInput.value = onlyNumbers(whatsappInput.value);
+whatsappInput.addEventListener("input", (e) => {
+  let value = onlyNumbers(e.target.value);
+  
+  // Limita a 11 dígitos
+  if (value.length > 11) value = value.slice(0, 11);
+
+  // Aplica a formatação (XX) XXXXX-XXXX
+  if (value.length > 10) {
+    value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+  } else if (value.length > 6) {
+    value = value.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, "($1) $2-$3");
+  } else if (value.length > 2) {
+    value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+  } else if (value.length > 0) {
+    value = value.replace(/^(\d*)/, "($1");
+  }
+  
+  e.target.value = value;
 });
 
 /* =====================
@@ -53,12 +66,15 @@ form.addEventListener("submit", async (e) => {
   const nomeInput = document.getElementById("nome");
   const emailInput = document.getElementById("email");
   const areaInput = document.getElementById("area");
+  const ondeNosConheceuInput = document.getElementById("onde_nos_conheceu"); // Novo campo
 
   const nome = nomeInput.value.trim();
   const email = emailInput.value.trim();
-  const whatsapp = onlyNumbers(whatsappInput.value);
+  const whatsappRaw = onlyNumbers(whatsappInput.value); // Pega apenas os números para o envio
   const area = areaInput.value;
+  const onde_nos_conheceu = ondeNosConheceuInput.value; // Novo campo
 
+  // Validações
   if (!nome) {
     showError(nomeInput, "Por favor, informe seu nome.");
     return;
@@ -69,16 +85,22 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  if (whatsapp.length !== 11) {
+  // Validação do tamanho do número (DDD + 9 dígitos)
+  if (whatsappRaw.length !== 11) {
     showError(
       whatsappInput,
-      "Digite um WhatsApp válido com DDD (11 números)."
+      "Digite um WhatsApp válido com DDD (Ex: 11 98765-4321)."
     );
     return;
   }
 
   if (!area) {
     showError(areaInput, "Selecione sua área de estudo.");
+    return;
+  }
+
+  if (!onde_nos_conheceu) {
+    showError(ondeNosConheceuInput, "Conte-nos como nos conheceu.");
     return;
   }
 
@@ -90,22 +112,23 @@ form.addEventListener("submit", async (e) => {
       "https://script.google.com/macros/s/AKfycby6pVcpFOqa8jkEFDPlxdQ_PeSautByDoTaZXkqTLVz5dBgD40sZObCxfMbmj2C5p4M/exec",
       {
         method: "POST",
-        body: JSON.stringify({ nome, email, whatsapp, area })
+        body: JSON.stringify({ 
+          nome, 
+          email, 
+          whatsapp: whatsappRaw, // Envia apenas números para facilitar o tratamento no Sheet
+          area, 
+          onde_nos_conheceu // Campo incluído no payload
+        })
       }
     );
 
     const result = await response.json();
 
     if (result.success) {
-      showSuccess(
-        "Tudo certo! Seus dados foram enviados com sucesso. Redirecionando..."
-      );
-
+      showSuccess("Tudo certo! Redirecionando...");
       setTimeout(() => {
-        window.location.href =
-          "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+        window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
       }, 1500);
-
     } else {
       throw new Error("Erro ao enviar");
     }
@@ -116,6 +139,8 @@ form.addEventListener("submit", async (e) => {
     submitBtn.innerText = "Acessar comunidade";
   }
 });
+
+
 
 /* =====================
    CARROSSEL DEPOIMENTOS
