@@ -5,108 +5,83 @@
   <!-- Google Tag Manager -->
   <script>
     (function(w,d,s,l,i){
-      w[l]=w[l]||[];
-      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      w[l]=w[l]||[]; 
+      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
       var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),
-      dl=l!='dataLayer'?'&l='+l:'';
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
       j.async=true;
       j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
       f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-KJ29QPMR');
   </script>
   <!-- End Google Tag Manager -->
-  
+
   <meta charset="UTF-8">
-  <title>Nossos serviços</title>
+  <title>Nossos Serviços</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FONT (igual à home) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <style>
-    :root {
-      --primary: #ff6a00;
-      --primary-soft: #fff4ee;
-      --text-dark: #111;
-      --text-light: #555;
-    }
-
-    body {
-      background: #fafafa;
-      margin: 0;
-      font-family: Arial, sans-serif;
-    }
-
-    /* =====================
-       HEADER / MENU
-    ===================== */
-
-    header {
-      background: #ff7b00;
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255, 90, 31, 0.25);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 1rem 0;
-    }
-
-    header .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    header nav {
-      display: flex;
-      gap: 1.8rem;
-      align-items: center;
-    }
-
-    header a {
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: 500;
-      font-size: 0.95rem;
-      position: relative;
-
-      padding: 0.4rem 0;
-      opacity: 0.9;
-      transition: opacity 0.2s ease;
-    }
-
-    header a:hover {
-      opacity: 1;
-    }
-
-    header a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0%;
-      height: 2px;
-      background: rgba(255, 255, 255, 0.85);
-      transition: width 0.3s ease;
-    }
-
-    header a:hover::after,
-    header a.active::after {
-      width: 100%;
-    }
-
-    header a.active {
-      font-weight: 600;
-      opacity: 1;
-    }
-  </style>
-
 </head>
+
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ29QPMR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- HEADER IGUAL AO DA HOME -->
+  <header>
+    <nav class="container">
+      <a href="/">Home</a>
+      <a href="/servicos" class="active">Serviços</a>
+      <a href="/sobre">Sobre</a>
+      <a href="/blog">Blog</a>
+    </nav>
+  </header>
+
+  <!-- CONTEÚDO -->
+  <section class="packages-section">
+
+    <div class="packages-header">
+      <h1>Nossos Serviços</h1>
+      <p>
+        Escolha o melhor caminho para acelerar sua entrada no mercado.
+      </p>
+    </div>
+
+    <!-- EXEMPLO DE CARDS (mantém seu layout funcionando) -->
+    <div class="packages-grid">
+
+      <div class="package-card">
+        <h3>Mentoria Coletiva</h3>
+        <p>Aprenda com outras pessoas e acelere sua evolução.</p>
+      </div>
+
+      <div class="package-card">
+        <h3>Mentoria Individual</h3>
+        <p>Plano personalizado focado no seu objetivo.</p>
+      </div>
+
+      <div class="package-card">
+        <h3>Consultoria de LinkedIn</h3>
+        <p>Otimize seu perfil para atrair recrutadores.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+</body>
+</html>
 
 <body>
 
