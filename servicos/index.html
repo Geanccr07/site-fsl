@@ -17,6 +17,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     :root {
       --primary: #ff6a00;
@@ -541,6 +543,28 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 });
+</script>
+
+<a 
+  href="#" 
+  class="whatsapp-button" 
+  onclick="abrirWhatsApp()"
+>
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+  
+function abrirWhatsApp() {
+  var numero = "5542988071146";
+  var mensagem = "Olá! Vim da página de serviços e tenho dúvidas sobre as Trilhas da FSL.";
+
+  var url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
+}
+
+  
 </script>
 
 
