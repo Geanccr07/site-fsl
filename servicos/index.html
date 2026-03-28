@@ -3,12 +3,19 @@
 <head>
 
   <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-KJ29QPMR');</script>
-<!-- End Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){
+      w[l]=w[l]||[];
+      w[l].push({'gtm.start': new Date().getTime(), event:'gtm.js'});
+      var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),
+      dl=l!='dataLayer'?'&l='+l:'';
+      j.async=true;
+      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+      f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-KJ29QPMR');
+  </script>
+  <!-- End Google Tag Manager -->
   
   <meta charset="UTF-8">
   <title>Nossos serviços</title>
@@ -27,80 +34,108 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     body {
       background: #fafafa;
+      margin: 0;
+      font-family: Arial, sans-serif;
     }
 
-/* =====================
-   HEADER / MENU (PADRÃO GLOBAL)
-===================== */
+    /* =====================
+       HEADER / MENU
+    ===================== */
 
-header {
-  background: #ff7b00;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 90, 31, 0.25);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 1rem 0;
-}
+    header {
+      background: #ff7b00;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 90, 31, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 1rem 0;
+    }
 
-header .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+    header .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-/* NAV */
-header nav {
-  display: flex;
-  gap: 1.8rem;
-  align-items: center;
-}
+    header nav {
+      display: flex;
+      gap: 1.8rem;
+      align-items: center;
+    }
 
-/* LINKS */
-header a {
-  text-decoration: none;
-  color: #ffffff;
-  font-weight: 500;
-  font-size: 0.95rem;
-  position: relative;
+    header a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: 500;
+      font-size: 0.95rem;
+      position: relative;
 
-  padding: 0.4rem 0;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
-}
+      padding: 0.4rem 0;
+      opacity: 0.9;
+      transition: opacity 0.2s ease;
+    }
 
-/* Hover */
-header a:hover {
-  opacity: 1;
-}
+    header a:hover {
+      opacity: 1;
+    }
 
-/* Underline animado */
-header a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0%;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.85);
-  transition: width 0.3s ease;
-}
+    header a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 0%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.85);
+      transition: width 0.3s ease;
+    }
 
-/* Hover + ativo */
-header a:hover::after,
-header a.active::after {
-  width: 100%;
-}
+    header a:hover::after,
+    header a.active::after {
+      width: 100%;
+    }
 
-/* Link ativo */
-header a.active {
-  font-weight: 600;
-  opacity: 1;
-}
+    header a.active {
+      font-weight: 600;
+      opacity: 1;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ29QPMR"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+
+  <!-- HEADER AGORA NO LUGAR CERTO -->
+  <header>
+    <div class="container">
+      <nav>
+        <a href="/servicos" class="active">Serviços</a>
+        <a href="/">Home</a>
+        <a href="/sobre">Sobre</a>
+        <a href="/blog">Blog</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- CONTEÚDO DA PÁGINA -->
+  <main class="container" style="padding: 40px 20px;">
+    <h1>Nossos Serviços</h1>
+    <p>Conteúdo da página aqui...</p>
+  </main>
+
+</body>
+</html>
 
     
     /* =====================
