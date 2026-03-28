@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJ29QPMR');</script>
+
+  <meta charset="UTF-8">
+  <title>Mentoria LinkedIn | First Step Lab</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <style>
+    .mentoria-container {
+      padding: 80px 20px;
+      text-align: center;
+    }
+
+    .mentoria-container h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    #my-cal-inline-mentoria-linkedin {
+      width: 100%;
+      height: 800px; /* IMPORTANTE: evita tela em branco */
+      overflow: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ29QPMR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header>
+  <nav class="container">
+    <a href="/">Home</a>
+    <a href="/servicos">Serviços</a>
+    <a href="/sobre">Sobre</a>
+    <a href="/blog">Blog</a>
+  </nav>
+</header>
+
+<section class="mentoria-container">
+  <h1>Garanta sua vaga na mentoria de LinkedIn semanal gratuita</h1>
+
+  <!-- SCHEDLY EMBED -->
+  <div id="my-cal-inline-mentoria-linkedin"></div>
+
+  <script type="text/javascript">
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.schedly.io/embed/embed.js", "init");
+
+    Cal("init", "mentoria-linkedin", { origin: "https://app.schedly.io" });
+
+    Cal.ns["mentoria-linkedin"]("inline", {
+      elementOrSelector: "#my-cal-inline-mentoria-linkedin",
+      config: {
+        layout: "month_view",
+        useSlotsViewOnSmallScreen: true
+      },
+      calLink: "geanccr/mentoria-linkedin"
+    });
+
+    Cal.ns["mentoria-linkedin"]("ui", {
+      hideEventTypeDetails: false,
+      layout: "month_view"
+    });
+  </script>
+
+</section>
+
+<footer class="footer">
+  <div class="container footer-content">
+    <p>© First Step Lab</p>
+  </div>
+</footer>
+
+</body>
+</html>
