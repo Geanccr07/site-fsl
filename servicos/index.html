@@ -3,116 +3,67 @@
 <head>
 
   <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i){
-      w[l]=w[l]||[]; 
-      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-      var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true;
-      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-KJ29QPMR');
-  </script>
-  <!-- End Google Tag Manager -->
-
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KJ29QPMR');</script>
+<!-- End Google Tag Manager -->
+  
   <meta charset="UTF-8">
-  <title>Nossos Serviços</title>
+  <title>Nossos serviços</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- FONT (igual à home) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
   <!-- CSS GLOBAL -->
   <link rel="stylesheet" href="/assets/css/style.css">
 
-</head>
+  <style>
+    :root {
+      --primary: #ff6a00;
+      --primary-soft: #fff4ee;
+      --text-dark: #111;
+      --text-light: #555;
+    }
 
-<body>
+    body {
+      background: #fafafa;
+    }
 
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ29QPMR"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
+    /* =====================
+       HEADER
+    ===================== */
+    header {
+      background: #ff7b00;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
 
-  <!-- HEADER IGUAL AO DA HOME -->
-  <header>
-    <nav class="container">
-      <a href="/">Home</a>
-      <a href="/servicos" class="active">Serviços</a>
-      <a href="/sobre">Sobre</a>
-      <a href="/blog">Blog</a>
-    </nav>
-  </header>
+    header .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-  <!-- CONTEÚDO -->
-  <section class="packages-section">
+    header nav {
+      display: flex;
+      gap: 24px;
+    }
 
-    <div class="packages-header">
-      <h1>Nossos Serviços</h1>
-      <p>
-        Escolha o melhor caminho para acelerar sua entrada no mercado.
-      </p>
-    </div>
+    header a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.9;
+    }
 
-    <!-- EXEMPLO DE CARDS (mantém seu layout funcionando) -->
-    <div class="packages-grid">
+    header a:hover {
+      opacity: 1;
+    }
 
-      <div class="package-card">
-        <h3>Mentoria Coletiva</h3>
-        <p>Aprenda com outras pessoas e acelere sua evolução.</p>
-      </div>
-
-      <div class="package-card">
-        <h3>Mentoria Individual</h3>
-        <p>Plano personalizado focado no seu objetivo.</p>
-      </div>
-
-      <div class="package-card">
-        <h3>Consultoria de LinkedIn</h3>
-        <p>Otimize seu perfil para atrair recrutadores.</p>
-      </div>
-
-    </div>
-
-  </section>
-
-</body>
-</html>
-
-<body>
-
-  <!-- Google Tag Manager (noscript) -->
-  <noscript>
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KJ29QPMR"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-  </noscript>
-
-  <!-- HEADER AGORA NO LUGAR CERTO -->
-  <header>
-    <div class="container">
-      <nav>
-        <a href="/servicos" class="active">Serviços</a>
-        <a href="/">Home</a>
-        <a href="/sobre">Sobre</a>
-        <a href="/blog">Blog</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- CONTEÚDO DA PÁGINA -->
-  <main class="container" style="padding: 40px 20px;">
-    <h1>Nossos Serviços</h1>
-    <p>Conteúdo da página aqui...</p>
-  </main>
-
-</body>
-</html>
-
-    
     /* =====================
        SECTION
     ===================== */
@@ -624,27 +575,6 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
 });
-</script>
-
-<a 
-  href="#" 
-  class="whatsapp-button" 
-  onclick="abrirWhatsApp()"
->
-  💬
-</a>
-
-<script>
-
-function abrirWhatsApp() {
-  var numero = "5542988071146";
-  var mensagem = "Olá! Vim da página de serviços e tenho dúvidas sobre as Trilhas da FSL.";
-
-  var url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
-
-  window.open(url, "_blank");
-}
-
 </script>
 
 
