@@ -577,6 +577,27 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 
+<a 
+  href="#" 
+  class="whatsapp-button" 
+  onclick="abrirWhatsApp()"
+>
+  💬
+</a>
+
+<script>
+
+function abrirWhatsApp() {
+  var numero = "5542988071146";
+  var mensagem = "Olá! Vim da página de serviços e tenho dúvidas sobre as Trilhas da FSL.";
+
+  var url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(mensagem);
+
+  window.open(url, "_blank");
+}
+
+</script>
+
 
 </body>
 </html>
