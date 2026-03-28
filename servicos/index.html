@@ -30,7 +30,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     }
 
 /* =====================
-   HEADER / MENU
+   HEADER / MENU (PADRÃO GLOBAL)
 ===================== */
 
 header {
@@ -40,12 +40,14 @@ header {
   position: sticky;
   top: 0;
   z-index: 10;
-
-  /* AJUSTES IMPORTANTES */
   padding: 1rem 0;
 }
 
 header .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,7 +78,7 @@ header a:hover {
   opacity: 1;
 }
 
-/* Underline */
+/* Underline animado */
 header a::after {
   content: "";
   position: absolute;
@@ -94,13 +96,13 @@ header a.active::after {
   width: 100%;
 }
 
-/* Aba ativa */
+/* Link ativo */
 header a.active {
   font-weight: 600;
   opacity: 1;
 }
 
-
+    
     /* =====================
        SECTION
     ===================== */
