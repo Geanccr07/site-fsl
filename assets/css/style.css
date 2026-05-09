@@ -54,7 +54,7 @@ html, body {
 
   white-space: nowrap;
 
-  animation: marquee 22s linear infinite;
+  animation: marquee 18s linear infinite;
   will-change: transform;
 }
 
