@@ -986,18 +986,18 @@ form button {
 }
 
 /* =====================
-    SMART CV PAGE - FIX DEFINITIVO
+    SMART CV PAGE
 ===================== */
 
-/* Forçamos a página a ocupar a tela inteira sem scroll horizontal */
+
 body.smart-cv {
   background: #f6f7fb !important;
   display: block !important;
 }
 
-/* Ajuste específico para o container nesta página */
+
 .smart-cv .container {
-  max-width: 900px !important; /* Mais largo como você pediu */
+  max-width: 900px !important; 
   margin: 0 auto !important;
   padding: 40px 20px !important;
   display: flex !important;
@@ -1021,11 +1021,10 @@ body.smart-cv {
   text-align: center !important;
 }
 
-/* O CARD DO FORMULÁRIO */
-/* Usamos .form-box para diferenciar do 'form' genérico do topo do seu CSS */
+
 .smart-cv .form-box {
   background: #ffffff !important;
-  width: 100% !important; /* Ocupa os 900px do container */
+  width: 100% !important; 
   max-width: 100% !important;
   padding: 50px !important;
   border-radius: 24px !important;
@@ -1037,7 +1036,6 @@ body.smart-cv {
   margin: 0 !important; /* Remove margens que o CSS antigo possa ter */
 }
 
-/* Inputs e Textareas ocupando a largura total */
 .smart-cv .form-box label {
   width: 100% !important;
   display: flex !important;
@@ -1055,7 +1053,6 @@ body.smart-cv {
   font-family: 'Poppins', sans-serif !important;
 }
 
-/* Botão Centralizado e Largo */
 .smart-cv .form-box button {
   background: #6366f1 !important;
   color: white !important;
@@ -1072,7 +1069,6 @@ body.smart-cv {
   transform: translateY(-2px) !important;
 }
 
-/* Ajuste para o campo de arquivo */
 .smart-cv input[type="file"] {
   border: 2px dashed #ddd !important;
   background: #fcfcfc !important;
