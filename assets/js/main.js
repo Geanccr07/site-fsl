@@ -169,6 +169,8 @@ document.addEventListener("DOMContentLoaded", () => {
 /* =====================
    MICRO CONVERSÕES FORM
 ===================== */
+
+// Garante o escopo global do dataLayer logo no início do bloco
 window.dataLayer = window.dataLayer || [];
 
 let formStarted = false;
@@ -182,13 +184,11 @@ const steps = [
   { id: "onde_nos_conheceu", name: "origem", number: 5 }
 ];
 
-steps.forEach(step => {
-  const field = document.getElementById(step.id);
-  if (!field) return;
-
-  // 1. FORM_START: Dispara na primeira interação real digitada
-  field.addEventListener("input", () => {
-    if (!formStarted) {
+// 1. FORM_START: Escuta estritamente o primeiro caractere digitado no campo Nome
+const firstNameField = document.getElementById("nome");
+if (firstNameField) {
+  firstNameField.addEventListener("input", (e) => {
+    if (!formStarted && e.target.value.trim() !== "") {
       formStarted = true;
       window.dataLayer.push({
         event: "form_start",
@@ -196,11 +196,19 @@ steps.forEach(step => {
       });
     }
   });
+}
 
-  // 2. FORM_STEP: Dispara ao alterar e perder o foco (avançar)
-  field.addEventListener("change", (e) => {
+// 2. FORM_STEP: Monitora a saída de cada campo (quando o usuário avança)
+steps.forEach(step => {
+  const field = document.getElementById(step.id);
+  if (!field) return;
+
+  // Usamos 'blur' (perder o foco), que funciona perfeitamente para Inputs e Selects ao mudar de campo
+  field.addEventListener("blur", (e) => {
+    // Só dispara se o campo tiver conteúdo preenchido e se ainda não foi computado
     if (e.target.value.trim() !== "" && !completedSteps.has(step.id)) {
       completedSteps.add(step.id);
+      
       window.dataLayer.push({
         event: "form_step",
         step: step.name,
