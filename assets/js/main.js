@@ -167,10 +167,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================
-   MICRO CONVERSÕES FORM
+   MICRO CONVERSÕES FORM (SOLUÇÃO ROBUSTA)
 ===================== */
 
-// Garante o escopo global do dataLayer logo no início do bloco
+// Garante o escopo global do dataLayer
 window.dataLayer = window.dataLayer || [];
 
 let formStarted = false;
@@ -184,29 +184,41 @@ const steps = [
   { id: "onde_nos_conheceu", name: "origem", number: 5 }
 ];
 
-// 1. FORM_START: Escuta estritamente o primeiro caractere digitado no campo Nome
-const firstNameField = document.getElementById("nome");
-if (firstNameField) {
-  firstNameField.addEventListener("input", (e) => {
-    if (!formStarted && e.target.value.trim() !== "") {
+steps.forEach(step => {
+  const field = document.getElementById(step.id);
+  if (!field) return;
+
+  // Função única para processar o início do formulário (Form Start)
+  const triggerFormStart = () => {
+    if (!formStarted) {
       formStarted = true;
       window.dataLayer.push({
         event: "form_start",
         form_name: "home-site"
       });
     }
+  };
+
+  // GATILHO 1: Captura digitação em tempo real (Inputs)
+  field.addEventListener("input", (e) => {
+    if (e.target.value.trim() !== "") {
+      triggerFormStart();
+    }
   });
-}
 
-// 2. FORM_STEP: Monitora a saída de cada campo (quando o usuário avança)
-steps.forEach(step => {
-  const field = document.getElementById(step.id);
-  if (!field) return;
+  // GATILHO 2: Captura mudança definitiva e mudança de foco (Muda de campo ou Select)
+  // O evento 'change' é perfeito aqui pois funciona tanto para quando o usuário digita e sai do campo,
+  // quanto para o clique direto nas opções do elemento <select> ou Autofill do navegador.
+  field.addEventListener("change", (e) => {
+    const value = e.target.value.trim();
 
-  // Usamos 'blur' (perder o foco), que funciona perfeitamente para Inputs e Selects ao mudar de campo
-  field.addEventListener("blur", (e) => {
-    // Só dispara se o campo tiver conteúdo preenchido e se ainda não foi computado
-    if (e.target.value.trim() !== "" && !completedSteps.has(step.id)) {
+    // Garante que o start disparou (caso o browser tenha feito autofill bruto)
+    if (value !== "") {
+      triggerFormStart();
+    }
+
+    // Registra a conclusão daquele campo específico (Form Step)
+    if (value !== "" && !completedSteps.has(step.id)) {
       completedSteps.add(step.id);
       
       window.dataLayer.push({
