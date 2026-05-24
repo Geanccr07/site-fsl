@@ -183,54 +183,53 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+// =====================
+// MICRO CONVERSÕES FORM
+// =====================
 
-  const form = document.getElementById('leadForm');
+let formStarted = false;
 
-  // evita duplicar eventos
-  let formStarted = false;
+// controla quais etapas já foram enviadas
+const completedSteps = new Set();
 
-  // controla quais etapas já foram enviadas
-  const completedSteps = new Set();
+// ordem dos campos
+const steps = [
+  { id: "nome", name: "nome", number: 1 },
+  { id: "email", name: "email", number: 2 },
+  { id: "whatsapp", name: "whatsapp", number: 3 },
+  { id: "area", name: "area_estudo", number: 4 },
+  { id: "onde_nos_conheceu", name: "origem", number: 5 }
+];
 
-  // ordem dos campos
-  const steps = [
-    { id: 'nome', name: 'nome', number: 1 },
-    { id: 'email', name: 'email', number: 2 },
-    { id: 'whatsapp', name: 'whatsapp', number: 3 },
-    { id: 'area', name: 'area_estudo', number: 4 },
-    { id: 'onde_nos_conheceu', name: 'origem', number: 5 }
-  ];
+steps.forEach(step => {
+  const field = document.getElementById(step.id);
 
-  steps.forEach(step => {
-    const field = document.getElementById(step.id);
+  if (!field) return;
 
-    if (!field) return;
+  field.addEventListener("focus", () => {
 
-    field.addEventListener('focus', () => {
+    // FORM_START
+    if (!formStarted) {
+      formStarted = true;
 
-      // FORM_START
-      if (!formStarted) {
-        formStarted = true;
+      window.dataLayer = window.dataLayer || [];
 
-        window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_start",
+        form_name: "home-site"
+      });
+    }
 
-        window.dataLayer.push({
-          event: 'form_start',
-          form_name: 'home-site'
-        });
-      }
+    // FORM_STEP
+    if (!completedSteps.has(step.id)) {
+      completedSteps.add(step.id);
 
-      // FORM_STEP
-      if (!completedSteps.has(step.id)) {
-        completedSteps.add(step.id);
+      window.dataLayer.push({
+        event: "form_step",
+        step: step.name,
+        step_number: step.number
+      });
+    }
 
-        window.dataLayer.push({
-          event: 'form_step',
-          step: step.name,
-          step_number: step.number
-        });
-      }
-
-    });
   });
-
+});
