@@ -203,9 +203,8 @@ steps.forEach(step => {
 
   if (!field) return;
 
-  field.addEventListener("focus", () => {
-
-    // FORM_START
+  // 1. FORM_START: Dispara no primeiro caractere digitado ou opção selecionada
+  field.addEventListener("input", () => {
     if (!formStarted) {
       formStarted = true;
       window.dataLayer.push({
@@ -213,9 +212,12 @@ steps.forEach(step => {
         form_name: "home-site"
       });
     }
+  });
 
-    // FORM_STEP
-    if (!completedSteps.has(step.id)) {
+  // 2. FORM_STEP: Dispara ao alterar o campo e sair dele (ir para o próximo)
+  field.addEventListener("change", (e) => {
+    // Só dispara se o campo não estiver vazio e ainda não tiver sido disparado
+    if (e.target.value.trim() !== "" && !completedSteps.has(step.id)) {
       completedSteps.add(step.id);
 
       window.dataLayer.push({
