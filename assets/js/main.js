@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-<script>
+
   const form = document.getElementById('leadForm');
 
   // evita duplicar eventos
@@ -233,4 +233,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
   });
-</script>
+
