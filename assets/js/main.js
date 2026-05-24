@@ -3,9 +3,6 @@ const submitBtn = document.getElementById("submitBtn");
 const whatsappInput = document.getElementById("whatsapp");
 const feedback = document.getElementById("formFeedback");
 
-/* =====================
-   UTIL
-===================== */
 function onlyNumbers(value) {
   return value.replace(/\D/g, "");
 }
@@ -140,8 +137,6 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-
-
 /* =====================
    CARROSSEL DEPOIMENTOS
 ===================== */
@@ -187,3 +182,55 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+<script>
+  const form = document.getElementById('leadForm');
+
+  // evita duplicar eventos
+  let formStarted = false;
+
+  // controla quais etapas já foram enviadas
+  const completedSteps = new Set();
+
+  // ordem dos campos
+  const steps = [
+    { id: 'nome', name: 'nome', number: 1 },
+    { id: 'email', name: 'email', number: 2 },
+    { id: 'whatsapp', name: 'whatsapp', number: 3 },
+    { id: 'area', name: 'area_estudo', number: 4 },
+    { id: 'onde_nos_conheceu', name: 'origem', number: 5 }
+  ];
+
+  steps.forEach(step => {
+    const field = document.getElementById(step.id);
+
+    if (!field) return;
+
+    field.addEventListener('focus', () => {
+
+      // FORM_START
+      if (!formStarted) {
+        formStarted = true;
+
+        window.dataLayer = window.dataLayer || [];
+
+        window.dataLayer.push({
+          event: 'form_start',
+          form_name: 'home-site'
+        });
+      }
+
+      // FORM_STEP
+      if (!completedSteps.has(step.id)) {
+        completedSteps.add(step.id);
+
+        window.dataLayer.push({
+          event: 'form_step',
+          step: step.name,
+          step_number: step.number
+        });
+      }
+
+    });
+  });
+</script>
