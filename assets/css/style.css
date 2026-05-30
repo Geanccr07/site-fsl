@@ -579,39 +579,6 @@ form button {
 }
 
 
-/* =====================
-   FOOTER
-===================== */
-
-.footer {
-  background: #ffffff;
-  color: #333333;
-  padding: 4rem 1.5rem;
-  border-top: 1px solid rgba(255, 123, 0, 0.25);
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-}
-
-/* Ações / links */
-.footer-actions {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* Links */
-.footer a {
-  color: #ff7b00;
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  transition: opacity 0.2s ease;
-}
-
 /* Hover */
 .footer a:hover {
   opacity: 0.75;
@@ -887,73 +854,6 @@ form button {
   }
 }
 
-/* =====================
-   CTA BARS
-===================== */
-
-.cta-bar {
-  background: linear-gradient(
-    135deg,
-    #ff8a00 0%,
-    ##ffebe4 100%
-  );
-  padding: 3.5rem 0;
-}
-
-.cta-bar.cta-final {
-  background: linear-gradient(
-    135deg,
-    #ee6622 0%,
-    #ff5400 100%
-  );
-}
-
-.cta-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-}
-
-.cta-content p {
-  color: #ffffff;
-  font-size: 1.4rem;
-  font-weight: 500;
-  margin: 0;
-  max-width: 640px;
-}
-
-/* Botão */
-.cta-btn {
-  background: #ffffff;
-  color: #ff7b00;
-  text-decoration: none;
-  font-weight: 600;
-  padding: 1.2rem 2.3rem;
-  border-radius: 999px;
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.cta-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* =====================
-   MOBILE
-===================== */
-
-@media (max-width: 768px) {
-  .cta-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .cta-content p {
-    font-size: 1.2rem;
-  }
-}
 
 /* =====================
    FORM FEEDBACK
@@ -1096,4 +996,110 @@ body.smart-cv {
 
 .whatsapp-button:hover {
   transform: scale(1.1);
+}
+
+/* =====================
+   FOOTER E CTA
+===================== */
+
+.footer {
+  background: #ffffff;
+  color: #333333;
+  padding: 4rem 1.5rem;
+  border-top: 1px solid rgba(255, 123, 0, 0.25);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+/* Ações / links */
+.footer-actions {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* Links */
+.footer a {
+  color: #ff7b00;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: opacity 0.2s ease;
+}
+
+/* Hover */
+.footer a:hover {
+  opacity: 0.75;
+}
+
+/* =====================
+   CTA BARS
+===================== */
+
+.cta-bar {
+  background: linear-gradient(
+    135deg,
+    #ff8a00 0%,
+    ##ffebe4 100%
+  );
+  padding: 3.5rem 0;
+}
+
+.cta-bar.cta-final {
+  background: linear-gradient(
+    135deg,
+    #ff7b00 0%,
+    #ff5400 100%
+  );
+}
+
+.cta-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.cta-content p {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin: 0;
+  max-width: 640px;
+}
+
+/* Botão */
+.cta-btn {
+  background: #ffffff;
+  color: #ff7b00;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.9rem 1.8rem;
+  border-radius: 999px;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* =====================
+   MOBILE
+===================== */
+
+@media (max-width: 768px) {
+  .cta-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .cta-content p {
+    font-size: 1.2rem;
+  }
 }
