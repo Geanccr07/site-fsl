@@ -120,8 +120,7 @@ if (form) {
         }
       );
 
-      // Se a resposta voltou vazia ou bloqueada pelo CORS do Google, mas o status for OK (ou 0 em no-cors)
-      // Forçamos o sucesso pois o dado costuma entrar na planilha mesmo com o bloqueio de leitura do browser
+
       showSuccess("Tudo certo! Redirecionando...");
       setTimeout(() => {
         window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
@@ -131,7 +130,7 @@ if (form) {
       console.error("Erro no envio:", error);
       showError(null, "Erro de conexão ao salvar os dados. Mas você já pode entrar na comunidade!");
       
-      // Fallback de segurança: mesmo se a API cair de fato, o usuário não perde o acesso
+      // Fallback de segurança
       setTimeout(() => {
         window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
       }, 2500);
@@ -153,21 +152,24 @@ document.addEventListener("DOMContentLoaded", () => {
       return item ? item.offsetWidth + 24 : 300;
     };
 
+    // Avançar
     btnNext.addEventListener("click", () => {
-      track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+      track.scrollLeft += getScrollAmount();
     });
 
+    // Voltar
     btnPrev.addEventListener("click", () => {
-      track.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+      track.scrollLeft -= getScrollAmount();
     });
 
+    // Toque e arraste (Mobile/Mouse)
     track.addEventListener("mousedown", () => { track.style.scrollBehavior = "auto"; });
     track.addEventListener("mouseup", () => { track.style.scrollBehavior = "smooth"; });
   }
 });
 
 /* =====================
-   MICRO CONVERSÕES FORM (SOLUÇÃO ROBUSTA)
+   MICRO CONVERSÕES FORM
 ===================== */
 
 // Garante o escopo global do dataLayer
@@ -207,12 +209,10 @@ steps.forEach(step => {
   });
 
   // GATILHO 2: Captura mudança definitiva e mudança de foco (Muda de campo ou Select)
-  // O evento 'change' é perfeito aqui pois funciona tanto para quando o usuário digita e sai do campo,
-  // quanto para o clique direto nas opções do elemento <select> ou Autofill do navegador.
   field.addEventListener("change", (e) => {
     const value = e.target.value.trim();
 
-    // Garante que o start disparou (caso o browser tenha feito autofill bruto)
+    // Garante que o start disparou 
     if (value !== "") {
       triggerFormStart();
     }

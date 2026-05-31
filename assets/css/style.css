@@ -1,4 +1,6 @@
-
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E VARIÁVEIS (DESIGN SYSTEM FSL)
+   ========================================================================== */
 * {
   margin: 0;
   padding: 0;
@@ -7,123 +9,34 @@
 
 html, body {
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
-
 :root {
-  --primary: #1F4E5F;
-  --primary-soft: rgba(255, 90, 31, 0.15);
+  /* Cores Principais da Marca */
+  --orange-main: #FF7B00;
+  --orange-deep: #FF5900;
+  --teal-deep: #1F4E5F;
+  
+  /* Neutros Premium */
   --black: #0B0B0B;
   --white: #FFFFFF;
   --gray-text: #4B5563;
   --gray-bg: #F3F4F6;
+  --gray-light-bg: #F9FAFB;
   --border-light: #E5E7EB;
-  --orange-text: #FF5900;
+  
+  /* Opacidades e Suportes */
+  --orange-soft: rgba(255, 123, 0, 0.1);
+  --teal-soft: rgba(31, 78, 95, 0.1);
 }
 
-/* =====================
-   POP-UP TOPO
-===================== */
-.top-banner {
-  width: 100%;
-  background: #FF5900;
-  color: #FFFFFF;
-  overflow: hidden;
-
-  padding: 10px 0;
-
-  font-size: 14px;
-  font-weight: 600;
-
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-
-  position: relative;
-  z-index: 999;
-
-  display: flex;
-  align-items: center;
-}
-
-.top-banner-track {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-
-  width: max-content;
-
-  white-space: nowrap;
-
-  animation: marquee 18s linear infinite;
-  will-change: transform;
-}
-
-.top-banner-track span {
-  color: #ffffff;
-  flex-shrink: 0;
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(100%);
-  }
-
-  to {
-    transform: translateX(-100%);
-  }
-}
-
-/* MOBILE */
-@media (max-width: 768px) {
-  .top-banner {
-    padding: 8px 0;
-    font-size: 12px;
-  }
-
-  .top-banner-track {
-    gap: 14px;
-
-    animation-duration: 20s;
-  }
-}
-
-
-/* =====================
-   BODY POR PÁGINA
-===================== */
 body {
   font-family: 'Poppins', sans-serif;
   color: var(--black);
   line-height: 1.6;
+  background-color: var(--white);
 }
-
-/* HOME */
-.page-home {
-  background: linear-gradient(
-    120deg,
-    #ffffff 0%,
-    #f9fafb 60%,
-    #f3f4f6 100%
-  );
-}
-
-/* PÁGINAS INTERNAS */
-.page-default {
-  background: var(--gray-bg);
-}
-
-/* BLOG */
-.page-blog {
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    #f3f4f6 100%
-  );
-}
-
-
-/* =====================
-   CONTAINER
-===================== */
 
 .container {
   max-width: 1140px;
@@ -133,21 +46,74 @@ body {
   width: 100%;
 }
 
+.container-wide {
+  width: 100%;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
 
-/* =====================
-   HEADER / MENU
-===================== */
+/* ==========================================================================
+   2. POP-UP TOPO (TICKER BANNER)
+   ========================================================================== */
+.top-banner {
+  width: 100%;
+  background: var(--teal-deep);
+  color: var(--white);
+  overflow: hidden;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+}
 
+.top-banner-track {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+
+.top-banner-track span {
+  color: var(--white);
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .top-banner {
+    padding: 8px 0;
+    font-size: 12px;
+  }
+  .top-banner-track {
+    gap: 14px;
+    animation-duration: 16s;
+  }
+}
+
+/* ==========================================================================
+   3. HEADER & NAVBAR (Estilo Premium Clean)
+   ========================================================================== */
 header {
-  background: #ff7b00;
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 90, 31, 0.25);
+  background: var(--white);
+  border-bottom: 1px solid var(--border-light);
   position: sticky;
   top: 0;
-  z-index: 10;
-
-  /* AJUSTES IMPORTANTES */
-  padding: 1rem 0;
+  z-index: 100;
+  padding: 1.2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
 
 header .container {
@@ -156,63 +122,54 @@ header .container {
   justify-content: space-between;
 }
 
-/* NAV */
 header nav {
   display: flex;
-  gap: 1.8rem;
+  gap: 2rem;
   align-items: center;
 }
 
-/* LINKS */
 header a {
   text-decoration: none;
-  color: #FFFFFF;
+  color: var(--black);
   font-weight: 500;
   font-size: 0.95rem;
   position: relative;
-
   padding: 0.4rem 0;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-/* Hover */
 header a:hover {
-  opacity: 1;
+  color: var(--orange-main);
 }
 
-/* Underline */
 header a::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
+  bottom: -2px;
   width: 0%;
   height: 2px;
-  background: #FFFFFF;
+  background: var(--orange-main);
   transition: width 0.3s ease;
 }
 
-/* Hover + ativo */
 header a:hover::after,
 header a.active::after {
   width: 100%;
 }
 
-/* Aba ativa */
 header a.active {
   font-weight: 600;
-  opacity: 1;
+  color: var(--orange-main);
 }
 
-
-/* =====================
-   HERO (HOME)
-===================== */
+/* ==========================================================================
+   4. HERO SECTION (HOME)
+   ========================================================================== */
 .hero {
-  padding: 5rem 1.5rem 6rem;
+  padding: 6rem 1.5rem;
   position: relative;
-  overflow: hidden; /* evita scroll horizontal no mobile */
+  overflow: hidden;
   animation: fadeUp 0.8s ease forwards;
 }
 
@@ -223,264 +180,344 @@ header a.active {
   right: -120px;
   width: 420px;
   height: 420px;
-  background: radial-gradient(
-    circle,
-    var(--primary-soft) 0%,
-    transparent 100%
-  );
+  background: radial-gradient(circle, var(--orange-soft) 0%, transparent 100%);
   z-index: -1;
 }
 
 .hero h1 {
-  font-size: 2.8rem;
-  font-weight: 600;
+  font-size: 3rem;
+  font-weight: 700;
   line-height: 1.15;
-  max-width: 540px;
+  color: var(--black);
+  letter-spacing: -0.03em;
 }
 
 .hero p {
-  margin-top: 1.3rem;
-  font-size: 1.05rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
   color: var(--gray-text);
   max-width: 500px;
+  line-height: 1.6;
 }
 
-/* =====================
-   AJUSTES MOBILE
-===================== */
+@media (min-width: 768px) {
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 4rem;
+    align-items: center;
+  }
+}
+
 @media (max-width: 768px) {
+  .hero {
+    padding: 4rem 1.5rem;
+    text-align: center;
+  }
+  .hero h1 { font-size: 2.2rem; }
+  .hero p { margin: 1.3rem auto 0; }
   .hero::before {
     width: 260px;
     height: 260px;
     top: -80px;
     right: -80px;
   }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
 }
 
-.hero p {
-  margin-top: 1.3rem;
-  font-size: 1.05rem;
-  color: var(--gray-text);
-  max-width: 500px;
-}
-
-/* =====================
-   FORMULÁRIO
-===================== */
+/* ==========================================================================
+   5. FORMULÁRIOS DE CONVERSÃO
+   ========================================================================== */
 form {
-  margin-top: 2.8rem;
-  background: #ffebe4;
-  padding: 2.2rem;
-  border-radius: 16px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-  max-width: 420px;
+  margin-top: 1.5rem;
+  background: #FFF7F5;
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 123, 0, 0.1);
+  box-shadow: 0 20px 40px rgba(11, 11, 11, 0.04);
+  max-width: 440px;
+  width: 100%;
   animation: fadeUp 1s ease forwards;
 }
 
 form h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--black);
+  margin-bottom: 0.5rem;
   text-align: center;
 }
 
-
 form label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  margin-top: 1.1rem;
+  margin-top: 1.2rem;
   color: var(--gray-text);
 }
 
 form input,
-form select {
+form select,
+form textarea {
   width: 100%;
-  padding: 0.75rem 0.85rem;
+  padding: 0.85rem 1rem;
   margin-top: 0.4rem;
   border-radius: 10px;
   border: 1px solid var(--border-light);
+  background-color: var(--white);
   font-family: inherit;
+  color: var(--black);
+  transition: all 0.2s ease;
 }
 
 form input:focus,
-form select:focus {
+form select:focus,
+form textarea:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-soft);
+  border-color: var(--orange-main);
+  box-shadow: 0 0 0 3px var(--orange-soft);
 }
 
 form button {
-  margin-top: 1.8rem;
+  margin-top: 2rem;
   width: 100%;
-  background: linear-gradient(135deg, #FF5A1F, #FF7A47);
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange-main));
   color: var(--white);
   border: none;
-  padding: 1rem;
+  padding: 1.1rem;
   border-radius: 12px;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* =====================
-   PÁGINAS INTERNAS
-===================== */
-.page-content {
-  padding: 4rem 1.5rem 6rem;
+form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 90, 0, 0.25);
 }
 
-.page-content h1 {
-  font-size: 2.4rem;
-  font-weight: 600;
-}
-
-.page-content p {
-  margin-top: 1rem;
-  max-width: 700px;
-  color: var(--gray-text);
-}
-
-/* =====================
-   RESPONSIVO
-===================== */
-@media (min-width: 768px) {
-  .hero {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4.5rem;
-    align-items: center;
+@media (max-width: 768px) {
+  form {
+    margin: 2.5rem auto 0;
+    padding: 1.8rem;
   }
 }
 
-/* =====================
-   ANIMAÇÃO
-===================== */
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* =====================
-   DESTAQUES DE TEXTO
-===================== */
-.highlight {
-  color: var(--orange-text);
-  font-weight: 600;
-}
-
-/* =====================
-   TÍTULO DO FORMULÁRIO
-===================== */
-.form-title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  line-height: 1.4;
-}
-
-/* =====================
-   SEÇÕES GERAIS
-===================== */
+/* ==========================================================================
+   6. SEÇÕES COMPARTILHADAS & GRIDS
+   ========================================================================== */
 .section {
-  padding: 5rem 1.5rem;
+  padding: 6rem 1.5rem;
 }
 
 .section h2 {
-  font-size: 2.2rem;
-  font-weight: 600;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--black);
+  letter-spacing: -0.02em;
   margin-bottom: 1rem;
 }
 
 .section-subtitle {
-  max-width: 600px;
-  margin-bottom: 3rem;
+  font-size: 1.1rem;
+  max-width: 640px;
+  margin-bottom: 4rem;
   color: var(--gray-text);
+  line-height: 1.6;
 }
 
-/* VARIAÇÕES DE FUNDO */
-.section-primary {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 90, 31, 0.12),
-    rgba(255, 90, 31, 0.05)
-  );
-}
-
-.section-primary-soft {
-  background: rgba(255, 90, 31, 0.08);
-}
-
-.section-light {
-  background: var(--white);
-}
-
-/* =====================
-   GRIDS
-===================== */
-.grid-3 {
-  display: grid;
-  gap: 2rem;
-}
-
-.grid-2 {
-  display: grid;
-  gap: 2rem;
+.grid-2 { display: grid; gap: 2rem; }
+.grid-3 { display: grid; gap: 2rem; }
+.grid-4 { 
+  display: grid; 
+  gap: 2rem; 
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
 }
 
 @media (min-width: 768px) {
-  .grid-3 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
 }
 
-.align-center {
-  align-items: center;
+.align-center { align-items: center; }
+
+/* Variações Estruturais de Fundo */
+.page-home { background: var(--white); }
+.page-default { background: var(--gray-bg); }
+.page-blog { background: linear-gradient(180deg, var(--white) 0%, var(--gray-light-bg) 100%); }
+
+.section-primary-soft { background: var(--gray-light-bg); }
+.section-light { background: var(--white); }
+
+/* ==========================================================================
+   7. SEÇÃO 2: O QUE MUDA QUANDO PARA DE TENTAR SOZINHO (.section-primary)
+   ========================================================================== */
+.section-primary { 
+  background: linear-gradient(180deg, rgba(255, 123, 0, 0.03) 0%, rgba(255, 123, 0, 0.01) 100%); 
+  border-top: 1px solid rgba(255, 123, 0, 0.05);
+  border-bottom: 1px solid rgba(255, 123, 0, 0.05);
 }
 
-/* =====================
-   CARDS
-===================== */
-.card {
+.section-primary h2,
+.section-primary .section-subtitle {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-primary h2::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: var(--teal-deep);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+.section-primary .card {
   background: var(--white);
-  padding: 2rem;
+  border: 1px solid var(--border-light);
   border-radius: 16px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 2.8rem 2.2rem;
+  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.02);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s ease, 
+              border-color 0.3s ease;
 }
 
-.card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
+.section-primary .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(31, 78, 95, 0.07);
+  border-color: rgba(31, 78, 95, 0.2);
 }
 
-/* =====================
-   DEPOIMENTOS 
-===================== */
+/* ==========================================================================
+   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI (Com Azul Petróleo de borda esquerda)
+   ========================================================================== */
+.section-light h2 {
+  text-align: center;
+  margin-bottom: 4rem;
+}
 
-/* 1. Fundo da Seção Inteira (Rosado) */
+.section-light h2::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 4px;
+  background: var(--orange-main);
+  margin: 1rem auto 0;
+  border-radius: 2px;
+}
+
+.section-light .card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 2.8rem 2.2rem;
+  border-left: 4px solid var(--teal-deep);
+  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.03);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.section-light .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 35px rgba(11, 11, 11, 0.06);
+}
+
+.section-light .card.highlight-orange {
+  border-left-color: var(--orange-main);
+}
+
+.section-light .card h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.6rem;
+  color: var(--black);
+}
+
+.section-light .card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+/* ==========================================================================
+   9. SEÇÃO: PARA QUEM É A COMUNIDADE
+   ========================================================================== */
+.target-audience {
+  background: #FFF7F5;
+  color: var(--black);
+  padding: 6rem 0;
+}
+
+.target-audience h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.target-audience .section-subtitle {
+  text-align: center;
+  margin: 0 auto 4rem;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.audience-card {
+  background: var(--white);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(255, 90, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.audience-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(255, 90, 0, 0.06);
+}
+
+.audience-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  height: 60px;
+  width: 60px;
+  background: var(--orange-soft);
+  border-radius: 12px;
+}
+
+.audience-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+@media (max-width: 992px) {
+  .audience-grid { grid-template-columns: 1fr; }
+}
+
+/* ==========================================================================
+   10. SEÇÃO: DEPOIMENTOS 
+   ========================================================================== */
 .section-primary-soft.testimonials {
-  background-color: #ffffff; 
+  background-color: var(--white); 
   padding: 80px 0;
 }
 
-/* NOVO: Centralização do Título da Seção */
 .testimonials h2 {
   text-align: center;
   margin-bottom: 40px;
   width: 100%;
 }
 
-/* 2. Container de controle */
+/* Mantido padding original de 50px para abrir espaço exato para os cliques nas setas */
 .testimonial-container {
   position: relative;
   max-width: 1000px; 
@@ -488,7 +525,6 @@ form button {
   padding: 0 50px; 
 }
 
-/* 3. O "Trilho" onde os cards deslizam */
 .testimonial-track {
   display: flex;
   gap: 24px;
@@ -502,66 +538,69 @@ form button {
   display: none;
 }
 
-/* 4. O Card de Depoimento (Branco) */
 .testimonial {
-  background: #fdf2f0; 
+  background: var(--gray-light-bg); 
   padding: 2rem;
   border-radius: 16px;
-  box-shadow: 0 3px 3px var(--primary); 
+  border: 1px solid var(--border-light);
   
-  /* RESPONSIVIDADE: */
   flex: 0 0 calc(50% - 12px); 
   min-width: calc(50% - 12px);
   
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .testimonial:hover {
   transform: translateY(-5px);
+  border-color: var(--orange-main);
 }
 
 .testimonial p {
   font-size: 1rem;
   line-height: 1.6;
-  color: #333;
+  color: var(--gray-text);
   margin-bottom: 1.5rem;
   font-style: italic;
-  text-align: left; /* Garante que o texto do depoimento continue à esquerda */
+  text-align: left; 
 }
 
 .testimonial span {
   font-weight: 600;
-  color: var(--primary, #ff5722); 
+  color: var(--teal-deep); 
   font-size: 0.9rem;
 }
 
-/* 5. Setas Posicionadas */
+/* Setas em posições nativas e com sombra de relevo para garantir o foco de clique */
 .carousel-btn {
-  position: absolute;
+  position: absolute; /* Corrigido aqui! */
   top: 50%;
   transform: translateY(-50%);
-  background: var(--primary, #ff5722);
-  color: #fff;
+  background: var(--teal-deep);
+  color: var(--white);
   border: none;
   width: 45px;
   height: 45px;
   border-radius: 50%;
   font-size: 24px;
   cursor: pointer;
-  z-index: 10;
+  z-index: 20; /* Aumentado levemente para garantir que fique acima do trilho */
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: background 0.2s ease;
+}
+
+.carousel-btn:hover {
+  background: var(--orange-main);
 }
 
 .carousel-btn.prev { left: 0; }
 .carousel-btn.next { right: 0; }
 
-/* 6. Ajustes para Celular (Mobile) */
 @media (max-width: 768px) {
   .testimonial {
     flex: 0 0 100%; 
@@ -578,483 +617,169 @@ form button {
   }
 }
 
-
-/* Hover */
-.footer a:hover {
-  opacity: 0.75;
-}
-
-
-/* =====================
-   GRID
-===================== */
-.grid-4 {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-/* CONTAINER MAIS LARGO (SEÇÕES ESPECÍFICAS) */
-.container-wide {
-  width: 100%;
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 1.5rem;
-}
-
-/* =====================
-   MENTORS SECTION
-===================== */
-
+/* ==========================================================================
+   11. SEÇÃO: QUEM ESTÁ AO SEU LADO (Efeito Editorial Assimétrico)
+   ========================================================================== */
 .mentors {
-  background: #fdf2f0;
-  color: var(--black);
-  padding: 8rem 0;
+  background: var(--gray-light-bg);
+  padding: 6rem 0;
+  border-top: 1px solid var(--border-light);
 }
 
 .mentors h2 {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 5rem;
 }
 
-/* Bloco de cada mentor */
 .mentor-row {
   display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 3rem;
-  align-items: center;
-  max-width: 100%;
+  grid-template-columns: 240px 1fr;
+  gap: 4rem;
+  align-items: flex-start;
 }
 
-/* Alternar lados (foto direita) */
 .mentor-row.reverse {
-  grid-template-columns: 1fr 180px;
+  grid-template-columns: 1fr 240px;
 }
 
-/* Foto */
 .mentor-row img {
-  width: 180px;
-  height: 180px;
+  width: 240px;
+  height: 280px;
   object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--primary);
+  border-radius: 20px;
+  border: none;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.08);
 }
 
-/* Conteúdo */
 .mentor-content h3 {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 0.2rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--black);
 }
 
 .mentor-content h4 {
-  font-size: 1.05rem;
-  font-weight: 500;
-  opacity: 0.85;
-  margin-bottom: 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--orange-main);
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .mentor-content p {
-  font-size: 1.15rem;
-  line-height: 1.8;
-  margin-bottom: 1.3rem;
-}
-
-.mentor-content p:last-child {
-  margin-bottom: 0;
-}
-
-/* Separador entre mentores */
-.mentor-divider {
-  height: 1px;
-  background: rgba(255, 255, 255, 0.25);
-  margin: 5rem 0;
-}
-
-/* =====================
-   MOBILE
-===================== */
-
-@media (max-width: 768px) {
-  .mentor-row,
-  .mentor-row.reverse {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  /* Foto sempre em cima */
-  .mentor-row img {
-    order: 1;
-    margin: 0 auto;
-  }
-
-  /* Conteúdo sempre abaixo da foto */
-  .mentor-content {
-    order: 2;
-    margin-top: 2rem;
-  }
-
-  .mentor-content p {
-    font-size: 1.05rem;
-    line-height: 1.75;
-  }
-}
-
-
-/* =====================
-   O QUE VOCÊ ENCONTRA AQUI
-===================== */
-
-.section-light {
-  background: linear-gradient(
-    180deg,
-    #f9f9f9 0%,
-    #ffffff 100%
-  );
-}
-
-.section-light h2 {
-  text-align: center;
-  margin-bottom: 4rem;
-  position: relative;
-}
-
-/* Linha decorativa abaixo do título */
-.section-light h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: var(--primary);
-  margin: 1rem auto 0;
-  border-radius: 2px;
-}
-
-/* Grid mais espaçado */
-.section-light .grid-4 {
-  gap: 2rem;
-}
-
-/* Cards */
-.section-light .card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2.5rem 2.2rem;
-
-  border-left: 3px solid var(--primary);
-
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-/* Hover elegante */
-.section-light .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
-}
-
-/* Título do card */
-.section-light .card h3 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 0.6rem;
-  color: var(--black);
-}
-
-/* Texto do card */
-.section-light .card p {
   font-size: 1.05rem;
-  line-height: 1.6;
-  color: #444;
-}
-
-/* =====================
-   PARA QUEM É A COMUNIDADE
-===================== */
-
-.target-audience {
-  background: #FFEBE4;
-  color: var(--black);
-  padding: 8rem 0;
-}
-
-.target-audience h2 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.target-audience .section-subtitle {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 4rem;
-  font-size: 1.15rem;
-  opacity: 0.9;
-}
-
-/* Grid */
-.audience-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-}
-
-/* Cards */
-.audience-card {
-  background: #FFFFFF;
-  backdrop-filter: blur(6px);
-
-  border-radius: 18px;
-  padding: 2.5rem 2rem;
-
-  text-align: center;
-
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.audience-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.22);
-}
-
-/* Ícone */
-.audience-icon {
-  display: inline-block;
-  font-size: 2.2rem;
+  line-height: 1.7;
+  color: var(--gray-text);
   margin-bottom: 1.2rem;
 }
 
-/* Texto */
-.audience-card p {
-  font-size: 1.05rem;
-  line-height: 1.5;
+.mentor-divider {
+  height: 1px;
+  background: var(--border-light);
+  margin: 4rem 0;
 }
 
-.audience-card strong {
+@media (max-width: 768px) {
+  .mentor-row, .mentor-row.reverse {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .mentor-row img {
+    margin: 0 auto;
+    width: 200px;
+    height: 240px;
+  }
+  .mentor-content { margin-top: 1.5rem; }
+}
+
+/* ==========================================================================
+   12. PÁGINAS INTERNAS (Padrão e Blog Slug)
+   ========================================================================== */
+.page-content { padding: 5rem 1.5rem; }
+.page-content h1 { font-size: 2.6rem; font-weight: 700; letter-spacing: -0.02em; }
+.page-content p { margin-top: 1.2rem; color: var(--gray-text); font-size: 1.1rem; }
+
+.highlight {
+  color: var(--orange-deep);
   font-weight: 600;
 }
 
-/* =====================
-   MOBILE
-===================== */
+/* Validações de Formulário */
+.form-feedback { margin-top: 1rem; font-size: 0.9rem; display: none; font-weight: 500; }
+.form-feedback.success { color: #16a34a; }
+.form-feedback.error { color: #dc2626; }
+.field-error input, .field-error select { border-color: #ef4444; background: #fef2f2; }
 
-@media (max-width: 768px) {
-  .audience-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .target-audience {
-    padding: 6rem 0;
-  }
-
-  .target-audience .section-subtitle {
-    font-size: 1.05rem;
-  }
-}
-
-
-/* =====================
-   FORM FEEDBACK
-===================== */
-
-.form-feedback {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-  display: none;
-}
-
-.form-feedback.success {
-  color: #15803d;
-}
-
-.form-feedback.error {
-  color: #b91c1c;
-}
-
-/* Campo com erro */
-.field-error input,
-.field-error select {
-  border-color: #ef4444;
-  background: #fff5f5;
-}
-
-/* =====================
-    SMART CV PAGE
-===================== */
-
-
-body.smart-cv {
-  background: #f6f7fb !important;
-  display: block !important;
-}
-
-
+/* ==========================================================================
+   13. SMART CV PAGE
+   ========================================================================== */
+body.smart-cv { background: #F8FAFC !important; display: block !important; }
 .smart-cv .container {
-  max-width: 900px !important; 
+  max-width: 840px !important;
   margin: 0 auto !important;
-  padding: 40px 20px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
+  padding: 50px 20px !important;
 }
-
-/* Títulos */
-.smart-cv h1 {
-  font-size: 2.4rem !important;
-  margin-bottom: 15px !important;
-  color: #1a1a1a !important;
-  width: 100% !important;
-  text-align: center !important;
-}
-
-.smart-cv .container > p {
-  font-size: 1.1rem !important;
-  color: #666 !important;
-  margin-bottom: 40px !important;
-  text-align: center !important;
-}
-
+.smart-cv h1 { font-size: 2.5rem !important; margin-bottom: 12px !important; color: var(--black) !important; text-align: center !important; }
+.smart-cv .container > p { font-size: 1.1rem !important; color: var(--gray-text) !important; margin-bottom: 40px !important; text-align: center !important; }
 
 .smart-cv .form-box {
-  background: #ffffff !important;
-  width: 100% !important; 
-  max-width: 100% !important;
-  padding: 50px !important;
+  background: var(--white) !important;
+  padding: 3.5rem !important;
   border-radius: 24px !important;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.06) !important;
-  
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 25px !important;
-  margin: 0 !important; /* Remove margens que o CSS antigo possa ter */
-}
-
-.smart-cv .form-box label {
-  width: 100% !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  font-weight: 500 !important;
-}
-
-.smart-cv .form-box input,
-.smart-cv .form-box textarea {
-  width: 100% !important;
-  padding: 14px !important;
-  border: 1px solid #e0e0e0 !important;
-  border-radius: 12px !important;
-  font-family: 'Poppins', sans-serif !important;
+  border: 1px solid var(--border-light) !important;
+  box-shadow: 0 15px 40px rgba(11, 11, 11, 0.03) !important;
+  display: flex !important; flex-direction: column !important; gap: 24px !important;
 }
 
 .smart-cv .form-box button {
-  background: #6366f1 !important;
-  color: white !important;
-  padding: 18px !important;
+  background: var(--teal-deep) !important;
+  color: var(--white) !important;
+  padding: 1.1rem !important;
   border-radius: 12px !important;
-  font-size: 1.1rem !important;
+  font-size: 1.05rem !important;
   font-weight: 600 !important;
-  margin-top: 10px !important;
-  transition: all 0.2s ease !important;
 }
+.smart-cv .form-box button:hover { background: #153541 !important; transform: translateY(-2px) !important; }
+.smart-cv input[type="file"] { border: 2px dashed var(--border-light) !important; background: var(--gray-light-bg) !important; padding: 25px !important; }
 
-.smart-cv .form-box button:hover {
-  background: #4f46e5 !important;
-  transform: translateY(-2px) !important;
-}
-
-.smart-cv input[type="file"] {
-  border: 2px dashed #ddd !important;
-  background: #fcfcfc !important;
-  padding: 20px !important;
-}
-
+/* Fixed Floating Widgets */
 .whatsapp-button {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-
-  width: 60px;
-  height: 60px;
-
+  bottom: 25px;
+  right: 25px;
+  width: 56px;
+  height: 56px;
   background-color: #25D366;
-  color: white;
-
+  color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 50%;
-
   text-decoration: none;
-  box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
   z-index: 1000;
-  transition: 0.3s;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.whatsapp-button:hover { transform: scale(1.1); }
+
+/* ==========================================================================
+   14. ANIMAÇÕES DE ENTRADA
+   ========================================================================== */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.whatsapp-button:hover {
-  transform: scale(1.1);
-}
-
-/* =====================
-   FOOTER E CTA
-===================== */
-
-.footer {
-  background: #ffffff;
-  color: #333333;
-  padding: 4rem 1.5rem;
-  border-top: 1px solid rgba(255, 123, 0, 0.25);
-}
-
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1.8rem;
-}
-
-/* Ações / links */
-.footer-actions {
-  display: flex;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* Links */
-.footer a {
-  color: #ff7b00;
-  text-decoration: none;
-  font-weight: 500;
-  position: relative;
-  transition: opacity 0.2s ease;
-}
-
-/* Hover */
-.footer a:hover {
-  opacity: 0.75;
-}
-
-/* =====================
-   CTA BARS
-===================== */
-
+/* ==========================================================================
+   15. CTA BARS & SEÇÃO DE CONVERSÃO FINAL
+   ========================================================================== */
 .cta-bar {
-  background: linear-gradient(
-    135deg,
-    #ff8a00 0%,
-    ##ffebe4 100%
-  );
+  background: linear-gradient(135deg, #ff8a00 0%, #ffebe4 100%);
   padding: 3.5rem 0;
 }
 
 .cta-bar.cta-final {
-  background: linear-gradient(
-    135deg,
-    #ff7b00 0%,
-    #ff5400 100%
-  );
+  background: linear-gradient(135deg, #ee6622 0%, #ff5400 100%);
 }
 
 .cta-content {
@@ -1065,22 +790,20 @@ body.smart-cv {
 }
 
 .cta-content p {
-  color: #ffffff;
+  color: var(--white);
   font-size: 1.4rem;
   font-weight: 500;
   margin: 0;
   max-width: 640px;
 }
 
-/* Botão */
 .cta-btn {
-  background: #ffffff;
-  color: #ff7b00;
+  background: var(--white);
+  color: var(--orange-main);
   text-decoration: none;
   font-weight: 600;
-  padding: 0.9rem 1.8rem;
+  padding: 1.2rem 2.3rem;
   border-radius: 999px;
-
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -1089,17 +812,72 @@ body.smart-cv {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* =====================
-   MOBILE
-===================== */
+/* ==========================================================================
+   16. FOOTER
+   ========================================================================== */
+.footer {
+  background: var(--teal-deep);
+  color: #9ca3af;
+  padding: 5rem 1.5rem 2.5rem;
+  font-size: 0.95rem;
+}
 
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid #1f2937;
+}
+
+.footer-brand { display: flex; flex-direction: column; gap: 1rem; }
+.footer-logo { color: var(--white); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+.footer-tagline { line-height: 1.6; max-width: 340px; }
+.footer-nav, .footer-social { display: flex; flex-direction: column; gap: 0.8rem; }
+
+.footer h3 {
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.footer a {
+  color: #9ca3af;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  width: max-content;
+}
+
+.footer a:hover { color: var(--orange-main); }
+.footer .whats-highlight { color: var(--orange-main); font-weight: 600; }
+.footer .whats-highlight:hover { color: #ff9d42; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.footer-bottom p { margin: 0; }
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a { color: #6b7280; font-size: 0.85rem; }
+.footer-legal a:hover { color: #9ca3af; }
+
+/* ==========================================================================
+   17. RESPONSIVIDADE INDEPENDENTE MOBILE
+   ========================================================================== */
 @media (max-width: 768px) {
   .cta-content {
     flex-direction: column;
     text-align: center;
   }
-
-  .cta-content p {
-    font-size: 1.2rem;
-  }
+  .cta-content p { font-size: 1.2rem; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
+  .footer-legal { justify-content: center; }
 }
