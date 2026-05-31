@@ -104,7 +104,7 @@ body {
 }
 
 /* ==========================================================================
-   3. HEADER & NAVBAR (Estilo Premium Clean)
+   3. HEADER & NAVBAR 
    ========================================================================== */
 header {
   background: var(--white);
@@ -253,7 +253,7 @@ form label {
   font-weight: 500;
   margin-top: 1.2rem;
   color: var(--gray-text);
-  text-align: left; /* Ajuste para o alinhamento à esquerda */
+  text-align: left; 
 }
 
 form input,
@@ -345,7 +345,7 @@ form button:hover {
 /* Ajuste de título para Mobile */
 @media (max-width: 768px) {
   .section h2 {
-    font-size: 1.8rem; /* Reduzido para evitar quebras excessivas */
+    font-size: 1.8rem; 
   }
 }
 
@@ -358,7 +358,7 @@ form button:hover {
 .section-light { background: var(--white); }
 
 /* ==========================================================================
-   7. SEÇÃO 2: O QUE MUDA QUANDO PARA DE TENTAR SOZINHO (.section-primary)
+   7. SEÇÃO 2: O QUE MUDA QUANDO PARA DE TENTAR SOZINHO 
    ========================================================================== */
 .section-primary { 
   background: linear-gradient(180deg, rgba(255, 123, 0, 0.03) 0%, rgba(255, 123, 0, 0.01) 100%); 
@@ -401,7 +401,7 @@ form button:hover {
 }
 
 /* ==========================================================================
-   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI (Com Azul Petróleo de borda esquerda)
+   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI 
    ========================================================================== */
 .section-light h2 {
   text-align: center;
@@ -624,7 +624,7 @@ form button:hover {
 }
 
 /* ==========================================================================
-   11. SEÇÃO: QUEM ESTÁ AO SEU LADO (Efeito Editorial Assimétrico)
+   11. SEÇÃO: QUEM ESTÁ AO SEU LADO 
    ========================================================================== */
 .mentors {
   background: var(--gray-light-bg);
@@ -886,4 +886,13 @@ body.smart-cv { background: #F8FAFC !important; display: block !important; }
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .footer-bottom { flex-direction: column; gap: 1.5rem; text-align: center; }
   .footer-legal { justify-content: center; }
+}
+
+/* Correção do Zoom automático */
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  form input,
+  form select,
+  form textarea {
+    font-size: 16px !important;
+  }
 }
