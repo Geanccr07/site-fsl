@@ -102,24 +102,42 @@ if (form) {
         form_name: "home-site"
       });
 
+      // Captura parâmetros UTM da URL atual
+      const urlParams = new URLSearchParams(window.location.search);
+      const utm_source = urlParams.get("utm_source") || "";
+      const utm_medium = urlParams.get("utm_medium") || "";
+      const utm_campaign = urlParams.get("utm_campaign") || "";
+
+      // Captura a URL da página atual (Referer no payload)
+      const referer = document.referrer || "Acesso Direto / Desconhecido";
+
+      const N8N_WEBHOOK_URL = "https://n8n.firststeplab.com.br/webhook/868ba4e8-59ca-4000-9863-0b2c2c47c9e5";
+
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbwP_3y9rBsCmVW68iLwepOMIFX-Kli4y8djnKCN73OZ8uijuwUIcNwKGd8U10zL7BBU/exec",
+        N8N_WEBHOOK_URL,
         {
           method: "POST",
-          mode: "cors", // Garante requisição cross-origin explícita
+          mode: "cors", 
           headers: {
-            "Content-Type": "text/plain;charset=utf-8" // Evita o bloqueio de preflight do Google Apps Script
+            "Content-Type": "application/json" 
           },
           body: JSON.stringify({ 
             nome, 
             email, 
             whatsapp: whatsappRaw, 
             area, 
-            onde_nos_conheceu 
+            onde_nos_conheceu,
+            utm_source,
+            utm_medium,
+            utm_campaign,
+            referer
           })
         }
       );
 
+      if (!response.ok) {
+        throw new Error(`Erro na resposta do servidor: ${response.status}`);
+      }
 
       showSuccess("Tudo certo! Redirecionando...");
       setTimeout(() => {
