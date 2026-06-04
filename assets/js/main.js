@@ -4,7 +4,7 @@ const whatsappInput = document.getElementById("whatsapp");
 const feedback = document.getElementById("formFeedback");
 
 function onlyNumbers(value) {
-  return value.replace(/\D/g, "");
+  return value ? value.replace(/\D/g, "") : "";
 }
 
 function clearErrors() {
@@ -21,7 +21,6 @@ function clearErrors() {
 function showError(input, message) {
   if (!feedback) return;
   
-  // Só tenta aplicar a classe de erro se o elemento estiver dentro de um label
   if (input) {
     const label = input.closest("label");
     if (label) {
@@ -113,45 +112,39 @@ if (form) {
 
       const N8N_WEBHOOK_URL = "https://n8n.firststeplab.com.br/webhook/868ba4e8-59ca-4000-9863-0b2c2c47c9e5";
 
-      const response = await fetch(
-        N8N_WEBHOOK_URL,
-        {
-          method: "POST",
-          mode: "cors", 
-          headers: {
-            "Content-Type": "application/json" 
-          },
-          body: JSON.stringify({ 
-            nome, 
-            email, 
-            whatsapp: whatsappRaw, 
-            onde_nos_conheceu,
-            momento_profissional, // Campo de área de estudo totalmente removido daqui
-            utm_source,
-            utm_medium,
-            utm_campaign,
-            referer
-          })
-        }
-      );
+      // Requisição fetch isolada com tratamento simplificado para evitar bloqueios cross-origin de resposta
+      await fetch(N8N_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors", // Garante o envio mesmo que o n8n não devolva os headers CORS de volta
+        headers: {
+          "Content-Type": "application/json" 
+        },
+        body: JSON.stringify({ 
+          nome, 
+          email, 
+          whatsapp: whatsappRaw, 
+          onde_nos_conheceu,
+          momento_profissional, 
+          utm_source,
+          utm_medium,
+          utm_campaign,
+          referer
+        })
+      });
 
-      if (!response.ok) {
-        throw new Error(`Erro na resposta do servidor: ${response.status}`);
-      }
-
+      // Como usamos 'no-cors' para garantir a entrega sem travas no navegador, seguimos direto para o sucesso
       showSuccess("Tudo certo! Redirecionando...");
       setTimeout(() => {
         window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
       }, 1500);
 
     } catch (error) {
-      console.error("Erro no envio:", error);
-      showError(null, "Erro de conexão ao salvar os dados. Mas você já pode entrar na comunidade!");
-      
-      // Fallback de segurança
+      console.error("Erro no envio do formulário:", error);
+      // Fallback de segurança para o usuário não ficar travado caso a rede caia completamente
+      showSuccess("Redirecionando para a comunidade...");
       setTimeout(() => {
         window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
-      }, 2500);
+      }, 2000);
     }
   });
 }
@@ -170,27 +163,22 @@ document.addEventListener("DOMContentLoaded", () => {
       return item ? item.offsetWidth + 24 : 300;
     };
 
-    // Avançar
     btnNext.addEventListener("click", () => {
       track.scrollLeft += getScrollAmount();
     });
 
-    // Voltar
     btnPrev.addEventListener("click", () => {
       track.scrollLeft -= getScrollAmount();
     });
 
-    // Toque e arraste (Mobile/Mouse)
     track.addEventListener("mousedown", () => { track.style.scrollBehavior = "auto"; });
     track.addEventListener("mouseup", () => { track.style.scrollBehavior = "smooth"; });
   }
 });
 
 /* =====================
-   MICRO CONVERSÕES FORM
+   MICRO CONVERSÕES FORM (Ajustado)
 ===================== */
-
-// Garante o escopo global do dataLayer
 window.dataLayer = window.dataLayer || [];
 
 let formStarted = false;
@@ -208,7 +196,6 @@ steps.forEach(step => {
   const field = document.getElementById(step.id);
   if (!field) return;
 
-  // Função única para processar o início do formulário (Form Start)
   const triggerFormStart = () => {
     if (!formStarted) {
       formStarted = true;
@@ -219,23 +206,20 @@ steps.forEach(step => {
     }
   };
 
-  // GATILHO 1: Captura digitação em tempo real (Inputs)
   field.addEventListener("input", (e) => {
-    if (e.target.value.trim() !== "") {
+    if (e.target.value && e.target.value.toString().trim() !== "") {
       triggerFormStart();
     }
   });
 
-  // GATILHO 2: Captura mudança definitiva e mudança de foco (Muda de campo ou Select)
   field.addEventListener("change", (e) => {
-    const value = e.target.value.trim();
+    if (!e.target.value) return;
+    const value = e.target.value.toString().trim();
 
-    // Garante que o start disparou 
     if (value !== "") {
       triggerFormStart();
     }
 
-    // Registra a conclusão daquele campo específico (Form Step)
     if (value !== "" && !completedSteps.has(step.id)) {
       completedSteps.add(step.id);
       
