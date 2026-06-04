@@ -85,26 +85,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </label>
 
   <label>
-  WhatsApp
-  <input
-    type="tel"
-    id="whatsapp"
-    required
-    inputmode="numeric"
-    maxlength="15"
-    placeholder="(11)98765-4321"
-  />
-</label>
-
-  <label>
-    Área de estudo
-    <select id="area" required>
-      <option value="">Selecione</option>
-      <option value="Marketing">Marketing</option>
-      <option value="Dados">Dados</option>
-      <option value="Tecnologia">Tecnologia</option>
-      <option value="Outro">Outro</option>
-    </select>
+    WhatsApp
+    <input
+      type="tel"
+      id="whatsapp"
+      required
+      inputmode="numeric"
+      maxlength="15"
+      placeholder="(11)98765-4321"
+    />
   </label>
 
   <label>
@@ -118,9 +107,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </select>
   </label>
 
-<div class="form-feedback" id="formFeedback"></div>
+  <label>
+    Como você define seu momento profissional hoje?
+    <select id="momento_profissional" required>
+      <option value="">Selecione</option>
+      <option value="Estou organizando currículo e LinkedIn">Estou organizando currículo e LinkedIn</option>
+      <option value="Estou procurando vagas e me candidatando">Estou procurando vagas e me candidatando</option>
+      <option value="Estou participando de processos seletivos">Estou participando de processos seletivos</option>
+      <option value="Estou me preparando para entrevistas">Estou me preparando para entrevistas</option>
+      <option value="Já estou empregado, mas quero acelerar a carreira">Já estou empregado, mas quero acelerar a carreira</option>
+    </select>
+  </label>
 
-  
+  <div class="form-feedback" id="formFeedback"></div>
+
   <button type="submit" id="submitBtn">
     Acessar comunidade
   </button>

@@ -75,21 +75,21 @@ if (form) {
 
     const nomeInput = document.getElementById("nome");
     const emailInput = document.getElementById("email");
-    const areaInput = document.getElementById("area");
     const ondeNosConheceuInput = document.getElementById("onde_nos_conheceu");
+    const momentoProfissionalInput = document.getElementById("momento_profissional");
 
     const nome = nomeInput.value.trim();
     const email = emailInput.value.trim();
     const whatsappRaw = onlyNumbers(whatsappInput.value); 
-    const area = areaInput.value;
     const onde_nos_conheceu = ondeNosConheceuInput.value;
+    const momento_profissional = momentoProfissionalInput.value;
 
     // Validações
     if (!nome) return showError(nomeInput, "Por favor, informe seu nome.");
     if (!email || !email.includes("@")) return showError(emailInput, "Informe um email válido.");
     if (whatsappRaw.length !== 11) return showError(whatsappInput, "Digite um WhatsApp válido com DDD (Ex: 11 98765-4321).");
-    if (!area) return showError(areaInput, "Selecione sua área de estudo.");
     if (!onde_nos_conheceu) return showError(ondeNosConheceuInput, "Conte-nos como nos conheceu.");
+    if (!momento_profissional) return showError(momentoProfissionalInput, "Selecione seu momento profissional atual.");
 
     // Trava o botão para evitar cliques duplicados
     submitBtn.disabled = true;
@@ -108,7 +108,7 @@ if (form) {
       const utm_medium = urlParams.get("utm_medium") || "";
       const utm_campaign = urlParams.get("utm_campaign") || "";
 
-      // Captura a URL da página atual (Referer no payload)
+      // Captura a URL da página anterior (Referer no payload)
       const referer = document.referrer || "Acesso Direto / Desconhecido";
 
       const N8N_WEBHOOK_URL = "https://n8n.firststeplab.com.br/webhook/868ba4e8-59ca-4000-9863-0b2c2c47c9e5";
@@ -125,8 +125,8 @@ if (form) {
             nome, 
             email, 
             whatsapp: whatsappRaw, 
-            area, 
             onde_nos_conheceu,
+            momento_profissional, // Campo de área de estudo totalmente removido daqui
             utm_source,
             utm_medium,
             utm_campaign,
@@ -200,8 +200,8 @@ const steps = [
   { id: "nome", name: "nome", number: 1 },
   { id: "email", name: "email", number: 2 },
   { id: "whatsapp", name: "whatsapp", number: 3 },
-  { id: "area", name: "area_estudo", number: 4 },
-  { id: "onde_nos_conheceu", name: "origem", number: 5 }
+  { id: "onde_nos_conheceu", name: "origem", number: 4 },
+  { id: "momento_profissional", name: "momento_profissional", number: 5 } 
 ];
 
 steps.forEach(step => {
