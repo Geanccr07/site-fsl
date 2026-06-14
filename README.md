@@ -43,4 +43,4 @@ Email de boas-vindas
 
 - 130+ membros
 - 20+ mentorias realizadas
-- 7+ profissionais apoiados em contratações
+- 8+ profissionais apoiados em contratações
