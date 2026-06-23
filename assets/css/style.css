@@ -192,6 +192,21 @@ header a.active {
   letter-spacing: -0.03em;
 }
 
+/* @media para Tablets */
+@media (max-width: 992px) {
+  .hero h1 {
+    font-size: 2.5rem; 
+  }
+}
+
+@media (max-width: 576px) {
+  .hero h1 {
+    font-size: 1.85rem; 
+    line-height: 1.2;  
+    letter-spacing: -0.01em; 
+  }
+}
+
 .hero p {
   margin-top: 1.5rem;
   font-size: 1.1rem;
@@ -715,58 +730,6 @@ form button:hover {
 .form-feedback.success { color: #16a34a; }
 .form-feedback.error { color: #dc2626; }
 .field-error input, .field-error select { border-color: #ef4444; background: #fef2f2; }
-
-/* ==========================================================================
-   13. SMART CV PAGE
-   ========================================================================== */
-body.smart-cv { background: #F8FAFC !important; display: block !important; }
-.smart-cv .container {
-  max-width: 840px !important;
-  margin: 0 auto !important;
-  padding: 50px 20px !important;
-}
-.smart-cv h1 { font-size: 2.5rem !important; margin-bottom: 12px !important; color: var(--black) !important; text-align: center !important; }
-.smart-cv .container > p { font-size: 1.1rem !important; color: var(--gray-text) !important; margin-bottom: 40px !important; text-align: center !important; }
-
-.smart-cv .form-box {
-  background: var(--white) !important;
-  padding: 3.5rem !important;
-  border-radius: 24px !important;
-  border: 1px solid var(--border-light) !important;
-  box-shadow: 0 15px 40px rgba(11, 11, 11, 0.03) !important;
-  display: flex !important; flex-direction: column !important; gap: 24px !important;
-}
-
-.smart-cv .form-box button {
-  background: var(--teal-deep) !important;
-  color: var(--white) !important;
-  padding: 1.1rem !important;
-  border-radius: 12px !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-}
-.smart-cv .form-box button:hover { background: #153541 !important; transform: translateY(-2px) !important; }
-.smart-cv input[type="file"] { border: 2px dashed var(--border-light) !important; background: var(--gray-light-bg) !important; padding: 25px !important; }
-
-/* Fixed Floating Widgets */
-.whatsapp-button {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  width: 56px;
-  height: 56px;
-  background-color: #25D366;
-  color: var(--white);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  text-decoration: none;
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-  z-index: 1000;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.whatsapp-button:hover { transform: scale(1.1); }
 
 /* ==========================================================================
    14. ANIMAÇÕES DE ENTRADA
