@@ -323,7 +323,7 @@ form button:hover {
    6. SEÇÕES COMPARTILHADAS & GRIDS
    ========================================================================== */
 .section {
-  padding: 6rem 1.5rem;
+  padding: 4rem 1.5rem;
 }
 
 .section h2 {
@@ -373,50 +373,7 @@ form button:hover {
 .section-light { background: var(--white); }
 
 /* ==========================================================================
-   7. SEÇÃO 2: O QUE MUDA QUANDO PARA DE TENTAR SOZINHO 
-   ========================================================================== */
-.section-primary { 
-  background: linear-gradient(180deg, rgba(255, 123, 0, 0.03) 0%, rgba(255, 123, 0, 0.01) 100%); 
-  border-top: 1px solid rgba(255, 123, 0, 0.05);
-  border-bottom: 1px solid rgba(255, 123, 0, 0.05);
-}
-
-.section-primary h2,
-.section-primary .section-subtitle {
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.section-primary h2::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 4px;
-  background: var(--teal-deep);
-  margin: 1rem auto 0;
-  border-radius: 2px;
-}
-
-.section-primary .card {
-  background: var(--white);
-  border: 1px solid var(--border-light);
-  border-radius: 16px;
-  padding: 2.8rem 2.2rem;
-  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.02);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.3s ease, 
-              border-color 0.3s ease;
-}
-
-.section-primary .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 35px rgba(31, 78, 95, 0.07);
-  border-color: rgba(31, 78, 95, 0.2);
-}
-
-/* ==========================================================================
-   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI 
+   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI
    ========================================================================== */
 .section-light h2 {
   text-align: center;
@@ -435,20 +392,23 @@ form button:hover {
 
 .section-light .card {
   background: var(--white);
-  border-radius: 16px;
-  padding: 2.8rem 2.2rem;
-  border-left: 4px solid var(--teal-deep);
-  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.03);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border-radius: 6px; 
+  padding: 2.2rem 1.8rem; 
+  
+  border: 1px solid rgba(0, 0, 0, 0.08); 
+  
+  box-shadow: 0 4px 20px rgba(11, 11, 11, 0.02);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .section-light .card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 16px 35px rgba(11, 11, 11, 0.06);
+  transform: translateY(-4px);
+  border-color: var(--teal-deep);
+  box-shadow: 0 12px 24px rgba(11, 11, 11, 0.05);
 }
 
-.section-light .card.highlight-orange {
-  border-left-color: var(--orange-main);
+.section-light .card.highlight-orange:hover {
+  border-color: var(--orange-main);
 }
 
 .section-light .card h3 {
@@ -459,7 +419,7 @@ form button:hover {
 }
 
 .section-light .card p {
-  font-size: 1rem;
+  font-size: 0.95rem; 
   line-height: 1.6;
   color: var(--gray-text);
 }
@@ -468,9 +428,9 @@ form button:hover {
    9. SEÇÃO: PARA QUEM É A COMUNIDADE
    ========================================================================== */
 .target-audience {
-  background: #FFF7F5;
+  background: #fbfbfb;
   color: var(--black);
-  padding: 6rem 0;
+  padding: 5rem 0;
 }
 
 .target-audience h2 {
@@ -486,44 +446,54 @@ form button:hover {
 .audience-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 2.5rem 2rem; 
 }
 
 .audience-card {
-  background: var(--white);
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(255, 90, 0, 0.02);
-  border: 1px solid rgba(0, 0, 0, 0.02);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  background: transparent; 
+  border-radius: 0;
+  padding: 1rem;
+  text-align: left; 
+  box-shadow: none; 
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  transition: transform 0.25s ease;
 }
 
 .audience-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 20px 40px rgba(255, 90, 0, 0.06);
+  transform: translateX(4px); 
 }
 
 .audience-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.2rem;
-  margin-bottom: 1.5rem;
-  height: 60px;
-  width: 60px;
-  background: var(--orange-soft);
-  border-radius: 12px;
+  font-size: 1.8rem; 
+  margin-bottom: 1rem;
+  height: auto;
+  width: auto;
+  background: none; 
+  border-radius: 0;
 }
 
 .audience-card p {
-  font-size: 1rem;
+  font-size: 1.05rem; 
   line-height: 1.6;
   color: var(--gray-text);
+  font-weight: 500; 
 }
 
 @media (max-width: 992px) {
-  .audience-grid { grid-template-columns: 1fr; }
+  .audience-grid { 
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+  }
+  
+  .audience-card {
+    padding: 0.5rem 1rem;
+  }
 }
 
 /* ==========================================================================
@@ -725,7 +695,6 @@ form button:hover {
   font-weight: 600;
 }
 
-/* Validações de Formulário */
 .form-feedback { margin-top: 1rem; font-size: 0.9rem; display: none; font-weight: 500; }
 .form-feedback.success { color: #16a34a; }
 .form-feedback.error { color: #dc2626; }
