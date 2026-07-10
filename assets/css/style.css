@@ -701,6 +701,148 @@ form button:hover {
 .field-error input, .field-error select { border-color: #ef4444; background: #fef2f2; }
 
 /* ==========================================================================
+   13. SMART CV & LAYOUT LADO A LADO AJUSTADO
+   ========================================================================== */
+.smart-cv .section {
+  padding: 5rem 1.5rem;
+  background-color: #f8f9fa;
+}
+
+.cv-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Centraliza o conjunto na tela */
+  align-items: flex-start;  /* Alinha os blocos pelo topo */
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 4rem;                /* Espaço seguro entre o bloco de texto e o form */
+}
+
+/* Bloco da esquerda: com ajuste de topo para alinhar com o primeiro input */
+.cv-header {
+  flex: 1;
+  text-align: left;
+  max-width: 500px;
+  padding-top: 2.2rem;      /* Alinha o topo do H1 perfeitamente com o campo do form */
+}
+
+.smart-cv h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #111827;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  line-height: 1.25;
+}
+
+.cv-subtitle {
+  color: #4b5563;
+  font-size: 1.15rem;
+  line-height: 1.6;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* Formulário compacto da direita */
+.smart-cv .form-box {
+  background: #fffcf9;
+  border: 1px solid #ffebe4;
+  border-radius: 24px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: 0 10px 30px rgba(238, 102, 34, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.animate-fade-up {
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.smart-cv .form-box label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.smart-cv .form-box input[type="text"],
+.smart-cv .form-box input[type="email"],
+.smart-cv .form-box input[type="url"],
+.smart-cv .form-box textarea {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #1f2937;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.smart-cv .form-box input:focus,
+.smart-cv .form-box textarea:focus {
+  border-color: var(--orange-main, #ee6622);
+  box-shadow: 0 0 0 4px rgba(238, 102, 34, 0.1);
+}
+
+.smart-cv .form-box input[type="file"] {
+  padding: 0.5rem 0;
+  color: #4b5563;
+}
+
+.smart-cv .form-box button[type="submit"] {
+  background: linear-gradient(135deg, #ee6622 0%, #ff5400 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 999px;
+  padding: 1.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 1rem;
+}
+
+.smart-cv .form-box button[type="submit"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(238, 102, 34, 0.3);
+}
+
+/* Responsividade Mobile */
+@media (max-width: 992px) {
+  .cv-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  .cv-header {
+    text-align: center;
+    max-width: 100%;
+    padding-top: 0;         /* Remove o recuo no mobile para não desalinhar */
+  }
+
+  .smart-cv h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .smart-cv .form-box {
+    padding: 1.5rem;
+    border-radius: 16px;
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
    14. ANIMAÇÕES DE ENTRADA
    ========================================================================== */
 @keyframes fadeUp {
