@@ -74,14 +74,35 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 const form = document.getElementById('cvForm');
 const statusMsg = document.getElementById('statusMsg');
 
+// NOVA FUNÇÃO OTIMIZADA PARA COORDENADAS
 async function extractTextFromPDF(file) {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
   let fullText = '';
+
   for (let i = 1; i <= pdf.numPages; i++) {
     const page = await pdf.getPage(i);
     const textContent = await page.getTextContent();
-    const pageText = textContent.items.map(item => item.str).join(' ');
+
+    const items = textContent.items.map(item => ({
+      str: item.str,
+      x: item.transform[4],
+      y: item.transform[5]
+    }));
+
+    // Agrupa itens que estão na mesma linha (tolerância de 2px em Y)
+    const lineTolerance = 2;
+    const lines = [];
+    items.forEach(item => {
+      let line = lines.find(l => Math.abs(l.y - item.y) <= lineTolerance);
+      if (!line) { line = { y: item.y, items: [] }; lines.push(line); }
+      line.items.push(item);
+    });
+
+    lines.sort((a, b) => b.y - a.y);               // topo -> baixo
+    lines.forEach(l => l.items.sort((a, b) => a.x - b.x)); // esquerda -> direita
+
+    const pageText = lines.map(l => l.items.map(it => it.str).join(' ')).join('\n');
     fullText += pageText + '\n\n';
   }
   return fullText;
@@ -110,7 +131,7 @@ form.addEventListener('submit', async (e) => {
     const curriculoTexto = await extractTextFromPDF(file);
     statusMsg.innerText = 'Enviando para análise...';
 
-    // Atualizado para a URL de produção na Oracle/n8n
+    // URL de produção na Oracle/n8n
     const response = await fetch('https://n8n.firststeplab.com.br/webhook/gerar-cv', {
       method: 'POST',
       headers: {
