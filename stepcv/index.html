@@ -10,6 +10,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/css/style.css">
+  <style>
+    .mobile-tip {
+      display: none;
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #555;
+      background: #f4f4f4;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: 6px 0;
+    }
+    @media (max-width: 768px) {
+      .mobile-tip { display: block; }
+    }
+    .paste-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 6px 0 2px;
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: #fff;
+      cursor: pointer;
+    }
+    .paste-btn:active { background: #eee; }
+  </style>
 </head>
 
 <body class="page-default smart-cv">
@@ -60,8 +88,14 @@
 
       <label class="form-textarea">
         Cole a descrição da vaga
-        <textarea name="vaga" rows="6" required></textarea>
+        <textarea name="vaga" id="vagaInput" rows="6" required></textarea>
       </label>
+
+      <p class="mobile-tip">
+        📱 Não consegue selecionar o texto no app do LinkedIn? Toque em <b>⋯ → Compartilhar → Abrir no navegador</b>
+        na vaga, copie a descrição de lá e use o botão abaixo para colar.
+      </p>
+      <button type="button" class="paste-btn" id="pasteBtn">📋 Colar da área de transferência</button>
 
       <button type="submit">Gerar currículo</button>
     </form>
@@ -77,8 +111,14 @@
 
       <label class="form-textarea">
         Cole a descrição da vaga
-        <textarea name="vaga" rows="6" required></textarea>
+        <textarea name="vaga" id="vagaInputAgain" rows="6" required></textarea>
       </label>
+
+      <p class="mobile-tip">
+        📱 Não consegue selecionar o texto no app do LinkedIn? Toque em <b>⋯ → Compartilhar → Abrir no navegador</b>
+        na vaga, copie a descrição de lá e use o botão abaixo para colar.
+      </p>
+      <button type="button" class="paste-btn" id="pasteBtnAgain">📋 Colar da área de transferência</button>
 
       <button type="submit">Gerar currículo para essa vaga</button>
     </form>
@@ -227,6 +267,28 @@ form.addEventListener('submit', async (e) => {
     statusMsg.innerHTML = `<b style="color:red">Erro: ${err.message}</b>`;
   }
 });
+
+function configurarBotaoColar(botaoId, textareaId) {
+  const botao = document.getElementById(botaoId);
+  const textarea = document.getElementById(textareaId);
+
+  botao.addEventListener('click', async () => {
+    if (!navigator.clipboard || !navigator.clipboard.readText) {
+      alert('Seu navegador não permite colar automaticamente. Toque e segure no campo de texto e escolha "Colar".');
+      return;
+    }
+    try {
+      const texto = await navigator.clipboard.readText();
+      textarea.value = texto;
+      textarea.focus();
+    } catch (err) {
+      alert('Não foi possível acessar a área de transferência. Toque e segure no campo de texto e escolha "Colar".');
+    }
+  });
+}
+
+configurarBotaoColar('pasteBtn', 'vagaInput');
+configurarBotaoColar('pasteBtnAgain', 'vagaInputAgain');
 
 formAgain.addEventListener('submit', async (e) => {
   e.preventDefault();
