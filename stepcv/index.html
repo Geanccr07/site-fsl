@@ -16,49 +16,51 @@
 
 <section class="section">
   <div class="container cv-container">
-    
+
     <div class="cv-header">
       <h1>Gere seu currículo otimizado em segundos</h1>
       <p class="cv-subtitle">
         Envie seu currículo e a descrição da vaga.<br>
-        Você receberá o currículo adaptado para ATS via e-mail.
+        Você receberá o currículo adaptado para ATS via e-mail em instantes.
       </p>
     </div>
 
     <form id="cvForm" class="form-box animate-fade-up">
-      <label>
-        Seu nome
-        <input type="text" name="nome" required placeholder="Seu nome completo">
-      </label>
+      <div class="form-grid">
+        <label>
+          Seu nome
+          <input type="text" name="nome" required placeholder="Seu nome completo">
+        </label>
 
-      <label>
-        Seu perfil do LinkedIn
-        <input type="url" name="linkedin_url" required placeholder="https://www.linkedin.com/in/seu-perfil">
-      </label>
+        <label>
+          Seu perfil do LinkedIn
+          <input type="url" name="linkedin_url" required placeholder="https://www.linkedin.com/in/seu-perfil">
+        </label>
 
-      <label>
-        Nome da vaga
-        <input type="text" name="nome_vaga" required placeholder="Ex: Analista de Dados Júnior">
-      </label>
+        <label>
+          Nome da vaga
+          <input type="text" name="nome_vaga" required placeholder="Ex: Analista de Dados Júnior">
+        </label>
 
-      <label>
-        Seu e-mail
-        <input type="email" name="email" required placeholder="seuemail@email.com">
-      </label>
+        <label>
+          Seu e-mail
+          <input type="email" name="email" required placeholder="seuemail@email.com">
+        </label>
 
-      <label>
-        Chave de acesso
-        <input type="text" name="token" required placeholder="Insira seu token">
-      </label>
+        <label>
+          Chave de acesso
+          <input type="text" name="token" required placeholder="Insira seu token">
+        </label>
 
-      <label>
-        Envie seu currículo (PDF)
-        <input type="file" id="curriculo" accept="application/pdf" required>
-      </label>
+        <label>
+          Envie seu currículo (PDF)
+          <input type="file" id="curriculo" accept="application/pdf" required>
+        </label>
+      </div>
 
-      <label>
+      <label class="form-textarea">
         Cole a descrição da vaga
-        <textarea name="vaga" rows="8" required></textarea>
+        <textarea name="vaga" rows="6" required></textarea>
       </label>
 
       <button type="submit">Gerar currículo</button>
@@ -74,14 +76,14 @@
       <span class="footer-logo">First Step Lab</span>
       <p class="footer-tagline">O caminho mais curto para conseguir sua próxima vaga de emprego</p>
     </div>
-    
+
     <div class="footer-nav">
       <h3>Navegação</h3>
       <a href="/">Home</a>
       <a href="/sobre">Sobre</a>
       <a href="https://blog.firststeplab.com.br/">Blog</a>
     </div>
-    
+
     <div class="footer-social">
       <h3>Contato</h3>
       <a href="https://www.linkedin.com/company/first-step-lab" target="_blank" rel="noopener">LinkedIn</a>
@@ -124,7 +126,6 @@ async function extractTextFromPDF(file) {
       y: item.transform[5]
     }));
 
-    // Agrupa itens que estão na mesma linha (tolerância de 2px em Y)
     const lineTolerance = 2;
     const lines = [];
     items.forEach(item => {
@@ -133,8 +134,8 @@ async function extractTextFromPDF(file) {
       line.items.push(item);
     });
 
-    lines.sort((a, b) => b.y - a.y);               // topo -> baixo
-    lines.forEach(l => l.items.sort((a, b) => a.x - b.x)); // esquerda -> direita
+    lines.sort((a, b) => b.y - a.y);
+    lines.forEach(l => l.items.sort((a, b) => a.x - b.x));
 
     const pageText = lines.map(l => l.items.map(it => it.str).join(' ')).join('\n');
     fullText += pageText + '\n\n';
@@ -165,7 +166,6 @@ form.addEventListener('submit', async (e) => {
     const curriculoTexto = await extractTextFromPDF(file);
     statusMsg.innerText = 'Enviando para análise...';
 
-    // URL de produção na Oracle/n8n
     const response = await fetch('https://n8n.firststeplab.com.br/webhook/gerar-cv', {
       method: 'POST',
       headers: {
