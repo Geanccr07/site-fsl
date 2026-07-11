@@ -67,6 +67,22 @@
     </form>
 
     <p id="statusMsg" class="form-feedback"></p>
+
+    <!-- Formulário reduzido para reenviar o mesmo currículo/dados para outra vaga -->
+    <form id="cvFormAgain" class="form-box animate-fade-up" style="display:none">
+      <label>
+        Nome da vaga
+        <input type="text" name="nome_vaga" required placeholder="Ex: Analista de Dados Júnior">
+      </label>
+
+      <label class="form-textarea">
+        Cole a descrição da vaga
+        <textarea name="vaga" rows="6" required></textarea>
+      </label>
+
+      <button type="submit">Gerar currículo para essa vaga</button>
+    </form>
+
   </div>
 </section>
 
@@ -108,9 +124,12 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs
 
 <script>
 const form = document.getElementById('cvForm');
+const formAgain = document.getElementById('cvFormAgain');
 const statusMsg = document.getElementById('statusMsg');
 
-// NOVA FUNÇÃO OTIMIZADA PARA COORDENADAS
+// Guarda os dados da primeira submissão para reaproveitar nas próximas vagas
+let sessionData = null;
+
 async function extractTextFromPDF(file) {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -143,6 +162,29 @@ async function extractTextFromPDF(file) {
   return fullText;
 }
 
+async function enviarParaWebhook(payload, token) {
+  const response = await fetch('https://n8n.firststeplab.com.br/webhook/gerar-cv', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Auth-Token': token
+    },
+    body: JSON.stringify(payload)
+  });
+
+  if (!response.ok) {
+    throw new Error('Erro ao processar: ' + response.status);
+  }
+}
+
+function mostrarTelaDeSucesso() {
+  form.style.display = 'none';
+  formAgain.style.display = '';
+  formAgain.reset();
+  statusMsg.innerHTML = '<b style="color:green">✅ Tudo certo! Aguarde o currículo no seu e-mail.</b>' +
+    '<br>Quer usar o mesmo currículo para outra vaga? É só preencher abaixo. 👇';
+}
+
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
@@ -166,28 +208,52 @@ form.addEventListener('submit', async (e) => {
     const curriculoTexto = await extractTextFromPDF(file);
     statusMsg.innerText = 'Enviando para análise...';
 
-    const response = await fetch('https://n8n.firststeplab.com.br/webhook/gerar-cv', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Auth-Token': token
-      },
-      body: JSON.stringify({
-        nome,
-        linkedin_url,
-        nome_vaga: nomeVaga,
-        email,
-        vaga,
-        curriculo_texto: curriculoTexto
-      })
-    });
+    await enviarParaWebhook({
+      nome,
+      linkedin_url,
+      nome_vaga: nomeVaga,
+      email,
+      vaga,
+      curriculo_texto: curriculoTexto
+    }, token);
 
-    if (!response.ok) {
-      throw new Error('Erro ao processar: ' + response.status);
-    }
+    // Guarda tudo que não muda entre vagas para reaproveitar depois
+    sessionData = { nome, linkedin_url, email, token, curriculoTexto };
 
-    form.style.display = 'none';
-    statusMsg.innerHTML = '<b style="color:green">✅ Tudo certo! Aguarde o currículo no seu e-mail.</b>';
+    mostrarTelaDeSucesso();
+
+  } catch (err) {
+    console.error('ERRO:', err);
+    statusMsg.innerHTML = `<b style="color:red">Erro: ${err.message}</b>`;
+  }
+});
+
+formAgain.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  if (!sessionData) {
+    // segurança: se por algum motivo os dados não estiverem em memória, pede reload
+    statusMsg.innerHTML = '<b style="color:red">Sessão expirada. Recarregue a página e envie novamente.</b>';
+    return;
+  }
+
+  const nomeVaga = formAgain.nome_vaga.value;
+  const vaga = formAgain.vaga.value;
+
+  statusMsg.style.display = 'block';
+  statusMsg.innerText = 'Enviando para análise...';
+
+  try {
+    await enviarParaWebhook({
+      nome: sessionData.nome,
+      linkedin_url: sessionData.linkedin_url,
+      nome_vaga: nomeVaga,
+      email: sessionData.email,
+      vaga,
+      curriculo_texto: sessionData.curriculoTexto
+    }, sessionData.token);
+
+    mostrarTelaDeSucesso();
 
   } catch (err) {
     console.error('ERRO:', err);
