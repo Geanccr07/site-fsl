@@ -97,12 +97,19 @@
       </p>
       <button type="button" class="paste-btn" id="pasteBtn">📋 Colar da área de transferência</button>
 
+      <label class="consent-check">
+      <input type="checkbox" name="consentimento" required>
+       Autorizo o uso do meu currículo e dados pela IA para gerar o currículo otimizado. Ficam guardados pela FSL
+       só pra melhorar a ferramenta — posso pedir exclusão
+      <a href="https://wa.me/5542988071146" target="_blank" rel="noopener">aqui</a>.
+      </label>
+
       <button type="submit">Gerar currículo</button>
     </form>
 
     <p id="statusMsg" class="form-feedback"></p>
 
-    <!-- Formulário reduzido para reenviar o mesmo currículo/dados para outra vaga -->
+    <!-- Formulário reduzido -->
     <form id="cvFormAgain" class="form-box animate-fade-up" style="display:none">
       <label>
         Nome da vaga
@@ -119,6 +126,7 @@
         Depois abra o <b>navegador (Chrome ou Safari)</b>, cole o link direto na barra de endereço e toque em Ir.
         A vaga abre no navegador e aí dá pra copiar a descrição e usar o botão abaixo para colar.
       </p>
+
       <button type="button" class="paste-btn" id="pasteBtnAgain">📋 Colar da área de transferência</button>
 
       <button type="submit">Gerar currículo para essa vaga</button>

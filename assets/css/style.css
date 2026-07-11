@@ -867,6 +867,68 @@ form button:hover {
   }
 }
 
+.smart-cv .form-box label.consent-check {
+  display: block;
+  font-weight: 400;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.consent-check input[type="checkbox"] {
+  vertical-align: middle;
+  margin-right: 6px;
+  accent-color: #ee6622;
+}
+
+.consent-check a {
+  color: #ee6622;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.consent-check a:hover {
+  text-decoration: underline;
+}    
+
+/* Dica de cópia da vaga (mobile) */
+.mobile-tip {
+  display: none;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: #4b5563;
+  background: #fdf1ea;
+  border: 1px solid #ffebe4;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  margin: 0;
+}
+
+.paste-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  border: 1px solid #e5e7eb;
+  border-radius: 999px;
+  background: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.paste-btn:hover,
+.paste-btn:active {
+  background: #f3f4f6;
+}
+
+@media (max-width: 640px) {
+  .mobile-tip { display: block; }
+}
+
 
 /* ==========================================================================
    14. ANIMAÇÕES DE ENTRADA
@@ -875,6 +937,7 @@ form button:hover {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 /* ==========================================================================
    15. CTA BARS & SEÇÃO DE CONVERSÃO FINAL
    ========================================================================== */
