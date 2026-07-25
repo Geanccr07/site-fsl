@@ -107,23 +107,21 @@ body {
    3. HEADER & NAVBAR 
    ========================================================================== */
 header {
-  background: var(--white);
-  border-bottom: 1px solid var(--border-light);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: saturate(180%) blur(12px);
+  -webkit-backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
   position: sticky;
   top: 0;
   z-index: 100;
-  padding: 1.2rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
-  transition: box-shadow 0.3s ease, background-color 0.3s ease, backdrop-filter 0.3s ease, padding 0.3s ease, border-color 0.3s ease;
+  padding: 0.75rem 0;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
-header.is-scrolled {
-  padding: 0.75rem 0;
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: saturate(180%) blur(10px);
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-  box-shadow: 0 10px 30px rgba(11, 11, 11, 0.1);
-  border-bottom-color: transparent;
+@media (max-width: 768px) {
+  header {
+    padding: 1rem 0;
+  }
 }
 
 header .container {
@@ -798,14 +796,19 @@ form button:hover {
 @media (max-width: 768px) {
   .mentor-row, .mentor-row.reverse {
     grid-template-columns: 1fr;
+    gap: 1.5rem;
     text-align: center;
+    margin-bottom: 3.5rem;
+  }
+  .mentor-row:last-child {
+    margin-bottom: 0;
   }
   .mentor-row img {
     margin: 0 auto;
     width: 200px;
     height: 240px;
   }
-  .mentor-content { margin-top: 1.5rem; }
+  .mentor-content { margin-top: 0; }
 }
 
 /* ==========================================================================
