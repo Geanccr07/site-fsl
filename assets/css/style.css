@@ -679,17 +679,19 @@ form button:hover {
 
 @media (max-width: 768px) {
   .testimonial {
-    flex: 0 0 100%; 
+    flex: 0 0 100%;
     min-width: 100%;
+    padding: 1.5rem 1.25rem;
   }
 
   .testimonial-container {
-    padding: 0 40px;
+    padding: 0 20px;
   }
-  
+
   .carousel-btn {
-    width: 36px;
-    height: 36px;
+    width: 32px;
+    height: 32px;
+    font-size: 20px;
   }
 }
 
@@ -1316,4 +1318,5 @@ form button:hover {
 
 @media (max-width: 768px) {
   .blog-preview .section-subtitle { margin-bottom: 2.5rem; }
+  .blog-card-content h3 { font-size: 1.05rem; }
 }
