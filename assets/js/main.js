@@ -177,6 +177,39 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================
+   HEADER: ESTADO AO ROLAR
+===================== */
+const siteHeader = document.querySelector("header");
+if (siteHeader) {
+  const updateHeaderState = () => {
+    siteHeader.classList.toggle("is-scrolled", window.scrollY > 20);
+  };
+  updateHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+}
+
+/* =====================
+   SCROLL-REVEAL (fade/slide ao entrar na tela)
+===================== */
+const revealEls = document.querySelectorAll(".reveal");
+if (revealEls.length) {
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
+
+    revealEls.forEach((el) => revealObserver.observe(el));
+  } else {
+    revealEls.forEach((el) => el.classList.add("is-visible"));
+  }
+}
+
+/* =====================
    MICRO CONVERSÕES FORM (Ajustado)
 ===================== */
 window.dataLayer = window.dataLayer || [];
