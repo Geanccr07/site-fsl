@@ -227,6 +227,7 @@ header a.active {
   line-height: 1.15;
   color: var(--black);
   letter-spacing: -0.03em;
+  text-wrap: balance;
 }
 
 .hero p {
@@ -277,11 +278,11 @@ header a.active {
 /* Celulares: precisa vir DEPOIS do bloco de 768px para não ser sobrescrito */
 @media (max-width: 576px) {
   .hero {
-    padding: 3rem 1.25rem;
+    padding: 3rem 1rem;
   }
   .hero h1 {
-    font-size: 1.85rem;
-    line-height: 1.25;
+    font-size: 1.6rem;
+    line-height: 1.2;
     letter-spacing: -0.01em;
   }
   .hero p {
