@@ -177,6 +177,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /* =====================
+   HEADER: SOMBRA AO ROLAR (fundo em vidro já é fixo via CSS)
+===================== */
+const siteHeader = document.querySelector("header");
+if (siteHeader) {
+  const updateHeaderState = () => {
+    siteHeader.classList.toggle("is-scrolled", window.scrollY > 20);
+  };
+  updateHeaderState();
+  window.addEventListener("scroll", updateHeaderState, { passive: true });
+}
+
+/* =====================
    SCROLL-REVEAL (fade/slide ao entrar na tela)
 ===================== */
 const revealEls = document.querySelectorAll(".reveal");
