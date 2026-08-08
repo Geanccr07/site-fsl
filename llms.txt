@@ -1,0 +1,17 @@
+# First Step Lab
+
+> Comunidade gratuita de carreira que ajuda profissionais a conseguirem sua próxima vaga de emprego, com foco em LinkedIn, currículo, entrevistas e estratégia de candidatura. Todo o conteúdo e as ferramentas são gratuitos.
+
+## Páginas principais
+
+- [Home](https://firststeplab.com.br/): apresentação da comunidade e formulário de entrada, com conteúdo segmentado pela fase da busca de emprego do visitante.
+- [Sobre](https://firststeplab.com.br/sobre): história da First Step Lab e dos fundadores, Gean Carlos e Nathani Taís.
+
+## Blog
+
+- [Blog da First Step Lab](https://blog.firststeplab.com.br/): artigos práticos e gratuitos sobre currículo, entrevistas de emprego, LinkedIn e processo seletivo. Ver o llms.txt próprio em https://blog.firststeplab.com.br/llms.txt para a lista completa de artigos.
+
+## Optional
+
+- [Política de Privacidade](https://firststeplab.com.br/politica-de-privacidade)
+- [Termos de Uso](https://firststeplab.com.br/termos-de-uso)
