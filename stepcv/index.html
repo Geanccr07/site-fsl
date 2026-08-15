@@ -64,6 +64,35 @@
       font-size: 0.95rem;
     }
     .download-btn:active { opacity: 0.85; }
+    .smart-cv .form-box button[type="submit"]:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+      box-shadow: none !important;
+    }
+    .btn-spinner {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-top-color: #fff;
+      border-radius: 50%;
+      margin-right: 8px;
+      vertical-align: -2px;
+      animation: girar 0.7s linear infinite;
+    }
+    @keyframes girar { to { transform: rotate(360deg); } }
+    .form-feedback.pronto {
+      background: #FFE4D6;
+      border: 1px solid #FF5D00;
+      border-radius: 12px;
+      padding: 16px 18px;
+      animation: destaque 1s ease;
+    }
+    @keyframes destaque {
+      0% { box-shadow: 0 0 0 0 rgba(255,93,0,0.4); }
+      100% { box-shadow: 0 0 0 14px rgba(255,93,0,0); }
+    }
   </style>
 </head>
 
@@ -271,6 +300,26 @@ function base64ParaBlob(base64, mimeType) {
   return new Blob([new Uint8Array(byteNumbers)], { type: mimeType });
 }
 
+// --- Trava o botão de submit (evita clique duplo) e mostra que tá processando ---
+function travarBotao(botao) {
+  botao.dataset.textoOriginal = botao.textContent;
+  botao.disabled = true;
+  botao.innerHTML = '<span class="btn-spinner"></span>Gerando...';
+}
+
+function destravarBotao(botao) {
+  botao.disabled = false;
+  botao.textContent = botao.dataset.textoOriginal || 'Gerar currículo';
+}
+
+// --- Garante que a pessoa veja a mensagem de status, sem precisar arrastar a tela ---
+function mostrarStatus(html, { destaque = false } = {}) {
+  statusMsg.style.display = 'block';
+  statusMsg.innerHTML = html;
+  statusMsg.classList.toggle('pronto', destaque);
+  statusMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 async function extractTextFromPDF(file) {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -338,9 +387,12 @@ function mostrarTelaDeSucesso(resultado) {
     botaoDownload = `<br><a href="${url}" download="${nomeArquivo}" class="download-btn">⬇️ Baixar currículo otimizado</a>`;
   }
 
-  statusMsg.innerHTML = '<b style="color:green">✅ Currículo pronto! Também chega no seu e-mail.</b>' +
+  mostrarStatus(
+    '<b style="color:#16a34a">✅ Currículo pronto! Também chega no seu e-mail.</b>' +
     botaoDownload +
-    '<br><br>Quer usar o mesmo currículo para outra vaga? É só preencher abaixo. 👇';
+    '<br><br>Quer usar o mesmo currículo para outra vaga? É só preencher abaixo. 👇',
+    { destaque: true }
+  );
 }
 
 form.addEventListener('submit', async (e) => {
@@ -365,8 +417,9 @@ form.addEventListener('submit', async (e) => {
     return;
   }
 
-  statusMsg.style.display = 'block';
-  statusMsg.innerText = 'Processando currículo...';
+  const botaoSubmit = form.querySelector('button[type="submit"]');
+  travarBotao(botaoSubmit);
+  mostrarStatus('Processando currículo...');
 
   try {
     const curriculoTexto = await extractTextFromPDF(file);
@@ -374,12 +427,12 @@ form.addEventListener('submit', async (e) => {
     let vagaImagemBase64 = null;
     let vagaImagemMime = null;
     if (vagaImagemFile) {
-      statusMsg.innerText = 'Lendo o print da vaga...';
+      mostrarStatus('Lendo o print da vaga...');
       vagaImagemBase64 = await arquivoParaBase64(vagaImagemFile);
       vagaImagemMime = vagaImagemFile.type || 'image/jpeg';
     }
 
-    statusMsg.innerText = 'Gerando seu currículo otimizado... isso pode levar até 30 segundos.';
+    mostrarStatus('Gerando seu currículo otimizado... isso pode levar até 30 segundos.');
 
     const resultado = await enviarParaWebhook({
       nome,
@@ -399,7 +452,8 @@ form.addEventListener('submit', async (e) => {
 
   } catch (err) {
     console.error('ERRO:', err);
-    statusMsg.innerHTML = `<b style="color:red">Erro: ${err.message}</b>`;
+    mostrarStatus(`<b style="color:red">Erro: ${err.message}</b>`);
+    destravarBotao(botaoSubmit);
   }
 });
 
@@ -430,7 +484,7 @@ formAgain.addEventListener('submit', async (e) => {
 
   if (!sessionData) {
     // segurança: se por algum motivo os dados não estiverem em memória, pede reload
-    statusMsg.innerHTML = '<b style="color:red">Sessão expirada. Recarregue a página e envie novamente.</b>';
+    mostrarStatus('<b style="color:red">Sessão expirada. Recarregue a página e envie novamente.</b>');
     return;
   }
 
@@ -443,8 +497,9 @@ formAgain.addEventListener('submit', async (e) => {
     return;
   }
 
-  statusMsg.style.display = 'block';
-  statusMsg.innerText = 'Gerando seu currículo otimizado... isso pode levar até 30 segundos.';
+  const botaoSubmitAgain = formAgain.querySelector('button[type="submit"]');
+  travarBotao(botaoSubmitAgain);
+  mostrarStatus('Gerando seu currículo otimizado... isso pode levar até 30 segundos.');
 
   try {
     let vagaImagemBase64 = null;
@@ -469,7 +524,8 @@ formAgain.addEventListener('submit', async (e) => {
 
   } catch (err) {
     console.error('ERRO:', err);
-    statusMsg.innerHTML = `<b style="color:red">Erro: ${err.message}</b>`;
+    mostrarStatus(`<b style="color:red">Erro: ${err.message}</b>`);
+    destravarBotao(botaoSubmitAgain);
   }
 });
 </script>

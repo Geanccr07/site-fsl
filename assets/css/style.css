@@ -997,8 +997,8 @@ form button:hover {
   }
 
   .form-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.75rem 0.6rem;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .smart-cv .form-box label {
