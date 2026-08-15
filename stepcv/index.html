@@ -38,19 +38,55 @@
       cursor: pointer;
     }
     .paste-btn:active { background: #eee; }
-    .token-tip {
-      font-size: 0.85rem;
-      line-height: 1.4;
-      color: #555;
-      background: #f4f4f4;
-      border-radius: 8px;
-      padding: 8px 10px;
-      margin: -8px 0 12px;
+    .token-linha {
+      font-size: 0.8rem;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin: -0.4rem 0 0;
     }
-    .or-divider {
+    .link-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      color: #FF5D00;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    .vaga-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: -0.25rem;
+    }
+    .vaga-tab {
+      flex: 1;
+      padding: 10px 8px;
       font-size: 0.85rem;
-      color: #777;
-      margin: 10px 0 4px;
+      font-weight: 600;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      background: #fff;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    .vaga-tab.active {
+      border-color: #FF5D00;
+      background: #FFF3EC;
+      color: #FF5D00;
+    }
+    .vaga-tabs-hint {
+      font-size: 0.78rem;
+      color: #9ca3af;
+      margin: 0;
+    }
+    .vaga-painel {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
     }
     .download-btn {
       display: inline-block;
@@ -132,34 +168,42 @@
         </label>
 
         <label>
-          Chave de acesso
-          <input type="text" name="token" id="tokenInput" required placeholder="Gerado automaticamente">
-        </label>
-
-        <label>
           Envie seu currículo (PDF)
           <input type="file" id="curriculo" accept="application/pdf" required>
         </label>
       </div>
 
-      <p class="token-tip" id="tokenTip"></p>
-
-      <label class="form-textarea">
-        Cole a descrição da vaga
-        <textarea name="vaga" id="vagaInput" rows="6"></textarea>
+      <div class="token-linha" id="tokenLinha">
+        🔑 Código de acesso: <b id="tokenTexto"></b>
+        <button type="button" id="trocarTokenBtn" class="link-btn">usar outro código</button>
+      </div>
+      <label class="token-campo" id="tokenCampo" style="display:none">
+        Chave de acesso (de outro aparelho)
+        <input type="text" name="token" id="tokenInput" required>
       </label>
 
-      <p class="mobile-tip">
-        📱 Não consegue selecionar o texto no app do LinkedIn? Toque em <b>⋯ → Compartilhar → Abrir no navegador</b>
-        na vaga, copie a descrição de lá e use o botão abaixo para colar.
-      </p>
-      <button type="button" class="paste-btn" id="pasteBtn">📋 Colar da área de transferência</button>
+      <div class="vaga-tabs" role="tablist">
+        <button type="button" class="vaga-tab active" data-alvo="vagaPainelTexto">📝 Colar texto</button>
+        <button type="button" class="vaga-tab" data-alvo="vagaPainelImagem">📷 Enviar print</button>
+      </div>
+      <p class="vaga-tabs-hint">Escolha uma opção — não precisa das duas.</p>
 
-      <p class="or-divider">ou, se for mais fácil no celular:</p>
-      <label>
-        Envie um print da vaga
-        <input type="file" id="vagaImagem" accept="image/*">
-      </label>
+      <div class="vaga-painel" id="vagaPainelTexto">
+        <label class="form-textarea">
+          Cole a descrição da vaga
+          <textarea name="vaga" id="vagaInput" rows="5"></textarea>
+        </label>
+
+        <p class="mobile-tip">📱 Está pelo app do LinkedIn? <button type="button" class="link-btn" data-trocar-pra="vagaPainelImagem">Envie um print da vaga</button> em vez de colar o texto.</p>
+        <button type="button" class="paste-btn" id="pasteBtn">📋 Colar da área de transferência</button>
+      </div>
+
+      <div class="vaga-painel" id="vagaPainelImagem" style="display:none">
+        <label>
+          Print da vaga
+          <input type="file" id="vagaImagem" accept="image/*">
+        </label>
+      </div>
 
       <label class="consent-check">
       <input type="checkbox" name="consentimento" required>
@@ -180,24 +224,28 @@
         <input type="text" name="nome_vaga" required placeholder="Ex: Analista de Dados Júnior">
       </label>
 
-      <label class="form-textarea">
-        Cole a descrição da vaga
-        <textarea name="vaga" id="vagaInputAgain" rows="6"></textarea>
-      </label>
+      <div class="vaga-tabs" role="tablist">
+        <button type="button" class="vaga-tab active" data-alvo="vagaPainelTextoAgain">📝 Colar texto</button>
+        <button type="button" class="vaga-tab" data-alvo="vagaPainelImagemAgain">📷 Enviar print</button>
+      </div>
+      <p class="vaga-tabs-hint">Escolha uma opção — não precisa das duas.</p>
 
-      <p class="mobile-tip">
-        📱 Não consegue selecionar o texto no app do LinkedIn? Toque em <b>⋯ → Compartilhar → Copiar</b> na vaga.
-        Depois abra o <b>navegador (Chrome ou Safari)</b>, cole o link direto na barra de endereço e toque em Ir.
-        A vaga abre no navegador e aí dá pra copiar a descrição e usar o botão abaixo para colar.
-      </p>
+      <div class="vaga-painel" id="vagaPainelTextoAgain">
+        <label class="form-textarea">
+          Cole a descrição da vaga
+          <textarea name="vaga" id="vagaInputAgain" rows="5"></textarea>
+        </label>
 
-      <button type="button" class="paste-btn" id="pasteBtnAgain">📋 Colar da área de transferência</button>
+        <p class="mobile-tip">📱 Está pelo app do LinkedIn? <button type="button" class="link-btn" data-trocar-pra="vagaPainelImagemAgain">Envie um print da vaga</button> em vez de colar o texto.</p>
+        <button type="button" class="paste-btn" id="pasteBtnAgain">📋 Colar da área de transferência</button>
+      </div>
 
-      <p class="or-divider">ou, se for mais fácil no celular:</p>
-      <label>
-        Envie um print da vaga
-        <input type="file" id="vagaImagemAgain" accept="image/*">
-      </label>
+      <div class="vaga-painel" id="vagaPainelImagemAgain" style="display:none">
+        <label>
+          Print da vaga
+          <input type="file" id="vagaImagemAgain" accept="image/*">
+        </label>
+      </div>
 
       <button type="submit">Gerar currículo para essa vaga</button>
     </form>
@@ -268,19 +316,68 @@ function getOrCreateToken() {
 
 function inicializarToken() {
   const tokenInput = document.getElementById('tokenInput');
-  const tokenTip = document.getElementById('tokenTip');
+  const tokenTexto = document.getElementById('tokenTexto');
+  const tokenCampo = document.getElementById('tokenCampo');
+  const trocarTokenBtn = document.getElementById('trocarTokenBtn');
   const tokenAtual = getOrCreateToken();
 
   tokenInput.value = tokenAtual;
-  tokenTip.innerHTML = `🔑 Seu código de acesso é <b>${tokenAtual}</b> — ele fica salvo neste aparelho, não precisa pedir pra ninguém. Só troque o campo acima se for usar o StepCV em outro celular/computador onde já tenha um código.`;
+  tokenTexto.textContent = tokenAtual;
+
+  // Só mostra o campo de digitar código se a pessoa pedir (já usa em outro aparelho)
+  trocarTokenBtn.addEventListener('click', () => {
+    tokenCampo.style.display = '';
+    tokenInput.focus();
+  });
 
   // Se a pessoa colar um código de outro aparelho, guarda ele como o novo padrão aqui também
   tokenInput.addEventListener('change', () => {
     const novo = tokenInput.value.trim();
-    if (novo) localStorage.setItem('stepcv_token', novo);
+    if (novo) {
+      localStorage.setItem('stepcv_token', novo);
+      tokenTexto.textContent = novo;
+    }
   });
 }
 inicializarToken();
+
+// --- Alterna entre "colar texto" e "enviar print", mostrando só um painel por vez ---
+function configurarAlternanciaVaga(tabsSeletor, idTexto, idImagem, idInputTexto, idInputImagem) {
+  const tabs = document.querySelectorAll(tabsSeletor);
+  const painelTexto = document.getElementById(idTexto);
+  const painelImagem = document.getElementById(idImagem);
+  const inputTexto = document.getElementById(idInputTexto);
+  const inputImagem = document.getElementById(idInputImagem);
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const mostrarTexto = tab.dataset.alvo === idTexto;
+      painelTexto.style.display = mostrarTexto ? '' : 'none';
+      painelImagem.style.display = mostrarTexto ? 'none' : '';
+
+      // Limpa o painel escondido, pra não mandar os dois juntos por engano
+      if (mostrarTexto) {
+        inputImagem.value = '';
+      } else {
+        inputTexto.value = '';
+      }
+    });
+  });
+}
+
+configurarAlternanciaVaga('#cvForm .vaga-tab', 'vagaPainelTexto', 'vagaPainelImagem', 'vagaInput', 'vagaImagem');
+configurarAlternanciaVaga('#cvFormAgain .vaga-tab', 'vagaPainelTextoAgain', 'vagaPainelImagemAgain', 'vagaInputAgain', 'vagaImagemAgain');
+
+// Atalho da dica "está pelo app do LinkedIn?" — já troca pra aba de print sozinho
+document.querySelectorAll('[data-trocar-pra]').forEach(botao => {
+  botao.addEventListener('click', () => {
+    const tab = document.querySelector(`.vaga-tab[data-alvo="${botao.dataset.trocarPra}"]`);
+    if (tab) tab.click();
+  });
+});
 
 // --- Converte um arquivo de imagem em base64, pra mandar o print da vaga pro back-end ---
 async function arquivoParaBase64(file) {
