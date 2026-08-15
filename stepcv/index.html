@@ -38,6 +38,32 @@
       cursor: pointer;
     }
     .paste-btn:active { background: #eee; }
+    .token-tip {
+      font-size: 0.85rem;
+      line-height: 1.4;
+      color: #555;
+      background: #f4f4f4;
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin: -8px 0 12px;
+    }
+    .or-divider {
+      font-size: 0.85rem;
+      color: #777;
+      margin: 10px 0 4px;
+    }
+    .download-btn {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 18px;
+      background: #FF5D00;
+      color: #fff !important;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .download-btn:active { opacity: 0.85; }
   </style>
 </head>
 
@@ -78,7 +104,7 @@
 
         <label>
           Chave de acesso
-          <input type="text" name="token" required placeholder="Insira seu token">
+          <input type="text" name="token" id="tokenInput" required placeholder="Gerado automaticamente">
         </label>
 
         <label>
@@ -87,9 +113,11 @@
         </label>
       </div>
 
+      <p class="token-tip" id="tokenTip"></p>
+
       <label class="form-textarea">
         Cole a descrição da vaga
-        <textarea name="vaga" id="vagaInput" rows="6" required></textarea>
+        <textarea name="vaga" id="vagaInput" rows="6"></textarea>
       </label>
 
       <p class="mobile-tip">
@@ -97,6 +125,12 @@
         na vaga, copie a descrição de lá e use o botão abaixo para colar.
       </p>
       <button type="button" class="paste-btn" id="pasteBtn">📋 Colar da área de transferência</button>
+
+      <p class="or-divider">ou, se for mais fácil no celular:</p>
+      <label>
+        Envie um print da vaga
+        <input type="file" id="vagaImagem" accept="image/*">
+      </label>
 
       <label class="consent-check">
       <input type="checkbox" name="consentimento" required>
@@ -119,7 +153,7 @@
 
       <label class="form-textarea">
         Cole a descrição da vaga
-        <textarea name="vaga" id="vagaInputAgain" rows="6" required></textarea>
+        <textarea name="vaga" id="vagaInputAgain" rows="6"></textarea>
       </label>
 
       <p class="mobile-tip">
@@ -129,6 +163,12 @@
       </p>
 
       <button type="button" class="paste-btn" id="pasteBtnAgain">📋 Colar da área de transferência</button>
+
+      <p class="or-divider">ou, se for mais fácil no celular:</p>
+      <label>
+        Envie um print da vaga
+        <input type="file" id="vagaImagemAgain" accept="image/*">
+      </label>
 
       <button type="submit">Gerar currículo para essa vaga</button>
     </form>
@@ -180,6 +220,57 @@ const statusMsg = document.getElementById('statusMsg');
 // Guarda os dados da primeira submissão para reaproveitar nas próximas vagas
 let sessionData = null;
 
+// --- Chave de acesso: gerada e guardada no próprio aparelho, sem precisar do Gean ---
+function gerarTokenLegivel() {
+  const alfabeto = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'; // sem 0/O/1/I, pra não confundir na hora de digitar em outro aparelho
+  const bytes = new Uint8Array(8);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, b => alfabeto[b % alfabeto.length]).join('');
+}
+
+function getOrCreateToken() {
+  let token = localStorage.getItem('stepcv_token');
+  if (!token) {
+    token = gerarTokenLegivel();
+    localStorage.setItem('stepcv_token', token);
+  }
+  return token;
+}
+
+function inicializarToken() {
+  const tokenInput = document.getElementById('tokenInput');
+  const tokenTip = document.getElementById('tokenTip');
+  const tokenAtual = getOrCreateToken();
+
+  tokenInput.value = tokenAtual;
+  tokenTip.innerHTML = `🔑 Seu código de acesso é <b>${tokenAtual}</b> — ele fica salvo neste aparelho, não precisa pedir pra ninguém. Só troque o campo acima se for usar o StepCV em outro celular/computador onde já tenha um código.`;
+
+  // Se a pessoa colar um código de outro aparelho, guarda ele como o novo padrão aqui também
+  tokenInput.addEventListener('change', () => {
+    const novo = tokenInput.value.trim();
+    if (novo) localStorage.setItem('stepcv_token', novo);
+  });
+}
+inicializarToken();
+
+// --- Converte um arquivo de imagem em base64, pra mandar o print da vaga pro back-end ---
+async function arquivoParaBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]); // tira o prefixo "data:...;base64,"
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// --- Transforma o PDF em base64 (devolvido pelo n8n) num link de download de verdade ---
+function base64ParaBlob(base64, mimeType) {
+  const byteChars = atob(base64);
+  const byteNumbers = new Array(byteChars.length);
+  for (let i = 0; i < byteChars.length; i++) byteNumbers[i] = byteChars.charCodeAt(i);
+  return new Blob([new Uint8Array(byteNumbers)], { type: mimeType });
+}
+
 async function extractTextFromPDF(file) {
   const arrayBuffer = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
@@ -223,16 +314,33 @@ async function enviarParaWebhook(payload, token) {
   });
 
   if (!response.ok) {
-    throw new Error('Erro ao processar: ' + response.status);
+    let mensagem = 'Erro ao processar: ' + response.status;
+    try {
+      const erro = await response.json();
+      if (erro && erro.message) mensagem = erro.message;
+    } catch (_) { /* resposta de erro sem JSON, mantém mensagem padrão */ }
+    throw new Error(mensagem);
   }
+
+  return response.json(); // { pdf_base64, nome_arquivo }
 }
 
-function mostrarTelaDeSucesso() {
+function mostrarTelaDeSucesso(resultado) {
   form.style.display = 'none';
   formAgain.style.display = '';
   formAgain.reset();
-  statusMsg.innerHTML = '<b style="color:green">✅ Tudo certo! Aguarde o currículo no seu e-mail.</b>' +
-    '<br>Quer usar o mesmo currículo para outra vaga? É só preencher abaixo. 👇';
+
+  let botaoDownload = '';
+  if (resultado && resultado.pdf_base64) {
+    const blob = base64ParaBlob(resultado.pdf_base64, 'application/pdf');
+    const url = URL.createObjectURL(blob);
+    const nomeArquivo = resultado.nome_arquivo || 'curriculo-otimizado.pdf';
+    botaoDownload = `<br><a href="${url}" download="${nomeArquivo}" class="download-btn">⬇️ Baixar currículo otimizado</a>`;
+  }
+
+  statusMsg.innerHTML = '<b style="color:green">✅ Currículo pronto! Também chega no seu e-mail.</b>' +
+    botaoDownload +
+    '<br><br>Quer usar o mesmo currículo para outra vaga? É só preencher abaixo. 👇';
 }
 
 form.addEventListener('submit', async (e) => {
@@ -243,11 +351,17 @@ form.addEventListener('submit', async (e) => {
   const nomeVaga = form.nome_vaga.value;
   const email = form.email.value;
   const token = form.token.value;
-  const vaga = form.vaga.value;
+  const vaga = form.vaga.value.trim();
   const file = document.getElementById('curriculo').files[0];
+  const vagaImagemFile = document.getElementById('vagaImagem').files[0];
 
   if (!file) {
     alert('Envie um PDF.');
+    return;
+  }
+
+  if (!vaga && !vagaImagemFile) {
+    alert('Cole a descrição da vaga ou envie um print dela.');
     return;
   }
 
@@ -256,21 +370,32 @@ form.addEventListener('submit', async (e) => {
 
   try {
     const curriculoTexto = await extractTextFromPDF(file);
-    statusMsg.innerText = 'Enviando para análise...';
 
-    await enviarParaWebhook({
+    let vagaImagemBase64 = null;
+    let vagaImagemMime = null;
+    if (vagaImagemFile) {
+      statusMsg.innerText = 'Lendo o print da vaga...';
+      vagaImagemBase64 = await arquivoParaBase64(vagaImagemFile);
+      vagaImagemMime = vagaImagemFile.type || 'image/jpeg';
+    }
+
+    statusMsg.innerText = 'Gerando seu currículo otimizado... isso pode levar até 30 segundos.';
+
+    const resultado = await enviarParaWebhook({
       nome,
       linkedin_url,
       nome_vaga: nomeVaga,
       email,
       vaga,
+      vaga_imagem_base64: vagaImagemBase64,
+      vaga_imagem_mime: vagaImagemMime,
       curriculo_texto: curriculoTexto
     }, token);
 
     // Guarda tudo que não muda entre vagas para reaproveitar depois
     sessionData = { nome, linkedin_url, email, token, curriculoTexto };
 
-    mostrarTelaDeSucesso();
+    mostrarTelaDeSucesso(resultado);
 
   } catch (err) {
     console.error('ERRO:', err);
@@ -310,22 +435,37 @@ formAgain.addEventListener('submit', async (e) => {
   }
 
   const nomeVaga = formAgain.nome_vaga.value;
-  const vaga = formAgain.vaga.value;
+  const vaga = formAgain.vaga.value.trim();
+  const vagaImagemFile = document.getElementById('vagaImagemAgain').files[0];
+
+  if (!vaga && !vagaImagemFile) {
+    alert('Cole a descrição da vaga ou envie um print dela.');
+    return;
+  }
 
   statusMsg.style.display = 'block';
-  statusMsg.innerText = 'Enviando para análise...';
+  statusMsg.innerText = 'Gerando seu currículo otimizado... isso pode levar até 30 segundos.';
 
   try {
-    await enviarParaWebhook({
+    let vagaImagemBase64 = null;
+    let vagaImagemMime = null;
+    if (vagaImagemFile) {
+      vagaImagemBase64 = await arquivoParaBase64(vagaImagemFile);
+      vagaImagemMime = vagaImagemFile.type || 'image/jpeg';
+    }
+
+    const resultado = await enviarParaWebhook({
       nome: sessionData.nome,
       linkedin_url: sessionData.linkedin_url,
       nome_vaga: nomeVaga,
       email: sessionData.email,
       vaga,
+      vaga_imagem_base64: vagaImagemBase64,
+      vaga_imagem_mime: vagaImagemMime,
       curriculo_texto: sessionData.curriculoTexto
     }, sessionData.token);
 
-    mostrarTelaDeSucesso();
+    mostrarTelaDeSucesso(resultado);
 
   } catch (err) {
     console.error('ERRO:', err);
