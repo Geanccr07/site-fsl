@@ -757,6 +757,11 @@ form button:hover {
   grid-template-columns: 240px 1fr;
   gap: 4rem;
   align-items: flex-start;
+  margin-bottom: 5rem;
+}
+
+.mentor-row:last-child {
+  margin-bottom: 0;
 }
 
 .mentor-row.reverse {
