@@ -210,6 +210,77 @@ if (revealEls.length) {
 }
 
 /* =====================
+   DESTAQUE DE TEXTO NO SCROLL (narrativa da página Sobre)
+===================== */
+const scrollHighlightEls = document.querySelectorAll(".scroll-highlight");
+if (scrollHighlightEls.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const highlightWords = [];
+
+  scrollHighlightEls.forEach((el) => {
+    const text = el.textContent;
+    el.innerHTML = text
+      .split(/(\s+)/)
+      .map((chunk) => (chunk.trim() ? `<span class="word word-dim">${chunk}</span>` : chunk))
+      .join("");
+    highlightWords.push(...el.querySelectorAll(".word"));
+  });
+
+  let highlightTicking = false;
+  const updateScrollHighlight = () => {
+    const triggerLine = window.innerHeight * 0.72;
+    highlightWords.forEach((word) => {
+      word.classList.toggle("word-dim", word.getBoundingClientRect().top > triggerLine);
+    });
+    highlightTicking = false;
+  };
+
+  updateScrollHighlight();
+  window.addEventListener("load", updateScrollHighlight);
+  window.addEventListener("scroll", () => {
+    if (!highlightTicking) {
+      requestAnimationFrame(updateScrollHighlight);
+      highlightTicking = true;
+    }
+  }, { passive: true });
+  window.addEventListener("resize", updateScrollHighlight);
+}
+
+/* =====================
+   CONTADOR DE NÚMEROS (stats da página Sobre)
+===================== */
+const countEls = document.querySelectorAll("[data-count-target]");
+if (countEls.length) {
+  const animateCount = (el) => {
+    const target = parseInt(el.getAttribute("data-count-target"), 10) || 0;
+    const duration = 900;
+    const start = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = "+" + Math.round(target * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.4 });
+    countEls.forEach((el) => countObserver.observe(el));
+  } else {
+    countEls.forEach((el) => {
+      el.textContent = "+" + el.getAttribute("data-count-target");
+    });
+  }
+}
+
+/* =====================
    MICRO CONVERSÕES FORM (Ajustado)
 ===================== */
 window.dataLayer = window.dataLayer || [];
