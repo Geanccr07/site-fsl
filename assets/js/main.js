@@ -150,30 +150,108 @@ if (form) {
 }
 
 /* =====================
-   CARROSSEL DEPOIMENTOS
+   CARROSSÉIS (setas + arrastar com mouse/touch)
 ===================== */
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("testimonialTrack");
-  const btnPrev = document.getElementById("prevBtn");
-  const btnNext = document.getElementById("nextBtn");
+function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) {
+  const track = document.getElementById(trackId);
+  const btnPrev = document.getElementById(prevBtnId);
+  const btnNext = document.getElementById(nextBtnId);
+  if (!track) return;
 
-  if (track && btnPrev && btnNext) {
-    const getScrollAmount = () => {
-      const item = track.querySelector(".testimonial");
-      return item ? item.offsetWidth + 24 : 300;
+  const highlightActive = !!(options && options.highlightActive);
+
+  const getScrollAmount = () => {
+    const item = track.querySelector(itemSelector);
+    const gap = parseFloat(getComputedStyle(track).gap) || 24;
+    return item ? item.offsetWidth + gap : 300;
+  };
+
+  if (btnNext) btnNext.addEventListener("click", () => { track.scrollLeft += getScrollAmount(); });
+  if (btnPrev) btnPrev.addEventListener("click", () => { track.scrollLeft -= getScrollAmount(); });
+
+  let isDown = false;
+  let dragged = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  const dragStart = (x) => {
+    isDown = true;
+    dragged = false;
+    startX = x;
+    startScroll = track.scrollLeft;
+    track.classList.add("is-dragging");
+  };
+
+  const dragMove = (x, event) => {
+    if (!isDown) return;
+    const delta = x - startX;
+    if (Math.abs(delta) > 5) dragged = true;
+    track.scrollLeft = startScroll - delta;
+    if (event) event.preventDefault();
+  };
+
+  const dragEnd = () => {
+    isDown = false;
+    track.classList.remove("is-dragging");
+  };
+
+  track.addEventListener("mousedown", (e) => dragStart(e.pageX));
+  track.addEventListener("mousemove", (e) => dragMove(e.pageX, e));
+  window.addEventListener("mouseup", dragEnd);
+  track.addEventListener("mouseleave", dragEnd);
+
+  track.addEventListener("touchstart", (e) => dragStart(e.touches[0].pageX), { passive: true });
+  track.addEventListener("touchmove", (e) => dragMove(e.touches[0].pageX), { passive: true });
+  track.addEventListener("touchend", dragEnd);
+
+  // Evita que o clique em cards/links do carrossel dispare logo depois de um arraste
+  track.addEventListener("click", (e) => {
+    if (dragged) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+
+  // Destaca o card mais próximo do centro da trilha enquanto arrasta/rola (efeito de "foco")
+  if (highlightActive) {
+    let ticking = false;
+
+    const updateActiveCard = () => {
+      ticking = false;
+      const items = track.querySelectorAll(itemSelector);
+      const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
+
+      let closest = null;
+      let closestDistance = Infinity;
+
+      items.forEach((item) => {
+        const box = item.getBoundingClientRect();
+        const itemCenter = box.left + box.width / 2;
+        const distance = Math.abs(itemCenter - trackCenter);
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closest = item;
+        }
+        item.classList.remove("is-active");
+      });
+
+      if (closest) closest.classList.add("is-active");
     };
 
-    btnNext.addEventListener("click", () => {
-      track.scrollLeft += getScrollAmount();
-    });
+    track.addEventListener("scroll", () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updateActiveCard);
+      }
+    }, { passive: true });
 
-    btnPrev.addEventListener("click", () => {
-      track.scrollLeft -= getScrollAmount();
-    });
-
-    track.addEventListener("mousedown", () => { track.style.scrollBehavior = "auto"; });
-    track.addEventListener("mouseup", () => { track.style.scrollBehavior = "smooth"; });
+    updateActiveCard();
   }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  initDragCarousel("testimonialTrack", "prevBtn", "nextBtn", ".testimonial");
+  initDragCarousel("resourcesTrack", "resourcesPrevBtn", "resourcesNextBtn", ".resource-card", { highlightActive: true });
 });
 
 /* =====================

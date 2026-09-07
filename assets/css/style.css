@@ -397,11 +397,6 @@ form button:hover {
 
 .grid-2 { display: grid; gap: 2rem; }
 .grid-3 { display: grid; gap: 2rem; }
-.grid-4 { 
-  display: grid; 
-  gap: 2rem; 
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
-}
 
 @media (min-width: 768px) {
   .grid-2 { grid-template-columns: repeat(2, 1fr); }
@@ -426,14 +421,37 @@ form button:hover {
 .section-light { background: var(--white); }
 
 /* ==========================================================================
-   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI
+   8. SEÇÃO: O QUE VOCÊ ENCONTRA AQUI (fundo petróleo, quebra o branco do resto da home)
    ========================================================================== */
-.section-light h2 {
-  text-align: center;
-  margin-bottom: 4rem;
+.section-teal {
+  background: var(--teal-deep);
+  overflow-x: hidden;
 }
 
-.section-light h2::after {
+.section-teal h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--white);
+}
+
+.resources-hint {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 2.5rem;
+}
+
+.resources-hint-arrow {
+  display: inline-block;
+  animation: hintNudge 1.4s ease-in-out infinite;
+}
+
+@keyframes hintNudge {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+}
+
+.section-teal h2::after {
   content: "";
   display: block;
   width: 50px;
@@ -443,38 +461,122 @@ form button:hover {
   border-radius: 2px;
 }
 
-.section-light .card {
+.section-teal .card {
+  position: relative;
+  overflow: hidden;
   background: var(--white);
-  border-radius: 6px; 
-  padding: 2.2rem 1.8rem; 
-  
-  border: 1px solid rgba(0, 0, 0, 0.08); 
-  
-  box-shadow: 0 4px 20px rgba(11, 11, 11, 0.02);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  border-radius: 4px;
+  padding: 2.8rem 1.8rem;
+
+  border: 1px solid rgba(0, 0, 0, 0.06);
+
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.section-light .card:hover {
+/* Fio de cor fino embaixo do card, só um toque de marca, sem simular bloco 3D */
+.section-teal .card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--orange-main), var(--teal-deep));
+  transition: height 0.25s ease;
+}
+
+.section-teal .card:hover {
   transform: translateY(-4px);
-  border-color: var(--teal-deep);
-  box-shadow: 0 12px 24px rgba(11, 11, 11, 0.05);
+  box-shadow: 0 20px 34px rgba(0, 0, 0, 0.3);
 }
 
-.section-light .card.highlight-orange:hover {
-  border-color: var(--orange-main);
+.section-teal .card:hover::after {
+  height: 5px;
 }
 
-.section-light .card h3 {
+.section-teal .card h3 {
   font-size: 1.25rem;
   font-weight: 600;
   margin-bottom: 0.6rem;
   color: var(--black);
 }
 
-.section-light .card p {
-  font-size: 0.95rem; 
+.section-teal .card p {
+  font-size: 0.95rem;
   line-height: 1.6;
   color: var(--gray-text);
+}
+
+/* Carrossel de recursos: arraste, setas, snap e card em foco ao centralizar */
+.resources-container {
+  position: relative;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 50px;
+}
+
+.resources-track {
+  display: flex;
+  gap: 1.5rem;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 1.25rem 0.25rem 1.5rem;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.resources-track::-webkit-scrollbar { display: none; }
+
+.resources-track.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.resource-card {
+  flex: 0 0 320px;
+  min-width: 320px;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-decoration: none;
+  scroll-snap-align: start;
+  transform: scale(0.96);
+}
+
+.resource-card.is-active {
+  transform: scale(1);
+}
+
+/* Setas em branco pra contrastar com o fundo petróleo da seção */
+.section-teal .carousel-btn {
+  background: var(--white);
+  color: var(--teal-deep);
+}
+
+.section-teal .carousel-btn:hover {
+  background: var(--orange-main);
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  .resources-container { padding: 0 10px; }
+
+  /* No mobile o toque já resolve o arrastar, então os botões saem pra dar mais largura ao card */
+  .section-teal .carousel-btn { display: none; }
+
+  .resource-card {
+    flex: 0 0 100%;
+    min-width: 100%;
+  }
+
+  .section-teal .card {
+    padding: 2.2rem 1.4rem;
+  }
 }
 
 /* ==========================================================================
