@@ -150,6 +150,127 @@ if (form) {
 }
 
 /* =====================
+   FORMULÁRIO: QUERO SER MENTOR
+===================== */
+const mentorForm = document.getElementById("mentorForm");
+const mentorSubmitBtn = document.getElementById("mentorSubmitBtn");
+const mentorWhatsappInput = document.getElementById("mentorWhatsapp");
+const mentorFeedback = document.getElementById("mentorFormFeedback");
+
+function mentorClearErrors() {
+  if (!mentorFeedback) return;
+  mentorFeedback.style.display = "none";
+  mentorFeedback.className = "form-feedback";
+  if (mentorForm) {
+    mentorForm.querySelectorAll(".field-error").forEach(el => {
+      el.classList.remove("field-error");
+    });
+  }
+}
+
+function mentorShowError(input, message) {
+  if (!mentorFeedback) return;
+
+  if (input) {
+    const label = input.closest("label");
+    if (label) {
+      label.classList.add("field-error");
+    }
+  }
+
+  mentorFeedback.innerText = message;
+  mentorFeedback.className = "form-feedback error";
+  mentorFeedback.style.display = "block";
+  mentorFeedback.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+function mentorShowSuccess(message) {
+  if (!mentorFeedback) return;
+  mentorFeedback.innerText = message;
+  mentorFeedback.className = "form-feedback success";
+  mentorFeedback.style.display = "block";
+}
+
+if (mentorWhatsappInput) {
+  mentorWhatsappInput.addEventListener("input", (e) => {
+    let value = onlyNumbers(e.target.value);
+
+    if (value.length > 11) value = value.slice(0, 11);
+
+    if (value.length > 10) {
+      value = value.replace(/^(\d{2})(\d{5})(\d{4}).*/, "($1) $2-$3");
+    } else if (value.length > 6) {
+      value = value.replace(/^(\d{2})(\d{4,5})(\d{0,4}).*/, "($1) $2-$3");
+    } else if (value.length > 2) {
+      value = value.replace(/^(\d{2})(\d{0,5})/, "($1) $2");
+    } else if (value.length > 0) {
+      value = value.replace(/^(\d*)/, "($1");
+    }
+
+    e.target.value = value;
+  });
+}
+
+if (mentorForm) {
+  mentorForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    mentorClearErrors();
+
+    const nomeInput = document.getElementById("mentorNome");
+    const linkedinInput = document.getElementById("mentorLinkedin");
+    const mensagemInput = document.getElementById("mentorMensagem");
+
+    const nome = nomeInput.value.trim();
+    const whatsappRaw = onlyNumbers(mentorWhatsappInput.value);
+    const linkedin = linkedinInput.value.trim();
+    const mensagem = mensagemInput.value.trim();
+
+    if (!nome) return mentorShowError(nomeInput, "Por favor, informe seu nome.");
+    if (whatsappRaw.length !== 11) return mentorShowError(mentorWhatsappInput, "Digite um WhatsApp válido com DDD (Ex: 11 98765-4321).");
+    if (!linkedin) return mentorShowError(linkedinInput, "Cole o link do seu LinkedIn.");
+    if (!mensagem) return mentorShowError(mensagemInput, "Conte pra gente por que você quer ser mentor.");
+
+    mentorSubmitBtn.disabled = true;
+    mentorSubmitBtn.innerText = "Enviando...";
+
+    try {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "form_submit",
+        form_name: "seja-mentor"
+      });
+
+      const MENTOR_WEBHOOK_URL = "https://n8n.firststeplab.com.br/webhook/856e69f1-185e-42db-ac8a-3aa9ef13e21bsfafasf5355-sdasfsa53543";
+
+      await fetch(MENTOR_WEBHOOK_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome,
+          whatsapp: whatsappRaw,
+          linkedin,
+          mensagem
+        })
+      });
+
+      mentorShowSuccess("Recebemos seu interesse! Nosso time vai te chamar em breve.");
+      mentorForm.reset();
+
+    } catch (error) {
+      console.error("Erro no envio do formulário de mentor:", error);
+      mentorShowSuccess("Recebemos seu interesse! Nosso time vai te chamar em breve.");
+      mentorForm.reset();
+    } finally {
+      mentorSubmitBtn.disabled = false;
+      mentorSubmitBtn.innerText = "Enviar inscrição";
+    }
+  });
+}
+
+/* =====================
    CARROSSÉIS (setas + arrastar com mouse/touch)
 ===================== */
 function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) {
