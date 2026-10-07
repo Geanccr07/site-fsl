@@ -280,6 +280,7 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
   if (!track) return;
 
   const highlightActive = !!(options && options.highlightActive);
+  const snap = !!(options && options.snap);
 
   const getScrollAmount = () => {
     const item = track.querySelector(itemSelector);
@@ -294,11 +295,13 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
   let dragged = false;
   let startX = 0;
   let startScroll = 0;
+  let lastDelta = 0;
 
   const dragStart = (x) => {
     isDown = true;
     dragged = false;
     startX = x;
+    lastDelta = 0;
     startScroll = track.scrollLeft;
     track.classList.add("is-dragging");
   };
@@ -306,14 +309,27 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
   const dragMove = (x, event) => {
     if (!isDown) return;
     const delta = x - startX;
+    lastDelta = delta;
     if (Math.abs(delta) > 5) dragged = true;
     track.scrollLeft = startScroll - delta;
     if (event) event.preventDefault();
   };
 
   const dragEnd = () => {
+    if (!isDown) return;
     isDown = false;
     track.classList.remove("is-dragging");
+
+    if (snap && dragged) {
+      const amount = getScrollAmount();
+      const startIndex = Math.round(startScroll / amount);
+      let target = startIndex;
+      if (lastDelta < -amount * 0.15) target = startIndex + 1;
+      if (lastDelta > amount * 0.15) target = startIndex - 1;
+      const maxIndex = track.querySelectorAll(itemSelector).length - 1;
+      target = Math.max(0, Math.min(maxIndex, target));
+      track.scrollTo({ left: target * amount, behavior: "smooth" });
+    }
   };
 
   track.addEventListener("mousedown", (e) => dragStart(e.pageX));
@@ -370,8 +386,36 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
   }
 }
 
+function initTestimonialCounter() {
+  const track = document.getElementById("testimonialTrack");
+  const counter = document.getElementById("testimonialCounter");
+  if (!track || !counter) return;
+
+  const slides = track.querySelectorAll(".testimonial");
+  if (!slides.length) return;
+
+  let ticking = false;
+
+  const update = () => {
+    ticking = false;
+    const gap = parseFloat(getComputedStyle(track).gap) || 0;
+    const amount = slides[0].offsetWidth + gap;
+    const index = Math.max(0, Math.min(slides.length - 1, Math.round(track.scrollLeft / amount)));
+    counter.textContent = `${index + 1} / ${slides.length}`;
+  };
+
+  track.addEventListener("scroll", () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  }, { passive: true });
+  update();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-  initDragCarousel("testimonialTrack", "prevBtn", "nextBtn", ".testimonial");
+  initDragCarousel("testimonialTrack", "prevBtn", "nextBtn", ".testimonial", { snap: true });
+  initTestimonialCounter();
   initDragCarousel("resourcesTrack", "resourcesPrevBtn", "resourcesNextBtn", ".resource-card", { highlightActive: true });
 });
 
@@ -380,11 +424,28 @@ document.addEventListener("DOMContentLoaded", () => {
 ===================== */
 const siteHeader = document.querySelector("header");
 if (siteHeader) {
+  let lastScrollY = window.scrollY;
+
   const updateHeaderState = () => {
-    siteHeader.classList.toggle("is-scrolled", window.scrollY > 20);
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+
+    siteHeader.classList.toggle("is-scrolled", currentY > 20);
+
+    if (currentY <= siteHeader.offsetHeight) {
+      siteHeader.classList.remove("is-hidden");
+    } else if (delta > 6 && !siteHeader.contains(document.activeElement)) {
+      siteHeader.classList.add("is-hidden");
+    } else if (delta < -6) {
+      siteHeader.classList.remove("is-hidden");
+    }
+
+    if (Math.abs(delta) > 6) lastScrollY = currentY;
   };
+
   updateHeaderState();
   window.addEventListener("scroll", updateHeaderState, { passive: true });
+  siteHeader.addEventListener("focusin", () => siteHeader.classList.remove("is-hidden"));
 }
 
 /* =====================
