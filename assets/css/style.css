@@ -2044,3 +2044,98 @@ form button:hover {
 .mentor-form-section .container {
   padding: 0 1.5rem;
 }
+/* ==========================================================================
+   21. CONFIRMAÇÃO DO FORMULÁRIO DA HOME
+   ========================================================================== */
+.obrigado-dialog {
+  margin: auto;
+  width: min(440px, calc(100% - 2rem));
+  border: none;
+  border-top: 4px solid var(--orange-deep);
+  border-radius: 16px;
+  padding: 2.5rem 2rem 1.75rem;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(11, 11, 11, 0.25);
+}
+
+.obrigado-dialog[open] {
+  animation: obrigadoEntra 0.25s ease-out;
+}
+
+.obrigado-dialog::backdrop {
+  background: rgba(11, 11, 11, 0.55);
+}
+
+.obrigado-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--orange-deep);
+  color: var(--white);
+  margin-bottom: 1.25rem;
+}
+
+.obrigado-dialog h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+
+.obrigado-dialog p {
+  color: var(--gray-text);
+  font-size: 0.95rem;
+  margin-bottom: 1.75rem;
+}
+
+.obrigado-btn {
+  display: block;
+  background: linear-gradient(135deg, var(--orange-deep), var(--orange-main));
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 600;
+  padding: 1rem;
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.obrigado-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 90, 0, 0.25);
+}
+
+.obrigado-btn:focus-visible,
+.obrigado-fechar:focus-visible {
+  outline: 2px solid var(--teal-deep);
+  outline-offset: 3px;
+}
+
+.obrigado-fechar {
+  margin-top: 0.75rem;
+  background: none;
+  border: none;
+  color: var(--gray-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.obrigado-fechar:hover {
+  color: var(--black);
+}
+
+@keyframes obrigadoEntra {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obrigado-dialog[open] { animation: none; }
+}

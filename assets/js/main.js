@@ -65,7 +65,7 @@ if (whatsappInput) {
 }
 
 /* =====================
-   SUBMIT E REDIRECIONAMENTO
+   SUBMIT E CONFIRMAÇÃO
 ===================== */
 if (form) {
   form.addEventListener("submit", async (e) => {
@@ -95,7 +95,7 @@ if (form) {
     submitBtn.innerText = "Enviando...";
 
     try {
-      // Dispara o evento de submit no dataLayer antes do redirecionamento
+      // Dispara o evento de submit no dataLayer antes do envio
       window.dataLayer.push({
         event: "form_submit",
         form_name: "home-site"
@@ -132,20 +132,34 @@ if (form) {
         })
       });
 
-      // Como usamos 'no-cors' para garantir a entrega sem travas no navegador, seguimos direto para o sucesso
-      showSuccess("Tudo certo! Redirecionando...");
-      setTimeout(() => {
-        window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
-      }, 1500);
-
     } catch (error) {
       console.error("Erro no envio do formulário:", error);
-      // Fallback de segurança para o usuário não ficar travado caso a rede caia completamente
-      showSuccess("Redirecionando para a comunidade...");
-      setTimeout(() => {
-        window.location.href = "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
-      }, 2000);
     }
+
+    form.reset();
+    submitBtn.disabled = false;
+    submitBtn.innerText = "Acessar comunidade";
+    abrirObrigado(nome);
+  });
+}
+
+const obrigadoDialog = document.getElementById("obrigadoDialog");
+
+function abrirObrigado(nome) {
+  if (!obrigadoDialog || typeof obrigadoDialog.showModal !== "function") {
+    window.location.href = document.getElementById("obrigadoGrupo")?.href || "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+    return;
+  }
+  const primeiroNome = nome.split(/\s+/)[0];
+  document.getElementById("obrigadoTitulo").textContent = primeiroNome ? `Cadastro feito, ${primeiroNome}!` : "Cadastro feito!";
+  obrigadoDialog.showModal();
+  document.getElementById("obrigadoGrupo").focus();
+}
+
+if (obrigadoDialog) {
+  document.getElementById("obrigadoFechar").addEventListener("click", () => obrigadoDialog.close());
+  obrigadoDialog.addEventListener("click", (e) => {
+    if (e.target === obrigadoDialog) obrigadoDialog.close();
   });
 }
 
