@@ -147,7 +147,7 @@ const obrigadoDialog = document.getElementById("obrigadoDialog");
 
 function abrirObrigado(nome) {
   if (!obrigadoDialog || typeof obrigadoDialog.showModal !== "function") {
-    window.location.href = document.getElementById("obrigadoGrupo")?.href || "https://chat.whatsapp.com/CCrYGei0DDrGRHfI1Jdsta";
+    window.location.href = document.getElementById("obrigadoGrupo")?.href || "https://chat.whatsapp.com/BmccVqv9Ka9B1QPeYMJPIX";
     return;
   }
   const primeiroNome = nome.split(/\s+/)[0];
