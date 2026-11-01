@@ -48,7 +48,8 @@
       border-radius: 0;
     }
 
-    .page-mentor .mentor-proof-avatars img {
+    .page-mentor .mentor-proof-avatars img,
+    .page-mentor .mentor-proof-mais {
       border-radius: 0;
       margin-right: 0.75rem;
     }
@@ -59,7 +60,8 @@
         justify-content: center;
       }
 
-      .page-mentor .mentor-proof-avatars img {
+      .page-mentor .mentor-proof-avatars img,
+      .page-mentor .mentor-proof-mais {
         width: 56px;
         height: 56px;
         margin-right: 0.5rem;
@@ -209,8 +211,7 @@
 
       .page-mentor #mentorForm > h3,
       .page-mentor #mentorForm > p,
-      .page-mentor #mentorForm label:nth-of-type(3),
-      .page-mentor #mentorForm label:nth-of-type(4),
+      .page-mentor #mentorForm label:nth-of-type(5),
       .page-mentor #mentorForm .form-feedback,
       .page-mentor #mentorForm button {
         grid-column: 1 / -1;
@@ -270,7 +271,7 @@
   <div>
     <h1>Sua experiência em RH e carreira pode abrir a porta que alguém precisa agora</h1>
     <p>
-      A First Step Lab é uma comunidade gratuita que já ajudou mais de 150 profissionais a se
+      A First Step Lab é uma comunidade gratuita que já ajudou mais de 180 profissionais a se
       prepararem pra próxima vaga. O que a gente faz é conectar a experiência de quem já viveu
       recrutamento, seleção e cultura organizacional com quem tá do outro lado da mesa, tentando
       conseguir a próxima oportunidade.
@@ -380,6 +381,7 @@
       <img src="/assets/img/samara.webp" alt="Samara Souza">
       <img src="/assets/img/isabel.webp" alt="Isabel Costa">
       <img src="/assets/img/katia.webp" alt="Kátia Azevedo">
+      <span class="mentor-proof-mais" aria-label="e mais 6 mentores voluntários">+6</span>
     </div>
 
     <a href="#mentorForm" class="btn-primary reveal">Quero fazer parte</a>
@@ -392,12 +394,17 @@
     <form id="mentorForm">
       <h3 class="form-title">Quero ser mentor(a) FSL</h3>
       <p style="text-align: center; color: var(--gray-text); font-size: 0.95rem; margin-top: 0.3rem;">
-        Preencha os campos abaixo. Entraremos em contato com você via WhatsApp.
+        Preencha os campos abaixo. Entraremos em contato com você por e-mail e WhatsApp.
       </p>
 
       <label>
         Nome completo
         <input type="text" id="mentorNome" required />
+      </label>
+
+      <label>
+        E-mail
+        <input type="email" id="mentorEmail" required maxlength="254" autocomplete="email" placeholder="seu@email.com" />
       </label>
 
       <label>
@@ -464,6 +471,6 @@
   </div>
 </footer>
 
-<script src="/assets/js/main.js?v=1.8"></script>
+<script src="/assets/js/main.js?v=1.9"></script>
 </body>
 </html>

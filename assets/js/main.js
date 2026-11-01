@@ -231,15 +231,18 @@ if (mentorForm) {
     mentorClearErrors();
 
     const nomeInput = document.getElementById("mentorNome");
+    const emailInput = document.getElementById("mentorEmail");
     const linkedinInput = document.getElementById("mentorLinkedin");
     const mensagemInput = document.getElementById("mentorMensagem");
 
     const nome = nomeInput.value.trim();
+    const email = emailInput.value.trim().toLowerCase();
     const whatsappRaw = onlyNumbers(mentorWhatsappInput.value);
     const linkedin = linkedinInput.value.trim();
     const mensagem = mensagemInput.value.trim();
 
     if (!nome) return mentorShowError(nomeInput, "Por favor, informe seu nome.");
+    if (email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return mentorShowError(emailInput, "Informe um e-mail válido.");
     if (whatsappRaw.length !== 11) return mentorShowError(mentorWhatsappInput, "Digite um WhatsApp válido com DDD (Ex: 11 98765-4321).");
     if (!linkedin) return mentorShowError(linkedinInput, "Cole o link do seu LinkedIn.");
     if (!mensagem) return mentorShowError(mensagemInput, "Conte pra gente por que você quer ser mentor.");
@@ -254,6 +257,8 @@ if (mentorForm) {
         form_name: "seja-mentor"
       });
 
+      const mentorParams = new URLSearchParams(window.location.search);
+
       const MENTOR_WEBHOOK_URL = "https://n8n.firststeplab.com.br/webhook/856e69f1-185e-42db-ac8a-3aa9ef13e21bsfafasf5355-sdasfsa53543";
 
       await fetch(MENTOR_WEBHOOK_URL, {
@@ -264,9 +269,13 @@ if (mentorForm) {
         },
         body: JSON.stringify({
           nome,
+          email,
           whatsapp: whatsappRaw,
           linkedin,
-          mensagem
+          mensagem,
+          utm_source: mentorParams.get("utm_source") || "",
+          utm_medium: mentorParams.get("utm_medium") || "",
+          utm_campaign: mentorParams.get("utm_campaign") || ""
         })
       });
 
