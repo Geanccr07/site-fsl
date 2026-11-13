@@ -70,49 +70,17 @@
 <section class="section recrutadores-telas" id="telas">
   <div class="container">
     <h2 class="reveal">Por dentro da plataforma</h2>
-    <p class="recrutadores-dica">Clique em cada item pra ver a tela.</p>
+    <p class="recrutadores-dica">Vagas, divulgação por canal, candidatos e métricas num painel só.</p>
 
-    <div class="recrutadores-telas-grid">
-      <div>
-        <div class="telas-seletor" role="tablist" aria-label="Telas da plataforma">
-          <button type="button" class="telas-opcao" role="tab" id="tab-vagas" aria-selected="true" aria-controls="tela-vagas">
-            <span class="telas-icone"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="7" width="17" height="12" rx="1.5"/><path d="M9 7V5h6v2"/></svg></span>
-            <strong>Vagas</strong>
-            <span class="telas-texto">Todas as suas vagas num lugar só, com status, visualizações e candidaturas de cada uma.</span>
-            <span class="telas-seta" aria-hidden="true">›</span>
-            <span class="telas-barra"><i></i></span>
-          </button>
-          <button type="button" class="telas-opcao" role="tab" id="tab-divulgacao" aria-selected="false" aria-controls="tela-divulgacao" tabindex="-1">
-            <span class="telas-icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg></span>
-            <strong>Divulgação</strong>
-            <span class="telas-texto">Um link pra cada canal, como LinkedIn, WhatsApp e Instagram, e você sabe de onde veio cada candidato.</span>
-            <span class="telas-seta" aria-hidden="true">›</span>
-            <span class="telas-barra"><i></i></span>
-          </button>
-          <button type="button" class="telas-opcao" role="tab" id="tab-candidatos" aria-selected="false" aria-controls="tela-candidatos" tabindex="-1">
-            <span class="telas-icone"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5"/><path d="M15.5 5.6a3 3 0 0 1 0 5.8M17.5 14.3c1.6.7 2.6 2.3 3 4.7"/></svg></span>
-            <strong>Candidatos</strong>
-            <span class="telas-texto">Cada pessoa com currículo, LinkedIn e mensagem, organizada por etapa.</span>
-            <span class="telas-seta" aria-hidden="true">›</span>
-            <span class="telas-barra"><i></i></span>
-          </button>
-          <button type="button" class="telas-opcao" role="tab" id="tab-metricas" aria-selected="false" aria-controls="tela-metricas" tabindex="-1">
-            <span class="telas-icone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M7 17v-5M11 17V7M15 17v-8M19 17v-3"/></svg></span>
-            <strong>Métricas</strong>
-            <span class="telas-texto">Visualizações, cliques e candidaturas de cada vaga, separados por canal.</span>
-            <span class="telas-seta" aria-hidden="true">›</span>
-            <span class="telas-barra"><i></i></span>
-          </button>
-        </div>
-        <p class="telas-legenda-mobile" aria-hidden="true">Todas as suas vagas num lugar só, com status, visualizações e candidaturas de cada uma.</p>
-      </div>
-
-      <div class="telas-moldura">
-        <img id="tela-vagas" class="ativa" role="tabpanel" aria-labelledby="tab-vagas" src="/assets/img/recrutadores/recrutadores-vagas.webp" width="2800" height="1806" alt="Tela de vagas da First Step Lab para Recrutadores, com vagas de exemplo, status, visualizações e candidaturas">
-        <img id="tela-divulgacao" role="tabpanel" aria-labelledby="tab-divulgacao" src="/assets/img/recrutadores/recrutadores-divulgacao.webp" width="2800" height="1806" alt="Página de uma vaga de exemplo com os botões de copiar o link de divulgação de cada canal" aria-hidden="true">
-        <img id="tela-candidatos" role="tabpanel" aria-labelledby="tab-candidatos" src="/assets/img/recrutadores/recrutadores-candidatos.webp" width="2800" height="1806" alt="Tela de candidatos com a triagem por etapa e a origem de cada candidatura, com dados de exemplo" aria-hidden="true">
-        <img id="tela-metricas" role="tabpanel" aria-labelledby="tab-metricas" src="/assets/img/recrutadores/recrutadores-metricas.webp" width="2800" height="1806" alt="Tela de métricas com candidaturas por dia, origem dos candidatos e funil na comunidade, com dados de exemplo" aria-hidden="true">
-      </div>
+    <div class="painel-colagem reveal">
+      <img class="pc-peca pc-publicar" src="/assets/img/recrutadores/painel-publicar.webp" width="466" height="575" loading="lazy" decoding="async" alt="Formulário de publicar vaga, com cargo, área, modalidade, local, contrato, salário, descrição e etapas do processo">
+      <img class="pc-peca pc-links" src="/assets/img/recrutadores/painel-links.webp" width="544" height="366" loading="lazy" decoding="async" alt="Janela de copiar link de divulgação, com um link para LinkedIn, site da empresa, WhatsApp, Instagram e outro canal">
+      <img class="pc-peca pc-candidatos" src="/assets/img/recrutadores/painel-candidatos.webp" width="1200" height="841" loading="lazy" decoding="async" alt="Lista de candidatos de exemplo com vaga, origem de cada candidatura e atalho de WhatsApp nos candidatos externos">
+      <img class="pc-peca pc-origens" src="/assets/img/recrutadores/painel-origens.webp" width="1180" height="460" loading="lazy" decoding="async" alt="Gráfico de onde vêm os candidatos: Comunidade FSL, LinkedIn, WhatsApp e link direto, com dados de exemplo">
+      <img class="pc-peca pc-funil" src="/assets/img/recrutadores/painel-funil.webp" width="1150" height="696" loading="lazy" decoding="async" alt="Funil na comunidade: quem viu a vaga na lista, abriu, clicou em candidatar e enviou, com dados de exemplo">
+      <span class="pc-selo pc-selo-link"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/></svg></span>Um link pra cada canal</span>
+      <span class="pc-selo pc-selo-zap"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9.5 9.5c.3 1.7 1.8 3.4 3.6 4.1l1.2-1.1 1.7.8-.4 1.6c-3.4.2-6.6-3-6.6-6.4l1.6-.4.8 1.7z" fill="currentColor" stroke="none"/></svg></span>Atalho pro WhatsApp</span>
+      <span class="pc-selo pc-selo-met"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19h16"/><path d="M5 15l4-4 3 3 6-7"/><path d="M14 7h4v4"/></svg></span>Acompanhe as métricas</span>
     </div>
   </div>
 </section>
@@ -233,7 +201,6 @@
 </footer>
 
 <script src="/assets/js/main.js?v=2.3"></script>
-<script src="/assets/js/recrutadores.js?v=1.0" defer></script>
 <script src="/assets/js/menu.js?v=1.0" defer></script>
 </body>
 </html>

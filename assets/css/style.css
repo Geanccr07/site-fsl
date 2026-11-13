@@ -2825,8 +2825,7 @@ form button:hover {
   color: var(--white);
 }
 
-.recrutadores-telas .recrutadores-dica,
-.recrutadores-telas .telas-legenda-mobile {
+.recrutadores-telas .recrutadores-dica {
   color: #A0A6AE;
 }
 
@@ -2863,162 +2862,6 @@ form button:hover {
 .recrutadores-dica {
   color: var(--gray-text);
   margin-bottom: 3rem;
-}
-
-.recrutadores-telas-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.34fr) minmax(0, 0.66fr);
-  gap: 4rem;
-  align-items: start;
-}
-
-.telas-seletor {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.telas-opcao {
-  all: unset;
-  box-sizing: border-box;
-  cursor: pointer;
-  position: relative;
-  display: grid;
-  grid-template-columns: 40px 1fr;
-  gap: 0.25rem 0.9rem;
-  padding: 1.25rem 2.5rem 1.25rem 1.1rem;
-  border-radius: 6px;
-  font-family: 'Poppins', sans-serif;
-  transition: background-color 0.2s ease;
-}
-
-.telas-opcao:hover {
-  background: #1B1E21;
-}
-
-.telas-opcao:focus-visible {
-  outline: 2px solid var(--orange-main);
-  outline-offset: 2px;
-}
-
-.telas-icone {
-  grid-row: span 2;
-  width: 40px;
-  height: 40px;
-  border-radius: 6px;
-  display: grid;
-  place-items: center;
-  background: #1B1E21;
-  border: 1px solid #2E3236;
-  color: #7FB3C4;
-}
-
-.telas-icone svg {
-  width: 20px;
-  height: 20px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-}
-
-.telas-opcao strong {
-  font-size: 1.1rem;
-  font-weight: 600;
-  line-height: 1.3;
-  color: #A0A6AE;
-}
-
-.telas-texto {
-  display: none;
-  color: #C9CDD2;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-.telas-seta {
-  position: absolute;
-  right: 1.1rem;
-  top: 1.5rem;
-  color: #6B7178;
-  font-size: 1.1rem;
-}
-
-.telas-barra {
-  display: none;
-  position: absolute;
-  left: 1.1rem;
-  right: 1.1rem;
-  bottom: 0;
-  height: 2px;
-  background: #2E3236;
-  overflow: hidden;
-}
-
-.telas-barra i {
-  display: block;
-  width: 0;
-  height: 100%;
-  background: var(--orange-main);
-}
-
-.telas-barra i.corre {
-  animation: telasProgresso 7s linear forwards;
-}
-
-@keyframes telasProgresso {
-  to { width: 100%; }
-}
-
-.telas-opcao[aria-selected="true"] {
-  background: #1B1E21;
-  box-shadow: inset 0 0 0 1px #2E3236;
-}
-
-.telas-opcao[aria-selected="true"] strong {
-  color: var(--white);
-}
-
-.telas-opcao[aria-selected="true"] .telas-texto,
-.telas-opcao[aria-selected="true"] .telas-barra {
-  display: block;
-}
-
-.telas-opcao[aria-selected="true"] .telas-icone {
-  background: var(--orange-main);
-  border-color: var(--orange-main);
-  color: var(--white);
-}
-
-.telas-opcao[aria-selected="true"] .telas-seta {
-  color: var(--orange-main);
-}
-
-.telas-legenda-mobile {
-  display: none;
-}
-
-.telas-moldura {
-  display: grid;
-  min-width: 0;
-  padding: 2px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--orange-deep), var(--teal-deep) 70%);
-  box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.7);
-}
-
-.telas-moldura img {
-  grid-area: 1 / 1;
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.telas-moldura img.ativa {
-  opacity: 1;
 }
 
 .recrutadores-passos {
@@ -3182,11 +3025,6 @@ form button:hover {
 }
 
 @media (max-width: 900px) {
-  .recrutadores-telas-grid {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
   .recrutadores-quem {
     grid-template-columns: 1fr;
     gap: 3.5rem;
@@ -3195,36 +3033,6 @@ form button:hover {
   .recrutadores-quem-foto {
     margin: 24px auto 0;
     max-width: calc(100% - 24px);
-  }
-
-  .telas-seletor {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .telas-opcao {
-    grid-template-columns: 1fr;
-    padding: 0.75rem 1rem;
-    text-align: center;
-  }
-
-  .telas-icone,
-  .telas-seta,
-  .telas-opcao[aria-selected="true"] .telas-texto {
-    display: none;
-  }
-
-  .telas-opcao strong {
-    font-size: 0.95rem;
-  }
-
-  .telas-legenda-mobile {
-    display: block;
-    color: var(--gray-text);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    min-height: 4.8em;
-    margin-top: 1rem;
   }
 
   .recrutadores-passos {
@@ -3272,12 +3080,181 @@ form button:hover {
 
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .telas-barra {
-    display: none !important;
+.painel-colagem {
+  position: relative;
+  aspect-ratio: 1092 / 600;
+  margin-top: 1rem;
+}
+
+.pc-peca {
+  position: absolute;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #33383e;
+  background: #16191c;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+.pc-publicar {
+  left: 0.00%;
+  top: 5.00%;
+  width: 24.73%;
+}
+
+.pc-links {
+  left: 21.06%;
+  top: 0.00%;
+  width: 30.22%;
+}
+
+.pc-candidatos {
+  left: 27.47%;
+  top: 40.00%;
+  width: 43.04%;
+}
+
+.pc-origens {
+  left: 68.86%;
+  top: 6.67%;
+  width: 31.14%;
+}
+
+.pc-funil {
+  left: 70.70%;
+  top: 45.00%;
+  width: 27.47%;
+}
+
+.pc-candidatos {
+  z-index: 1;
+}
+
+.pc-selo {
+  position: absolute;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px 6px 6px;
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+}
+
+.pc-selo > span {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  flex: none;
+}
+
+.pc-selo svg {
+  width: 17px;
+  height: 17px;
+}
+
+.pc-selo-link {
+  left: 38.5%;
+  top: -3%;
+}
+
+.pc-selo-link > span {
+  background: var(--teal-deep);
+}
+
+.pc-selo-zap {
+  left: 47.6%;
+  top: 35.8%;
+}
+
+.pc-selo-zap > span {
+  background: #25D366;
+}
+
+.pc-selo-met {
+  right: 3.7%;
+  top: 40.8%;
+}
+
+.pc-selo-met > span {
+  background: var(--orange-deep);
+}
+
+@media (max-width: 860px) {
+  .painel-colagem {
+    aspect-ratio: 366 / 700;
+    max-width: 460px;
+    margin-inline: auto;
   }
 
-  .telas-moldura img {
-    transition: none;
+  .pc-publicar {
+    left: 0.00%;
+    top: 0.00%;
+    width: 54.64%;
+  }
+
+  .pc-links {
+    left: 35.52%;
+    top: 12.86%;
+    width: 60.11%;
+  }
+
+  .pc-candidatos {
+    left: 0.00%;
+    top: 41.43%;
+    width: 81.97%;
+  }
+
+  .pc-origens {
+    left: 35.52%;
+    top: 67.14%;
+    width: 60.11%;
+  }
+
+  .pc-funil {
+    left: 0.00%;
+    top: 75.71%;
+    width: 54.64%;
+  }
+
+  .pc-selo {
+    font-size: 0.8rem;
+    padding: 5px 12px 5px 5px;
+  }
+
+  .pc-selo > span {
+    width: 28px;
+    height: 28px;
+  }
+
+  .pc-selo svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .pc-selo-link,
+  .pc-selo-zap,
+  .pc-selo-met {
+    left: auto;
+    right: 4.4%;
+  }
+
+  .pc-selo-link {
+    top: 7.1%;
+  }
+
+  .pc-selo-zap {
+    top: 42.9%;
+  }
+
+  .pc-selo-met {
+    top: 93.6%;
   }
 }
