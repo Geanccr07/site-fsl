@@ -302,7 +302,6 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
   const btnNext = document.getElementById(nextBtnId);
   if (!track) return;
 
-  const highlightActive = !!(options && options.highlightActive);
   const snap = !!(options && options.snap);
 
   const getScrollAmount = () => {
@@ -311,8 +310,18 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
     return item ? item.offsetWidth + gap : 300;
   };
 
-  if (btnNext) btnNext.addEventListener("click", () => { track.scrollLeft += getScrollAmount(); });
-  if (btnPrev) btnPrev.addEventListener("click", () => { track.scrollLeft -= getScrollAmount(); });
+  const loop = !!(options && options.loop);
+  const noFim = () => track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+  const noInicio = () => track.scrollLeft <= 2;
+
+  if (btnNext) btnNext.addEventListener("click", () => {
+    if (loop && noFim()) track.scrollTo({ left: 0, behavior: "smooth" });
+    else track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+  });
+  if (btnPrev) btnPrev.addEventListener("click", () => {
+    if (loop && noInicio()) track.scrollTo({ left: track.scrollWidth, behavior: "smooth" });
+    else track.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+  });
 
   let isDown = false;
   let dragged = false;
@@ -371,42 +380,6 @@ function initDragCarousel(trackId, prevBtnId, nextBtnId, itemSelector, options) 
       e.stopPropagation();
     }
   }, true);
-
-  // Destaca o card mais próximo do centro da trilha enquanto arrasta/rola (efeito de "foco")
-  if (highlightActive) {
-    let ticking = false;
-
-    const updateActiveCard = () => {
-      ticking = false;
-      const items = track.querySelectorAll(itemSelector);
-      const trackCenter = track.getBoundingClientRect().left + track.clientWidth / 2;
-
-      let closest = null;
-      let closestDistance = Infinity;
-
-      items.forEach((item) => {
-        const box = item.getBoundingClientRect();
-        const itemCenter = box.left + box.width / 2;
-        const distance = Math.abs(itemCenter - trackCenter);
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closest = item;
-        }
-        item.classList.remove("is-active");
-      });
-
-      if (closest) closest.classList.add("is-active");
-    };
-
-    track.addEventListener("scroll", () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updateActiveCard);
-      }
-    }, { passive: true });
-
-    updateActiveCard();
-  }
 }
 
 function initTestimonialCounter() {
@@ -439,8 +412,37 @@ function initTestimonialCounter() {
 document.addEventListener("DOMContentLoaded", () => {
   initDragCarousel("testimonialTrack", "prevBtn", "nextBtn", ".testimonial", { snap: true });
   initTestimonialCounter();
-  initDragCarousel("resourcesTrack", "resourcesPrevBtn", "resourcesNextBtn", ".resource-card", { highlightActive: true });
+  initDragCarousel("mentoresTrilho", "mentoresAnt", "mentoresProx", ".mentor-card", { snap: true, loop: true });
+  initMentorModal();
 });
+
+function initMentorModal() {
+  const modal = document.getElementById("mentorModal");
+  const trilho = document.getElementById("mentoresTrilho");
+  if (!modal || !trilho || typeof modal.showModal !== "function") return;
+
+  const foto = modal.querySelector(".mentor-modal-topo img");
+  const nome = modal.querySelector(".mentor-modal-topo h3");
+  const cargo = modal.querySelector(".mentor-modal-topo h4");
+  const bio = modal.querySelector(".mentor-modal-bio");
+
+  trilho.querySelectorAll(".mentor-card").forEach((card) => {
+    card.querySelector(".mentor-abrir").addEventListener("click", () => {
+      const img = card.querySelector("img");
+      foto.src = img.src;
+      foto.alt = img.alt;
+      nome.textContent = card.querySelector(".mentor-sob strong").textContent;
+      cargo.textContent = card.querySelector(".mentor-sob span").textContent;
+      bio.innerHTML = card.querySelector(".mentor-bio").innerHTML;
+      modal.showModal();
+    });
+  });
+
+  modal.querySelector(".mentor-modal-fechar").addEventListener("click", () => modal.close());
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) modal.close();
+  });
+}
 
 /* =====================
    HEADER: SOMBRA AO ROLAR (fundo em vidro já é fixo via CSS)

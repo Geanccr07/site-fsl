@@ -6,6 +6,7 @@
 
 - [Home](https://firststeplab.com.br/): apresentação da comunidade e formulário de entrada, com conteúdo segmentado pela fase da busca de emprego do visitante.
 - [Sobre](https://firststeplab.com.br/sobre): história da First Step Lab e dos fundadores, Gean Carlos e Nathani Taís.
+- [First Step Lab para Recrutadores](https://firststeplab.com.br/recrutadores/): plataforma de recrutamento gratuita para empresas, consultorias de RH e recrutadores autônomos publicarem vagas, receberem candidaturas e fazerem a triagem dos candidatos.
 
 ## Blog
 
